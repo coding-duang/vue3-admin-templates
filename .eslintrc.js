@@ -1,0 +1,57 @@
+module.exports = {
+  root: true,
+  env: {
+    browser: true,
+    es2021: true,
+    'vue/setup-compiler-macros': true,
+  },
+  extends: ['plugin:vue/essential', 'standard'],
+  parserOptions: {
+    ecmaVersion: 12,
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+  },
+  plugins: ['vue', '@typescript-eslint'],
+  rules: {
+    'space-before-function-paren': 'off',
+    'vue/no-multiple-template-root': 'off',
+    'vue/no-v-model-argument': 'off',
+    'vue/no-v-for-template-key': 'off',
+    'vue/multi-word-component-names': 'off',
+    'no-useless-constructor': 'off',
+    'func-call-spacing': 'off',
+    'no-use-before-define': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    'eol-last': 'error',
+    'no-trailing-spaces': 'error',
+    'comma-style': ['error', 'last'],
+    'comma-dangle': 'off',
+    'no-multi-spaces': 'error',
+    'multiline-ternary': 'off',
+    quotes: [
+      'error',
+      'single',
+      { avoidEscape: true, allowTemplateLiterals: true },
+    ],
+    camelcase: ['error', { properties: 'never' }],
+    semi: ['error', 'never'],
+    indent: ['error', 2, { SwitchCase: 1 }],
+    'object-curly-spacing': ['error', 'always'],
+    'arrow-parens': ['error', 'as-needed'],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'none',
+          requireLast: false,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: true,
+        },
+      },
+    ],
+  },
+}

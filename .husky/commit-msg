@@ -1,0 +1,5 @@
+#!/bin/sh 
+. "$(dirname "$0")/_/husky.sh"
+
+echo '========= 执行代码格式化校验 ======='
+npx --no -- commitlint --edit "${1}"
