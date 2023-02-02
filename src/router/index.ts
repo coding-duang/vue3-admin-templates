@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'notFound',
         component: () => import('@/pages/404/index.vue'),
       },
+      {
+        path: '/form',
+        name: 'basicForm',
+        component: () => import('@/pages/BasicForm/index.vue'),
+      },
     ],
   },
 ]

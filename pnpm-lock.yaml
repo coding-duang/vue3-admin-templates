@@ -6,6 +6,8 @@ specifiers:
   '@types/node': ^18.11.18
   '@typescript-eslint/eslint-plugin': ^5.19.0
   '@typescript-eslint/parser': ^5.19.0
+  '@vicons/ionicons5': ^0.12.0
+  '@vicons/material': ^0.12.0
   '@vitejs/plugin-legacy': ^3.0.2
   '@vitejs/plugin-vue': ^4.0.0
   '@vitejs/plugin-vue-jsx': ^3.0.0
@@ -50,6 +52,8 @@ devDependencies:
   '@types/node': registry.npmmirror.com/@types/node/18.11.18
   '@typescript-eslint/eslint-plugin': registry.npmmirror.com/@typescript-eslint/eslint-plugin/5.50.0_26f3njul6gntellyj5og7p3oly
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.50.0_jofidmxrjzhj7l6vknpw5ecvfe
+  '@vicons/ionicons5': registry.npmmirror.com/@vicons/ionicons5/0.12.0
+  '@vicons/material': registry.npmmirror.com/@vicons/material/0.12.0
   '@vitejs/plugin-legacy': registry.npmmirror.com/@vitejs/plugin-legacy/3.0.2_terser@5.16.2+vite@4.0.4
   '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue/4.0.0_vite@4.0.4+vue@3.2.45
   '@vitejs/plugin-vue-jsx': registry.npmmirror.com/@vitejs/plugin-vue-jsx/3.0.0_vite@4.0.4+vue@3.2.45
@@ -1392,6 +1396,18 @@ packages:
     dependencies:
       '@typescript-eslint/types': registry.npmmirror.com/@typescript-eslint/types/5.50.0
       eslint-visitor-keys: registry.npmmirror.com/eslint-visitor-keys/3.3.0
+    dev: true
+
+  registry.npmmirror.com/@vicons/ionicons5/0.12.0:
+    resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vicons/ionicons5/-/ionicons5-0.12.0.tgz}
+    name: '@vicons/ionicons5'
+    version: 0.12.0
+    dev: true
+
+  registry.npmmirror.com/@vicons/material/0.12.0:
+    resolution: {integrity: sha512-chv1CYAl8P32P3Ycwgd5+vw/OFNc2mtkKdb1Rw4T5IJmKy6GVDsoUKV3N2l208HATn7CCQphZtuPDdsm7K2kmA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vicons/material/-/material-0.12.0.tgz}
+    name: '@vicons/material'
+    version: 0.12.0
     dev: true
 
   registry.npmmirror.com/@vitejs/plugin-legacy/3.0.2_terser@5.16.2+vite@4.0.4:

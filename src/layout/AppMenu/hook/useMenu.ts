@@ -46,6 +46,20 @@ export const useMenu = () => {
           key: 'notFound',
           icon: renderIcon(InformationCircleSharp),
         },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  path: '/form',
+                },
+              },
+              { default: () => '综合表单' }
+            ),
+          key: 'form',
+          icon: renderIcon(InformationCircleSharp),
+        },
       ],
     },
   ]
