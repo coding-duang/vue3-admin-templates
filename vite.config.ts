@@ -35,7 +35,7 @@ export default ({ mode }: ConfigEnv) => {
   return defineConfig({
     base: isProd ? './' : '',
     server: {
-      port: 8888,
+      port: 9895,
       host: true,
       proxy: {
         '/api': {
