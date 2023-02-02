@@ -7,19 +7,21 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    Footer: typeof import('./src/components/footer/index.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
-    NAvatar: typeof import('naive-ui')['NAvatar']
-    NBreadcrumb: typeof import('naive-ui')['NBreadcrumb']
-    NBreadcrumbItem: typeof import('naive-ui')['NBreadcrumbItem']
     NButton: typeof import('naive-ui')['NButton']
-    NCol: typeof import('naive-ui')['NCol']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDropdown: typeof import('naive-ui')['NDropdown']
+    NGird: typeof import('naive-ui')['NGird']
+    NGirdItem: typeof import('naive-ui')['NGirdItem']
+    NGrid: typeof import('naive-ui')['NGrid']
+    NGridItem: typeof import('naive-ui')['NGridItem']
     NIcon: typeof import('naive-ui')['NIcon']
-    NRow: typeof import('naive-ui')['NRow']
+    NLayout: typeof import('naive-ui')['NLayout']
+    NLayoutSider: typeof import('naive-ui')['NLayoutSider']
+    NMenu: typeof import('naive-ui')['NMenu']
+    NPopover: typeof import('naive-ui')['NPopover']
+    NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    Topbar: typeof import('./src/components/topbar/index.vue')['default']
   }
 }
