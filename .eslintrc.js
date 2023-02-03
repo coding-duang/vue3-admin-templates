@@ -23,6 +23,9 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'eol-last': 'error',
+    'no-empty': 'off',
+    'no-useless-return': 'off',
+    'no-unused-vars': 'off',
     'no-trailing-spaces': 'error',
     'comma-style': ['error', 'last'],
     'comma-dangle': 'off',
@@ -41,7 +44,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/member-delimiter-style': [
-      'error',
+      'off',
       {
         multiline: {
           delimiter: 'none',

@@ -2,7 +2,7 @@
   <n-config-provider
     :locale="zhCN"
     :date-locale="dateZhCN"
-    :theme-overrides="currentTheme"
+    :theme-overrides="getCurrentTheme"
   >
     <!-- 全局注入loadingBar -->
     <n-loading-bar-provider>
@@ -26,18 +26,26 @@
       </n-dialog-provider>
     </n-loading-bar-provider>
   </n-config-provider>
-  <LockScreen v-show="getIsLocked" />
+  <transition name="zoom-fade">
+    <LockScreen v-show="getIsLocked" />
+  </transition>
 </template>
 
 <script lang="ts" setup>
 import { ref, provide, nextTick } from 'vue'
 import { zhCN, dateZhCN } from 'naive-ui'
-import { getCurrentTheme } from './config/theme'
 import { storeToRefs } from 'pinia'
-import { useLockStore } from '@/store'
+import { Emitter } from '@/object'
+import { EventEnum } from '@/enum'
+import { useLockStore, useThemeStore } from '@/store'
 import LockScreen from '@/components/LockScreen/index.vue'
+import { ColorChooseSet } from '@/settings'
+
+const emitter = new Emitter<EventEnum>()
+
 // UI主题配置的hook
-const { currentTheme } = getCurrentTheme()
+const themeStore = useThemeStore()
+const { getCurrentTheme } = storeToRefs(themeStore)
 
 const lockStore = useLockStore()
 const { getIsLocked } = storeToRefs(lockStore)
@@ -51,4 +59,13 @@ const reload = () => {
   })
 }
 provide<() => void>('reload', reload)
+provide<Emitter<EventEnum>>('emitter', emitter)
+
+emitter.on(EventEnum.changeColor, (item: ColorChooseSet) => {
+  themeStore.setTheme(item.themeType)
+})
 </script>
+
+<style lang="scss">
+@import './style/index.scss';
+</style>
