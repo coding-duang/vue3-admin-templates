@@ -18,12 +18,8 @@
               @select="handleSelect"
             >
               <div class="contentBox">
-                <img
-                  src="https://i.pinimg.com/564x/72/c5/97/72c597c706a505aef484b514930f0f3a.jpg"
-                  class="avatar"
-                  alt="avatar"
-                />
-                <div class="username">admin</div>
+                <img :src="getUserinfo.avatar" class="avatar" alt="avatar" />
+                <div class="username">{{ getUserinfo?.username }}</div>
               </div>
             </n-dropdown>
           </div>
@@ -34,9 +30,14 @@
 </template>
 
 <script lang="ts" setup>
-import { LogoVue, PersonOutline, LogOutOutline } from '@vicons/ionicons5'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store'
 import { renderIcon } from '@/utils'
 import ButtonGroup from './ButtonGroup.vue'
+import { LogoVue, PersonOutline, LogOutOutline } from '@vicons/ionicons5'
+
+const userStore = useUserStore()
+const { getUserinfo } = storeToRefs(userStore)
 
 const options = [
   {

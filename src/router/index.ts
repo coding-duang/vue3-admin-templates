@@ -1,5 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import AppLayout from '@/layout/AppLayout/index.vue'
+import { createDiscreteApi } from 'naive-ui'
+
+const { loadingBar } = createDiscreteApi(['loadingBar'])
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,12 +29,14 @@ const router = createRouter({
 })
 
 router.beforeEach(() => {
+  loadingBar.start()
   // todo
   return true
 })
 
 router.afterEach(() => {
   // todo
+  loadingBar.finish()
 })
 
 export default router

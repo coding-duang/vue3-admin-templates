@@ -7,7 +7,11 @@
       :key="item.key"
     >
       <template #trigger>
-        <n-button text style="font-size: 24px; margin-right: 20px">
+        <n-button
+          text
+          style="font-size: 24px; margin-right: 20px"
+          @click="handleClick(item.key)"
+        >
           <n-icon size="20">
             <component :is="item.icon"></component>
           </n-icon>
@@ -19,10 +23,21 @@
 </template>
 
 <script lang="ts" setup>
+import { inject } from 'vue'
+import { fullScreen } from '@/utils'
+import { useMessage } from 'naive-ui'
+import { useLockStore } from '@/store'
 import { Refresh, LockClosedOutline } from '@vicons/ionicons5'
 import { FullscreenFilled, SettingsSuggestOutlined } from '@vicons/material'
+import { EleOfArr, ButtonGroupConfig } from '@/types'
 
-const icons = [
+const reload = inject<() => void>('reload')
+
+const lockStore = useLockStore()
+
+const message = useMessage()
+
+const icons: ButtonGroupConfig[] = [
   {
     key: 'LockCloseOutLine',
     icon: LockClosedOutline,
@@ -44,6 +59,24 @@ const icons = [
     name: '刷新',
   },
 ]
+
+const handleClick = (key: EleOfArr<typeof icons>['key']) => {
+  console.log(key)
+  switch (key) {
+    case 'LockCloseOutLine':
+      lockStore.setIsLocked(true)
+      break
+    case 'FullscreenFilled':
+      fullScreen()
+      break
+    case 'Refresh':
+      reload && reload()
+      message.success('刷新完成!')
+      break
+    default:
+      break
+  }
+}
 </script>
 
 <style lang="scss" scoped>
