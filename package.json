@@ -12,6 +12,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@vicons/ionicons4": "^0.12.0",
     "axios": "^1.3.0",
     "pinia": "^2.0.29",
     "vue": "^3.2.45",

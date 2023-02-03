@@ -21,6 +21,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'basicForm',
         component: () => import('@/pages/BasicForm/index.vue'),
       },
+      {
+        path: '/stepForm',
+        name: 'stepForm',
+        component: () => import('@/pages/StepForm/index.vue')
+      }
+
     ],
   },
 ]

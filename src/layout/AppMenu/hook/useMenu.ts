@@ -60,6 +60,20 @@ export const useMenu = () => {
           key: 'form',
           icon: renderIcon(InformationCircleSharp),
         },
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  path: '/stepForm',
+                },
+              },
+              { default: () => '分步表单' }
+            ),
+          key: 'stepForm',
+          icon: renderIcon(InformationCircleSharp),
+        },
       ],
     },
   ]

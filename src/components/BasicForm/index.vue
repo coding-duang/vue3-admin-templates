@@ -1,6 +1,8 @@
 <template>
   <div class="form-wrap">
-    <n-form ref="formRef" :model="form" :rules="rules">
+    <n-form ref="formRef" :model="form" :rules="rules"
+            label-placement="left"
+            label-width="auto">
       <n-form-item label="姓名" path="name">
         <n-input v-model:value="form.name" clearable></n-input>
       </n-form-item>
@@ -162,11 +164,11 @@ export default defineComponent({
         message: '请输入textarea',
         trigger: ['blur']
       },
-      // TODO  trigger
       rate: {
+        type: 'number',
         required: true,
         message: '请输入rate',
-        trigger: ['blur']
+        trigger: ['blur', 'change']
       }
     }
 
