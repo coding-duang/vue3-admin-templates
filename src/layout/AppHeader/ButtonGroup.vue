@@ -19,11 +19,14 @@
       </template>
       {{ item.name }}
     </n-popover>
+
+    <ThemeConfig v-model:show="themeConfig" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
+import { inject, ref } from 'vue'
+import ThemeConfig from '@/components/ThemeConfig/index.vue'
 import { fullScreen } from '@/utils'
 import { useMessage } from 'naive-ui'
 import { useLockStore } from '@/store'
@@ -32,6 +35,8 @@ import { FullscreenFilled, SettingsSuggestOutlined } from '@vicons/material'
 import { EleOfArr, ButtonGroupConfig } from '@/types'
 
 const reload = inject<() => void>('reload')
+
+const themeConfig = ref(false)
 
 const lockStore = useLockStore()
 
@@ -68,6 +73,9 @@ const handleClick = (key: EleOfArr<typeof icons>['key']) => {
       break
     case 'FullscreenFilled':
       fullScreen()
+      break
+    case 'SettingsSuggestOutlined':
+      themeConfig.value = true
       break
     case 'Refresh':
       reload && reload()
