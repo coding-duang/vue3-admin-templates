@@ -12,7 +12,14 @@
 <script lang="ts" setup>
 import { useMenu } from './hook/useMenu'
 
-const { activeKey, collapsed, menuOptions } = useMenu()
+defineProps({
+  collapsed: {
+    type: Boolean,
+    default: false,
+  },
+})
+
+const { activeKey, menuOptions } = useMenu()
 </script>
 
 <style lang="scss" scoped>

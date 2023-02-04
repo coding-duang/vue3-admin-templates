@@ -10,7 +10,6 @@ import {
 
 export const useMenu = () => {
   const activeKey = ref<string | null>(null)
-  const collapsed = ref(false)
 
   const menuOptions: MenuOption[] = [
     {
@@ -52,7 +51,6 @@ export const useMenu = () => {
 
   return {
     activeKey,
-    collapsed,
     menuOptions,
   }
 }
