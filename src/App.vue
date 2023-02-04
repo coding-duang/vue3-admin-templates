@@ -2,6 +2,7 @@
   <n-config-provider
     :locale="zhCN"
     :date-locale="dateZhCN"
+    :theme="theme"
     :theme-overrides="getCurrentTheme"
   >
     <!-- 全局注入loadingBar -->
@@ -32,8 +33,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, provide, nextTick } from 'vue'
-import { zhCN, dateZhCN } from 'naive-ui'
+import { ref, computed, provide, nextTick } from 'vue'
+import { zhCN, dateZhCN, darkTheme } from 'naive-ui'
 import { storeToRefs } from 'pinia'
 import { Emitter } from '@/object'
 import { EventEnum } from '@/enum'
@@ -45,7 +46,9 @@ const emitter = new Emitter<EventEnum>()
 
 // UI主题配置的hook
 const themeStore = useThemeStore()
-const { getCurrentTheme } = storeToRefs(themeStore)
+const { getDarkTheme, getCurrentTheme } = storeToRefs(themeStore)
+
+const theme = computed(() => (getDarkTheme.value ? darkTheme : undefined))
 
 const lockStore = useLockStore()
 const { getIsLocked } = storeToRefs(lockStore)

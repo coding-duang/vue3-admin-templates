@@ -3,10 +3,10 @@
     <div class="header">
       <n-grid cols="4" :item-responsive="true">
         <n-grid-item span="0 600:2 800:2">
-          <div class="logoWrapper">
+          <!-- <div class="logoWrapper">
             <n-icon :size="40" :component="LogoVue"></n-icon>
             <div class="title">Vue3 Admin Template</div>
-          </div>
+          </div> -->
         </n-grid-item>
 
         <n-grid-item span="0 600:2 800:2">
@@ -34,7 +34,7 @@ import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/store'
 import { renderIcon } from '@/utils'
 import ButtonGroup from './ButtonGroup.vue'
-import { LogoVue, PersonOutline, LogOutOutline } from '@vicons/ionicons5'
+import { PersonOutline, LogOutOutline } from '@vicons/ionicons5'
 
 const userStore = useUserStore()
 const { getUserinfo } = storeToRefs(userStore)
