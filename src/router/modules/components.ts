@@ -30,7 +30,23 @@ const ComponentsRoutes: RouteRecordRaw[] = [
             name: `${BASE_ROUTE}_table_comprehensive`,
             component: () => import('@/pages/Components/Table/index.vue'),
           },
+          {
+            path: 'editor',
+            meta: {
+              title: '编辑器',
+            },
+            name: `${BASE_ROUTE}_editor`,
+            component: () => import('@/pages/Components/Editor/index.vue'),
+          },
         ],
+      },
+      {
+        path: 'editor',
+        meta: {
+          title: '编辑器',
+        },
+        name: `${BASE_ROUTE}_editor`,
+        component: () => import('@/pages/Components/Editor/index.vue'),
       },
     ],
   },
