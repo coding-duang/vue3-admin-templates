@@ -7,8 +7,10 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AnimateChoose: typeof import('./src/components/ThemeConfig/components/AnimateChoose.vue')['default']
     BasicForm: typeof import('./src/components/BasicForm/index.vue')['default']
     ColorChoose: typeof import('./src/components/ThemeConfig/components/ColorChoose.vue')['default']
+    ControlItem: typeof import('./src/components/ThemeConfig/components/ControlItem.vue')['default']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     LockScreen: typeof import('./src/components/LockScreen/index.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
@@ -31,11 +33,11 @@ declare module '@vue/runtime-core' {
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NPopover: typeof import('naive-ui')['NPopover']
     NResult: typeof import('naive-ui')['NResult']
+    NSelect: typeof import('naive-ui')['NSelect']
     NSwitch: typeof import('naive-ui')['NSwitch']
     NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    StepForm: typeof import('./src/components/StepForm/index.vue')['default']
     SubjectMode: typeof import('./src/components/ThemeConfig/components/SubjectMode.vue')['default']
     Table: typeof import('./src/components/Table/index.vue')['default']
     ThemeConfig: typeof import('./src/components/ThemeConfig/index.vue')['default']

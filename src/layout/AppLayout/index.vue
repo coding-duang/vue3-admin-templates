@@ -7,7 +7,7 @@
           <AppHeader />
         </n-layout-header>
         <n-layout-content>
-          <router-view></router-view>
+          <MainModule />
         </n-layout-content>
       </n-layout>
     </n-layout>
@@ -17,6 +17,7 @@
 <script lang="ts" setup>
 import AppHeader from '../AppHeader/index.vue'
 import AppSider from '../AppSider/index.vue'
+import MainModule from './main.vue'
 </script>
 
 <style lang="scss" scoped>
