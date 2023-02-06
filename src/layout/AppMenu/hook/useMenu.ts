@@ -7,6 +7,7 @@ import {
   LogoWebComponent,
   InformationCircleSharp,
 } from '@vicons/ionicons5'
+import { TableRowsOutlined, TableChartOutlined } from '@vicons/material'
 
 export const useMenu = () => {
   const activeKey = ref<string | null>(null)
@@ -28,22 +29,28 @@ export const useMenu = () => {
     },
     {
       label: '组件',
-      key: 'component',
+      key: 'components',
       icon: renderIcon(LogoWebComponent),
       children: [
         {
-          label: () =>
-            h(
-              RouterLink,
-              {
-                to: {
-                  path: '/404',
-                },
-              },
-              { default: () => '组件一' }
-            ),
-          key: 'notFound',
-          icon: renderIcon(InformationCircleSharp),
+          key: 'table',
+          icon: renderIcon(TableRowsOutlined),
+          children: [
+            {
+              label: () =>
+                h(
+                  RouterLink,
+                  {
+                    to: {
+                      path: '/table/synthesizeTable',
+                    },
+                  },
+                  { default: () => '综合表格' }
+                ),
+              key: 'synthesizeTable',
+              icon: renderIcon(TableChartOutlined),
+            },
+          ],
         },
       ],
     },
