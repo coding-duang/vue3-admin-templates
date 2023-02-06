@@ -1,2 +1,2 @@
-export * from './pageEnum'
+export * from './PageEnum'
 export * from './EventEnum'
