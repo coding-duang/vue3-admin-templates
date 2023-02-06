@@ -7,7 +7,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BasicForm: typeof import('./src/components/BasicForm/index.vue')['default']
     ColorChoose: typeof import('./src/components/ThemeConfig/components/ColorChoose.vue')['default']
+    Footer: typeof import('./src/components/footer/index.vue')['default']
     LockScreen: typeof import('./src/components/LockScreen/index.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
@@ -33,6 +35,7 @@ declare module '@vue/runtime-core' {
     NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StepForm: typeof import('./src/components/StepForm/index.vue')['default']
     SubjectMode: typeof import('./src/components/ThemeConfig/components/SubjectMode.vue')['default']
     Table: typeof import('./src/components/Table/index.vue')['default']
     ThemeConfig: typeof import('./src/components/ThemeConfig/index.vue')['default']
