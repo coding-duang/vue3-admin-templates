@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     StepForm: typeof import('./src/components/StepForm/index.vue')['default']
     SubjectMode: typeof import('./src/components/ThemeConfig/components/SubjectMode.vue')['default']
+    Table: typeof import('./src/components/Table/index.vue')['default']
     ThemeConfig: typeof import('./src/components/ThemeConfig/index.vue')['default']
     Title: typeof import('./src/components/ThemeConfig/components/Title.vue')['default']
   }

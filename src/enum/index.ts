@@ -1,3 +1,2 @@
-export const enum EventEnum {
-  changeColor = 'CHANGE_COLOR',
-}
+export * from './pageEnum'
+export * from './EventEnum'

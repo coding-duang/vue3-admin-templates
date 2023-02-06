@@ -116,3 +116,8 @@ img, video{
 html.dark{
   color-scheme: dark;
 }
+
+.n-drawer-mask, .n-modal-mask{
+  background-color: rgba(0, 0, 0, .1);
+  backdrop-filter: blur(3px);
+}
