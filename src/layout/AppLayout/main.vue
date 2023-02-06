@@ -20,6 +20,7 @@ const { getIsPageAnimate, getPageAnimateType } = useProjectSetting()
 const getTransitionName = computed(() =>
   unref(getIsPageAnimate) ? unref(getPageAnimateType) : ''
 )
+console.log(getTransitionName.value)
 </script>
 
 <style lang="scss" scoped></style>

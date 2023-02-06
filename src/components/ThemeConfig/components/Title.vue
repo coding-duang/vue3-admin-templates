@@ -20,6 +20,7 @@ defineProps({
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 18px 0;
   .line {
     background-color: rgb(239, 239, 245);
     border: none;

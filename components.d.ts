@@ -7,7 +7,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AnimateChoose: typeof import('./src/components/ThemeConfig/components/AnimateChoose.vue')['default']
     ColorChoose: typeof import('./src/components/ThemeConfig/components/ColorChoose.vue')['default']
+    ControlItem: typeof import('./src/components/ThemeConfig/components/ControlItem.vue')['default']
     LockScreen: typeof import('./src/components/LockScreen/index.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
@@ -29,6 +31,7 @@ declare module '@vue/runtime-core' {
     NMessageProvider: typeof import('naive-ui')['NMessageProvider']
     NPopover: typeof import('naive-ui')['NPopover']
     NResult: typeof import('naive-ui')['NResult']
+    NSelect: typeof import('naive-ui')['NSelect']
     NSwitch: typeof import('naive-ui')['NSwitch']
     NTooltip: typeof import('naive-ui')['NTooltip']
     RouterLink: typeof import('vue-router')['RouterLink']

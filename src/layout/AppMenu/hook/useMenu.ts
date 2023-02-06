@@ -35,6 +35,7 @@ export const useMenu = () => {
         {
           key: 'table',
           icon: renderIcon(TableRowsOutlined),
+          label: '表格',
           children: [
             {
               label: () =>
@@ -42,7 +43,7 @@ export const useMenu = () => {
                   RouterLink,
                   {
                     to: {
-                      path: '/table/synthesizeTable',
+                      path: '/components/table/comprehensive',
                     },
                   },
                   { default: () => '综合表格' }
