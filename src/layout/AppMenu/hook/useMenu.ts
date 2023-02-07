@@ -1,9 +1,13 @@
-import { Component, h, ref } from 'vue'
+import { h, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { renderIcon } from '@/utils'
 import type { MenuOption } from 'naive-ui'
-import { HomeOutline, InformationCircleSharp, LogoWebComponent, } from '@vicons/ionicons5'
-import { EditOutlined, TableChartOutlined, TableRowsOutlined } from '@vicons/material'
+import {
+  HomeOutline,
+  InformationCircleSharp,
+  LogoWebComponent,
+} from '@vicons/ionicons5'
+import { EditOutlined, TableRowsOutlined } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
 const menuOptionsObj: MenuOptionObj[] = [
@@ -30,8 +34,8 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '富文本编辑器',
         key: 'editor',
         icon: EditOutlined,
-      }
-    ]
+      },
+    ],
   },
   {
     path: '/form',
@@ -44,7 +48,7 @@ const menuOptionsObj: MenuOptionObj[] = [
     label: '分步表单',
     key: 'stepForm',
     icon: InformationCircleSharp,
-  }
+  },
 ]
 
 export const useMenu = () => {
@@ -60,26 +64,26 @@ function getMenuOptions(): MenuOption[] {
   return menuOptionsObj.map(route => getRouterInfo(route))
 }
 
-function getRouterInfo(routerInfo:MenuOptionObj): MenuOption {
+function getRouterInfo(routerInfo: MenuOptionObj): MenuOption {
   const { path, label, key, icon, children } = routerInfo
 
   return {
-    label:
-        renderLabel(path, label),
+    label: renderLabel(path, label),
     key,
     icon: renderIcon(icon),
     children: children?.map(item => getRouterInfo(item)),
   } as MenuOption
 }
 
-function renderLabel(path:string, label: string) {
-  return () => h(
-    RouterLink,
-    {
-      to: {
-        path,
+function renderLabel(path: string, label: string) {
+  return () =>
+    h(
+      RouterLink,
+      {
+        to: {
+          path,
+        },
       },
-    },
-    { default: () => label }
-  )
+      { default: () => label }
+    )
 }
