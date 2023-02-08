@@ -11,7 +11,7 @@
 // 蜡烛图 k线图
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import { EChartsType } from 'echarts/types/dist/echarts'
+import { EChartsType } from 'echarts'
 import defaultThemeColor from '@/config/theme/chart-colors'
 
 const chartsRef = ref(null)

@@ -1,9 +1,7 @@
 <template>
-
   <div class="chart-container">
-    <div  ref="chartsRef" class="chart-main"></div>
+    <div ref="chartsRef" class="chart-main"></div>
   </div>
-
 </template>
 
 <script lang="ts" setup>
@@ -11,7 +9,7 @@
 // 雷达图
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import { EChartsType } from 'echarts/types/dist/echarts'
+import { EChartsType } from 'echarts'
 import defaultThemeColor from '@/config/theme/chart-colors'
 
 const chartsRef = ref(null)
@@ -30,7 +28,7 @@ const options = ref({
       { name: '敏捷', max: 10 },
       { name: '体力', max: 10 },
       { name: '抗性', max: 10 },
-    ]
+    ],
   },
   series: [
     {
@@ -40,10 +38,10 @@ const options = ref({
         {
           name: '战士',
           value: [8, 10, 6, 6, 4],
-        }
-      ]
-    }
-  ]
+        },
+      ],
+    },
+  ],
 })
 
 let chartObj: EChartsType = null // 初始化后的对象
@@ -51,7 +49,7 @@ let chartObj: EChartsType = null // 初始化后的对象
 // 初始化 charts
 const initCharts = () => {
   chartObj = echarts.init(chartsRef.value, null, {
-    renderer: 'svg'
+    renderer: 'svg',
   })
   chartObj?.setOption(options.value)
 }
@@ -69,12 +67,10 @@ onMounted(() => {
   initCharts()
   window?.addEventListener('resize', resizeChangeHandle)
 })
-
 </script>
 
 <style lang="scss" scoped>
-
-.chart-container{
+.chart-container {
   min-width: 200px;
   max-width: 600px;
   width: 100%;
@@ -84,8 +80,8 @@ onMounted(() => {
   justify-content: center;
   margin: 0 auto;
 
-  .chart-main{
-    width:100%;
+  .chart-main {
+    width: 100%;
     height: 100%;
   }
 }

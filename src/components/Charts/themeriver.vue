@@ -1,9 +1,7 @@
 <template>
-
   <div class="chart-container">
-    <div  ref="chartsRef" class="chart-main"></div>
+    <div ref="chartsRef" class="chart-main"></div>
   </div>
-
 </template>
 
 <script lang="ts" setup>
@@ -11,7 +9,7 @@
 // 河流图
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import { EChartsType } from 'echarts/types/dist/echarts'
+import { EChartsType } from 'echarts'
 import defaultThemeColor from '@/config/theme/chart-colors'
 
 const chartsRef = ref(null)
@@ -25,8 +23,8 @@ const options = ref({
       lineStyle: {
         color: 'rgba(0,0,0,0.2)',
         width: 1,
-      }
-    }
+      },
+    },
   },
   singleAxis: {
     top: 50,
@@ -37,16 +35,16 @@ const options = ref({
     axisPointer: {
       animation: true,
       label: {
-        show: true
-      }
+        show: true,
+      },
     },
     splitLine: {
       show: true,
       lineStyle: {
         type: 'dashed',
-        opacity: 0.2
-      }
-    }
+        opacity: 0.2,
+      },
+    },
   },
   series: [
     {
@@ -55,8 +53,8 @@ const options = ref({
       emphasis: {
         itemStyle: {
           shadowBlur: 20,
-          shadowColor: 'rgba(0,0,0,0.8)'
-        }
+          shadowColor: 'rgba(0,0,0,0.8)',
+        },
       },
       data: [
         ['2015/11/08', 10, 'DQ'],
@@ -184,10 +182,10 @@ const options = ref({
         ['2015/11/25', 22, 'DD'],
         ['2015/11/26', 16, 'DD'],
         ['2015/11/27', 22, 'DD'],
-        ['2015/11/28', 10, 'DD']
-      ]
-    }
-  ]
+        ['2015/11/28', 10, 'DD'],
+      ],
+    },
+  ],
 })
 
 let chartObj: EChartsType = null // 初始化后的对象
@@ -195,7 +193,7 @@ let chartObj: EChartsType = null // 初始化后的对象
 // 初始化 charts
 const initCharts = () => {
   chartObj = echarts.init(chartsRef.value, null, {
-    renderer: 'svg'
+    renderer: 'svg',
   })
   chartObj?.setOption(options.value as any)
 }
@@ -213,12 +211,10 @@ onMounted(() => {
   initCharts()
   window?.addEventListener('resize', resizeChangeHandle)
 })
-
 </script>
 
 <style lang="scss" scoped>
-
-.chart-container{
+.chart-container {
   min-width: 200px;
   max-width: 600px;
   width: 100%;
@@ -228,8 +224,8 @@ onMounted(() => {
   justify-content: center;
   margin: 0 auto;
 
-  .chart-main{
-    width:100%;
+  .chart-main {
+    width: 100%;
     height: 100%;
   }
 }

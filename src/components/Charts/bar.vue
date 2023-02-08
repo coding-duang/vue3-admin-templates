@@ -10,7 +10,7 @@
 // TODO 使用 charts Hook
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import * as echarts from 'echarts'
-import { EChartsType } from 'echarts/types/dist/echarts'
+import { EChartsType } from 'echarts'
 import defaultThemeColor from '@/config/theme/chart-colors'
 
 const chartsRef = ref(null)
