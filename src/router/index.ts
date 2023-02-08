@@ -28,6 +28,11 @@ const routes: Array<RouteRecordRaw> = [
         path: '/stepForm',
         name: 'stepForm',
         component: () => import('@/pages/StepForm/index.vue')
+      },
+      {
+        path: '/charts',
+        name: 'charts',
+        component: () => import('@/pages/Charts/index.vue')
       }
 
     ],

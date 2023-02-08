@@ -74,6 +74,29 @@ export const useMenu = () => {
           key: 'stepForm',
           icon: renderIcon(InformationCircleSharp),
         },
+
+      ],
+    },
+
+    {
+      label: '图表',
+      key: 'root-charts',
+      icon: renderIcon(LogoWebComponent),
+      children: [
+        {
+          label: () =>
+            h(
+              RouterLink,
+              {
+                to: {
+                  path: '/charts',
+                },
+              },
+              { default: () => '表格' }
+            ),
+          key: 'charts',
+          icon: renderIcon(InformationCircleSharp),
+        },
       ],
     },
   ]
