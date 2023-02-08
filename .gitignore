@@ -7,3 +7,4 @@ dist-ssr
 .idea
 .vim
 components.d.ts
+auto-imports.d.ts
