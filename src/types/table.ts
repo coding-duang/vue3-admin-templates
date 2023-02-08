@@ -4,6 +4,7 @@ import { ButtonProps } from 'naive-ui'
 export type Pagination = {
   page?: number
   pageCount?: number
+  itemCount?: number
   pageSize?: number
   pageSizes?: number[]
   showQuickJumper?: boolean

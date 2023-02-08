@@ -8,7 +8,7 @@
       :remote="true"
       :pagination="paginationRef"
       @update-page="updatePage"
-      @update-page-size="updatePageSize"
+      @update-page-size="updateSize"
     >
     </n-data-table>
   </div>
@@ -19,7 +19,7 @@ import { ref, h, computed, unref, ComputedRef } from 'vue'
 import { getRemote } from '@/http'
 import { TableItem, Pagination } from '@/types'
 import { baseProps } from './prop'
-import { createTableContext, usePagination } from '@/hook'
+import { createTableContext, usePagination, useTableData } from '@/hook'
 import {
   NTag,
   DataTableColumns,
@@ -160,39 +160,37 @@ const createColumns = (): DataTableColumns<TableItem> => {
 }
 
 const columns = createColumns()
-const tableList = ref([])
-const loading = ref(false)
 
-const cachePaginationExcute = (options: Pagination) => {
-  if (props.cachePagination) {
-    store?.setPagination(options)
-  } else {
-    setPagination(options)
+const { tableList, loading, updatePage, updateSize } = useTableData<
+  TableItem,
+  Pagination
+>(
+  getRemote.getTableList,
+  { page: 1, pageSize: 10 },
+  {
+    setPagination: props.cachePagination ? store?.setPagination : setPagination,
   }
-}
+)
 
-const updatePage = async (page: number) => {
-  cachePaginationExcute({ page })
-  loading.value = true
-  await fetchList({
-    page: paginationRef.value.page,
-    pageSize: paginationRef.value.pageSize,
-  })
-  loading.value = false
-}
+// const updatePage = async (page: number) => {
+//   cachePaginationExcute({ page })
+//   loading.value = true
+//   await fetchList({
+//     page: paginationRef.value.page,
+//     pageSize: paginationRef.value.pageSize,
+//   })
+//   loading.value = false
+// }
 
-const updatePageSize = (pageSize: number) => {
-  console.log(pageSize)
-}
-const fetchList = async (params: any = { page: 1, pageSize: 10 }) => {
-  const {
-    data: { list, total },
-  } = await getRemote.getTableList(params)
-  tableList.value = list
-  cachePaginationExcute({ pageCount: total })
-  console.log(total, store.getPagination)
-}
-fetchList()
+// const fetchList = async (params: any = { page: 1, pageSize: 10 }) => {
+//   const {
+//     data: { list, total },
+//   } = await getRemote.getTableList(params)
+//   tableList.value = list
+//   cachePaginationExcute({ itemCount: total })
+//   console.log(total, store.getPagination)
+// }
+// fetchList()
 </script>
 
 <style lang="scss" scoped>

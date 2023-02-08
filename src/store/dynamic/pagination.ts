@@ -8,6 +8,7 @@ const {
     pageSizes,
     pageSize,
     pageCount,
+    itemCount,
     showQuickJumper,
     showSizePicker,
   },
@@ -19,6 +20,7 @@ export const createDynamicPaginationStore = (pageId: string) => {
       page,
       pageCount,
       pageSize,
+      itemCount,
       pageSizes,
       showQuickJumper,
       showSizePicker,
@@ -28,12 +30,14 @@ export const createDynamicPaginationStore = (pageId: string) => {
         page: state.page,
         pageCount: state.pageCount,
         pageSize: state.pageSize,
+        itemCount: state.itemCount,
         pageSizes: state.pageSizes,
         showQuickJumper: state.showQuickJumper,
         showSizePicker: state.showSizePicker,
       }),
       getPage: state => state.page,
       getPageCount: state => state.pageCount,
+      getItemCount: state => state.itemCount,
       getPageSize: state => state.pageSize,
       getPageSizes: state => state.pageSizes,
       getShowQuickJumper: state => state.showQuickJumper,
@@ -41,11 +45,8 @@ export const createDynamicPaginationStore = (pageId: string) => {
     },
     actions: {
       setPagination(pagination: Pagination) {
-        console.log(this.state)
         Object.keys(pagination).forEach((key: keyof Pagination) => {
-          console.log(this.state, pagination, key)
-
-          this.state[key] = pagination[key]
+          this.$state[key] = pagination[key]
         })
       },
     },
