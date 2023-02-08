@@ -25,14 +25,14 @@ export class Service {
   private _instance: AxiosInstance
   public static inst: Service
 
-  static getInst () {
+  static getInst() {
     if (!Service.inst) {
       Service.inst = new Service()
     }
     return Service.inst
   }
 
-  constructor () {
+  constructor() {
     this._instance = axios.create({
       timeout: 10000,
       baseURL: originName,
@@ -41,24 +41,24 @@ export class Service {
     this.useResponse(this._instance)
   }
 
-  public requset (options: AxiosRequestConfig): Promise<CustomResponse> {
+  public requset(options: AxiosRequestConfig): Promise<CustomResponse> {
     return this._instance(options) as any as Promise<CustomResponse>
   }
 
-  private useRequest (instance: AxiosInstance) {
+  private useRequest(instance: AxiosInstance) {
     instance.interceptors.request.use(config => {
-      console.log(config)
+      // console.log(config)
       // TODO 临时使用的token
       config.headers.authorization = 'token'
       return config
     })
   }
 
-  private useResponse (instance: AxiosInstance) {
+  private useResponse(instance: AxiosInstance) {
     instance.interceptors.response.use(
-      (response: AxiosResponse<CustomResponse>) => {
+      // @ts-ignore
+      response => {
         const res = response.data
-        // console.log(res)
         return Promise.resolve(this.analysisResponse(res))
       },
       err => {
@@ -67,7 +67,7 @@ export class Service {
     )
   }
 
-  private analysisResponse (resp: CustomResponse) {
+  private analysisResponse(resp: CustomResponse) {
     if (resp.code >= 200 && resp.code < 300) {
       try {
         return resp
@@ -98,4 +98,5 @@ export class Service {
   }
 }
 
-export const fetchStandard = (options: AxiosRequestConfig) => Service.getInst().requset(options)
+export const fetchStandard = (options: AxiosRequestConfig) =>
+  Service.getInst().requset(options)

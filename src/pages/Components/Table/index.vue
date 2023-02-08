@@ -1,9 +1,11 @@
 <template>
   <div class="wrapper">
-    <h1>Table组件</h1>
+    <Table :cache-pagination="true" store-id="test" />
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Table from '@/components/Table/index.vue'
+</script>
 
 <style lang="scss" scoped></style>

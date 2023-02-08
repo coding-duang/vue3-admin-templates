@@ -1,7 +1,8 @@
 import { fetchStandard } from '../standard'
+import { Pagination } from '@/types'
 
 export class GetRemote {
-  getKindList () {
-    return fetchStandard({ url: 'xxx' })
+  getTableList(params: Pagination) {
+    return fetchStandard({ url: '/table', params })
   }
 }
