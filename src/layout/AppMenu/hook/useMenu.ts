@@ -4,89 +4,86 @@ import { renderIcon } from '@/utils'
 import type { MenuOption } from 'naive-ui'
 import {
   HomeOutline,
-  LogoWebComponent,
   InformationCircleSharp,
+  LogoWebComponent,
 } from '@vicons/ionicons5'
-import { TableRowsOutlined, TableChartOutlined } from '@vicons/material'
+import { EditOutlined, TableRowsOutlined } from '@vicons/material'
+import { MenuOptionObj } from '@/types'
+
+const menuOptionsObj: MenuOptionObj[] = [
+  {
+    path: '/',
+    label: '首页',
+    key: 'dashboard',
+    icon: HomeOutline,
+  },
+  {
+    path: '/components',
+    label: '组件',
+    key: 'components',
+    icon: LogoWebComponent,
+    children: [
+      {
+        path: '/components/table',
+        label: '表格',
+        key: 'table',
+        icon: TableRowsOutlined,
+      },
+      {
+        path: '/components/editor',
+        label: '富文本编辑器',
+        key: 'editor',
+        icon: EditOutlined,
+      },
+    ],
+  },
+  {
+    path: '/form',
+    label: '综合表单',
+    key: 'form',
+    icon: InformationCircleSharp,
+  },
+  {
+    path: '/stepForm',
+    label: '分步表单',
+    key: 'stepForm',
+    icon: InformationCircleSharp,
+  },
+]
 
 export const useMenu = () => {
   const activeKey = ref<string | null>(null)
 
-  const menuOptions: MenuOption[] = [
-    {
-      label: () =>
-        h(
-          RouterLink,
-          {
-            to: {
-              path: '/',
-            },
-          },
-          { default: () => '首页' }
-        ),
-      key: 'dashboard',
-      icon: renderIcon(HomeOutline),
-    },
-    {
-      label: '组件',
-      key: 'components',
-      icon: renderIcon(LogoWebComponent),
-      children: [
-        {
-          key: 'table',
-          icon: renderIcon(TableRowsOutlined),
-          label: '表格',
-          children: [
-            {
-              label: () =>
-                h(
-                  RouterLink,
-                  {
-                    to: {
-                      path: '/components/table/comprehensive',
-                    },
-                  },
-                  { default: () => '综合表格' }
-                ),
-              key: 'synthesizeTable',
-              icon: renderIcon(TableChartOutlined),
-            },
-          ],
-        },
-        {
-          label: () =>
-            h(
-              RouterLink,
-              {
-                to: {
-                  path: '/form',
-                },
-              },
-              { default: () => '综合表单' }
-            ),
-          key: 'form',
-          icon: renderIcon(InformationCircleSharp),
-        },
-        {
-          label: () =>
-            h(
-              RouterLink,
-              {
-                to: {
-                  path: '/stepForm',
-                },
-              },
-              { default: () => '分步表单' }
-            ),
-          key: 'stepForm',
-          icon: renderIcon(InformationCircleSharp),
-        },
-      ],
-    },
-  ]
-
   return {
     activeKey,
-    menuOptions,
+    menuOptions: getMenuOptions(),
   }
+}
+
+function getMenuOptions(): MenuOption[] {
+  return menuOptionsObj.map(route => getRouterInfo(route))
+}
+
+function getRouterInfo(routerInfo: MenuOptionObj): MenuOption {
+  const { path, label, key, icon, children } = routerInfo
+
+  return {
+    label: renderLabel(path, label),
+    key,
+    icon: renderIcon(icon),
+    children: children?.map(item => getRouterInfo(item)),
+  } as MenuOption
+}
+
+function renderLabel(path: string, label: string) {
+  return () =>
+    h(
+      RouterLink,
+      {
+        to: {
+          path,
+        },
+      },
+      { default: () => label }
+    )
 }

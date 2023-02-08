@@ -33,3 +33,11 @@ export type Meta = {
   // 隐藏
   hidden?: boolean
 }
+
+export type MenuOptionObj = {
+  path: string,
+  label: string,
+  key: string,
+  icon: Component,
+  children?: MenuOptionObj[]
+}
