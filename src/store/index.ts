@@ -1,4 +1,5 @@
 export { useLockStore } from './lockScreen'
 export { useUserStore } from './user'
 export { useThemeStore } from './theme'
+export { createDynamicStore } from './dynamic/form'
 export { useProjectSettingStore } from './projectSetting'
