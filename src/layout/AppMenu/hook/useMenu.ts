@@ -6,7 +6,7 @@ import {
   HomeOutline,
   InformationCircleSharp,
   HourglassOutline,
-  LogoWebComponent
+  LogoWebComponent,
 } from '@vicons/ionicons5'
 import { EditOutlined, TableRowsOutlined } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
@@ -17,6 +17,12 @@ const menuOptionsObj: MenuOptionObj[] = [
     label: '首页',
     key: 'dashboard',
     icon: HomeOutline,
+  },
+  {
+    path: '/flowchart',
+    label: '流程图',
+    key: 'flowchart',
+    icon: HourglassOutline,
   },
   {
     path: '/components',
