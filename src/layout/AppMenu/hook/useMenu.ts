@@ -4,10 +4,59 @@ import { renderIcon } from '@/utils'
 import type { MenuOption } from 'naive-ui'
 import {
   HomeOutline,
-  LogoWebComponent,
   InformationCircleSharp,
-  HourglassOutline
+  HourglassOutline,
+  LogoWebComponent
 } from '@vicons/ionicons5'
+import { EditOutlined, TableRowsOutlined } from '@vicons/material'
+import { MenuOptionObj } from '@/types'
+
+const menuOptionsObj: MenuOptionObj[] = [
+  {
+    path: '/',
+    label: '首页',
+    key: 'dashboard',
+    icon: HomeOutline,
+  },
+  {
+    path: '/components',
+    label: '组件',
+    key: 'components',
+    icon: LogoWebComponent,
+    children: [
+      {
+        path: '/components/table',
+        label: '表格',
+        key: 'table',
+        icon: TableRowsOutlined,
+      },
+      {
+        path: '/components/editor',
+        label: '富文本编辑器',
+        key: 'editor',
+        icon: EditOutlined,
+      },
+      {
+        path: '/components/form/basic',
+        label: '综合表单',
+        key: 'form',
+        icon: InformationCircleSharp,
+      },
+      {
+        path: '/components/form/step',
+        label: '分步表单',
+        key: 'stepForm',
+        icon: InformationCircleSharp,
+      },
+      {
+        path: '/components/charts',
+        label: '图表',
+        key: 'charts',
+        icon: InformationCircleSharp,
+      },
+    ],
+  },
+]
 
 export const useMenu = () => {
   const activeKey = ref<string | null>(null)
@@ -67,7 +116,34 @@ export const useMenu = () => {
 
   return {
     activeKey,
-    collapsed,
-    menuOptions,
+    menuOptions: getMenuOptions(),
   }
+}
+
+function getMenuOptions(): MenuOption[] {
+  return menuOptionsObj.map(route => getRouterInfo(route))
+}
+
+function getRouterInfo(routerInfo: MenuOptionObj): MenuOption {
+  const { path, label, key, icon, children } = routerInfo
+
+  return {
+    label: renderLabel(path, label),
+    key,
+    icon: renderIcon(icon),
+    children: children?.map(item => getRouterInfo(item)),
+  } as MenuOption
+}
+
+function renderLabel(path: string, label: string) {
+  return () =>
+    h(
+      RouterLink,
+      {
+        to: {
+          path,
+        },
+      },
+      { default: () => label }
+    )
 }

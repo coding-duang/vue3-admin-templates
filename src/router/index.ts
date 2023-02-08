@@ -1,42 +1,52 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
-import AppLayout from '@/layout/AppLayout/index.vue'
+import { createDiscreteApi } from 'naive-ui'
+import { PageEnum } from '@/enum'
+import { RedirectRoute } from './base'
+
+const { loadingBar } = createDiscreteApi(['loadingBar'])
+
+const getDynamicRoutes = () => {
+  const modules = import.meta.glob('./modules/**/*.ts', { eager: true })
+  const routeModuleList: RouteRecordRaw[] = []
+
+  Object.keys(modules).forEach(_module => {
+    const mod = (modules[_module] as any).default || {}
+    const modList = Array.isArray(mod) ? [...mod] : [mod]
+    routeModuleList.push(...modList)
+  })
+
+  return routeModuleList
+}
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: AppLayout,
-    children: [
-      {
-        path: '/',
-        name: 'dashboard',
-        component: () => import('@/pages/Dashboard/index.vue'),
-      },
-      {
-        path: '/FlowChart',
-        name: 'FlowChart',
-        component: () => import('@/pages/FlowChart/index.vue'),
-      },
-      {
-        path: '/404',
-        name: 'notFound',
-        component: () => import('@/pages/404/index.vue'),
-      },
-    ],
+    name: 'Root',
+    redirect: PageEnum.HOME_PATH,
+    meta: {
+      title: 'Root',
+    },
   },
+  RedirectRoute,
+  ...getDynamicRoutes(),
 ]
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes,
+  strict: true,
+  scrollBehavior: () => ({ left: 0, top: 0 }),
 })
 
 router.beforeEach(() => {
+  loadingBar.start()
   // todo
   return true
 })
 
 router.afterEach(() => {
   // todo
+  loadingBar.finish()
 })
 
 export default router
