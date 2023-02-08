@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/pages/Dashboard/index.vue'),
       },
       {
+        path: '/FlowChart',
+        name: 'FlowChart',
+        component: () => import('@/pages/FlowChart/index.vue'),
+      },
+      {
         path: '/404',
         name: 'notFound',
         component: () => import('@/pages/404/index.vue'),
