@@ -81,6 +81,14 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         name: `${BASE_ROUTE}_chart`,
         component: () => import('@/pages/Components/Charts/index.vue'),
       },
+      {
+        path: 'upload',
+        meta: {
+          title: '文件上传',
+        },
+        name: `${BASE_ROUTE}_upload`,
+        component: () => import('@/pages/Components/Upload/index.vue'),
+      },
     ],
   },
 ]

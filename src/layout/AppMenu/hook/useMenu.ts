@@ -60,6 +60,12 @@ const menuOptionsObj: MenuOptionObj[] = [
         key: 'charts',
         icon: InformationCircleSharp,
       },
+      {
+        path: '/components/upload',
+        label: '文件上传',
+        key: 'upload',
+        icon: InformationCircleSharp,
+      },
     ],
   },
 ]

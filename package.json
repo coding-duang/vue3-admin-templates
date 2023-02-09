@@ -23,6 +23,7 @@
     "echarts": "^5.4.1",
     "lodash-es": "^4.17.21",
     "pinia": "^2.0.29",
+    "spark-md5": "^3.0.2",
     "vue": "^3.2.45",
     "vue-json-pretty": "^2.2.3",
     "vue-router": "^4.0.13"
@@ -33,6 +34,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/mockjs": "^1.0.7",
     "@types/node": "^18.11.18",
+    "@types/spark-md5": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "@vicons/ionicons5": "^0.12.0",
