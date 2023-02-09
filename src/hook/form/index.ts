@@ -3,8 +3,8 @@ import { cloneDeep } from 'lodash-es'
 import { createDynamicStore } from '@/store'
 import { FormInst, createDiscreteApi } from 'naive-ui'
 
-type Options = {
-  isAsync: boolean
+export type Options = {
+  isAsync?: boolean
   isCacheByPinia?: boolean
   storeId?: string
   callback?: (...args: any[]) => void
@@ -12,7 +12,7 @@ type Options = {
 
 export const useForm = <M extends object>(
   formModel: Partial<M> = {},
-  options: Options
+  options?: Options
 ) => {
   const { isAsync = false, isCacheByPinia = false, storeId, callback } = options
 

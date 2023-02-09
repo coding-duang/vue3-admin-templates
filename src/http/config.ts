@@ -1,4 +1,4 @@
-export const originName = 'xxxx'
+export const originName = '/api'
 
 export const getList = {}
 
