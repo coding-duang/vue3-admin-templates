@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <Table :cache-pagination="true" store-id="test" />
+    <Table />
   </div>
 </template>
 

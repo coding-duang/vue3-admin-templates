@@ -25,7 +25,7 @@ const response = (data: any = null, success: boolean = true) => ({
 })
 
 const tableData = Mock.mock({
-  'list|20-60': [
+  'list|60-100': [
     {
       id: '@increment(1)',
       title: '@ctitle',
@@ -42,7 +42,6 @@ Mock.setup({ timeout: '500-1000' })
 
 Mock.mock(/\/api\/table/, 'get', (options: MockjsRequestOptions) => {
   const { url } = options
-
   const page = parseInt(getQuery(url, 'page'))
   const pageSize = parseInt(getQuery(url, 'pageSize'))
   const start = (page - 1) * pageSize

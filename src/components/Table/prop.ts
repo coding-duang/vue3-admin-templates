@@ -11,6 +11,10 @@ export const baseProps = {
     type: String,
     default: '',
   },
+  condition: {
+    type: Object,
+    default: () => ({}),
+  },
   cacheCondition: {
     type: Boolean,
     default: false,

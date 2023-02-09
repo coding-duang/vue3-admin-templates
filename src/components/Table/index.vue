@@ -15,11 +15,16 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, h, computed, unref, ComputedRef } from 'vue'
+import { ref, h, computed, unref } from 'vue'
 import { getRemote } from '@/http'
-import { TableItem, Pagination } from '@/types'
+import { TableItem } from '@/types'
 import { baseProps } from './prop'
-import { createTableContext, usePagination } from '@/hook'
+import {
+  createTableContext,
+  usePagination,
+  useTableData,
+  useCondition,
+} from '@/hook'
 import {
   NTag,
   DataTableColumns,
@@ -27,22 +32,14 @@ import {
   NSwitch,
   NButton,
   DataTableInst,
-  PaginationProps,
 } from 'naive-ui'
 
+// 获取自定义以及表格的所有props合并
 const props = defineProps(baseProps)
 
 const tableRef = ref<DataTableInst | null>(null)
+// 创建table上下文
 createTableContext(tableRef)
-
-const { store, setPagination, pagination } = usePagination({
-  isCacheByPinia: props.cachePagination,
-  storeId: props.storeId,
-})
-
-const paginationRef = computed(() =>
-  props.cachePagination ? unref(store.getPagination) : unref(pagination)
-)
 
 const createColumns = (): DataTableColumns<TableItem> => {
   return [
@@ -158,41 +155,54 @@ const createColumns = (): DataTableColumns<TableItem> => {
     },
   ]
 }
-
 const columns = createColumns()
-const tableList = ref([])
-const loading = ref(false)
 
-const cachePaginationExcute = (options: Pagination) => {
-  if (props.cachePagination) {
-    store?.setPagination(options)
-  } else {
-    setPagination(options)
-  }
-}
+// 初始并逻辑化表格的查询条件
+// （isCacheByPinia：代表你是否要全局缓存条件， storeId：代表你要创建的pinia的store ID）
+const {
+  store: conditionStore,
+  condition,
+  setCondition,
+} = useCondition(props.condition, {
+  isCacheByPinia: props.cacheCondition,
+  storeId: props.storeId,
+})
 
-const updatePage = async (page: number) => {
-  cachePaginationExcute({ page })
-  loading.value = true
-  await fetchList({
+// 初始并逻辑化分页器数据
+// （isCacheByPinia：代表你是否要全局缓存页码， storeId：代表你要创建的pinia的store ID）
+const { store, setPagination, pagination } = usePagination({
+  isCacheByPinia: props.cachePagination,
+  storeId: props.storeId,
+})
+
+// 计算出最终使用的pagination
+const paginationRef = computed(() =>
+  props.cachePagination ? unref(store?.getPagination) : unref(pagination)
+)
+
+// 计算出最终请求表格数据时传给后端的参数
+const params = computed(() => {
+  const currentCondition = props.cacheCondition
+    ? unref(conditionStore.getState)
+    : condition
+
+  const paginationParams = paginationRef.value && {
     page: paginationRef.value.page,
     pageSize: paginationRef.value.pageSize,
-  })
-  loading.value = false
-}
+  }
+  return { ...paginationParams, ...currentCondition }
+})
 
-const updatePageSize = (pageSize: number) => {
-  console.log(pageSize)
-}
-const fetchList = async (params: any = { page: 1, pageSize: 10 }) => {
-  const {
-    data: { list, total },
-  } = await getRemote.getTableList(params)
-  tableList.value = list
-  cachePaginationExcute({ pageCount: total })
-  console.log(total, store.getPagination)
-}
-fetchList()
+const { tableList, loading, updatePage, updatePageSize } = useTableData(
+  getRemote.getTableList,
+  params.value,
+  {
+    setPagination: props.cachePagination ? store?.setPagination : setPagination,
+    setCondition: props.cacheCondition
+      ? conditionStore?.setState
+      : setCondition,
+  }
+)
 </script>
 
 <style lang="scss" scoped>

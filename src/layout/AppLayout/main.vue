@@ -3,8 +3,8 @@
     <template #default="{ Component, route }">
       <transition :name="getTransitionName" mode="out-in" appear>
         <!-- <KeepAlive v-if="keepAliveComponents" :include="keepAliveComponents">
-          <component :is="Component" :key="route.fullPath"></component>
-        </KeepAlive> -->
+            <component :is="Component" :key="route.fullPath"></component>
+          </KeepAlive> -->
         <component :is="Component" :key="route.fullPath"></component>
       </transition>
     </template>

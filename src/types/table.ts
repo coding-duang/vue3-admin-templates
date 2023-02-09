@@ -1,14 +1,7 @@
 import { Component } from 'vue'
-import { ButtonProps } from 'naive-ui'
+import { ButtonProps, PaginationProps } from 'naive-ui'
 
-export type Pagination = {
-  page?: number
-  pageCount?: number
-  pageSize?: number
-  pageSizes?: number[]
-  showQuickJumper?: boolean
-  showSizePicker?: boolean
-}
+export type Pagination = PaginationProps
 
 export type Fn = (...args: any[]) => void
 
