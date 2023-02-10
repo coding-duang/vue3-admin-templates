@@ -14,8 +14,6 @@
   "dependencies": {
     "@logicflow/core": "^1.1.31",
     "@logicflow/extension": "^1.1.31",
-    "@types/echarts": "^4.9.16",
-    "@vicons/ionicons4": "^0.12.0",
     "@wangeditor/core": "^1.1.19",
     "@wangeditor/editor": "^5.1.23",
     "@wangeditor/editor-for-vue": "^5.1.11",
@@ -29,6 +27,8 @@
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
+    "@types/echarts": "^4.9.16",
+    "@vicons/ionicons4": "^0.12.0",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
     "@types/lodash-es": "^4.17.6",

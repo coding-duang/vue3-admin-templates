@@ -5,14 +5,12 @@
 </template>
 
 <script lang="ts" setup>
-// TODO 使用 charts Hook
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import * as echarts from 'echarts'
-import { EChartsType } from 'echarts'
+import { ref,   } from 'vue'
+
 import defaultThemeColor from '@/config/theme/chart-colors'
 type TriggerOptions = 'item' | 'axis' | 'none'
+import { useCharts } from "@/hook/charts";
 
-const chartsRef = ref(null)
 const options = ref({
   color: defaultThemeColor,
   tooltip: {
@@ -60,29 +58,7 @@ const options = ref({
   ],
 })
 
-let chartObj: EChartsType = null // 初始化后的对象
-
-// 初始化 charts
-const initCharts = () => {
-  chartObj = echarts.init(chartsRef.value, null, {
-    renderer: 'svg',
-  })
-  chartObj?.setOption(options.value)
-}
-
-const resizeChangeHandle = () => {
-  chartObj?.resize()
-}
-
-onBeforeUnmount(() => {
-  chartObj?.dispose()
-  window?.removeEventListener('resize', resizeChangeHandle)
-})
-
-onMounted(() => {
-  initCharts()
-  window?.addEventListener('resize', resizeChangeHandle)
-})
+const { chartDom : chartsRef } = useCharts(options.value);
 </script>
 
 <style lang="scss" scoped>

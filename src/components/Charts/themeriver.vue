@@ -5,14 +5,14 @@
 </template>
 
 <script lang="ts" setup>
-// TODO 使用 charts Hook
-// 河流图
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import * as echarts from 'echarts'
-import { EChartsType } from 'echarts'
-import defaultThemeColor from '@/config/theme/chart-colors'
 
-const chartsRef = ref(null)
+// 河流图
+import { ref,   } from 'vue'
+
+import defaultThemeColor from '@/config/theme/chart-colors'
+import {useCharts} from "@/hook/charts";
+
+
 const options = ref({
   color: defaultThemeColor,
 
@@ -187,30 +187,8 @@ const options = ref({
     },
   ],
 })
+const { chartDom : chartsRef } = useCharts(options.value);
 
-let chartObj: EChartsType = null // 初始化后的对象
-
-// 初始化 charts
-const initCharts = () => {
-  chartObj = echarts.init(chartsRef.value, null, {
-    renderer: 'svg',
-  })
-  chartObj?.setOption(options.value as any)
-}
-
-const resizeChangeHandle = () => {
-  chartObj?.resize()
-}
-
-onBeforeUnmount(() => {
-  chartObj?.dispose()
-  window?.removeEventListener('resize', resizeChangeHandle)
-})
-
-onMounted(() => {
-  initCharts()
-  window?.addEventListener('resize', resizeChangeHandle)
-})
 </script>
 
 <style lang="scss" scoped>
