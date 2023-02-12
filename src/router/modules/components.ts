@@ -30,7 +30,56 @@ const ComponentsRoutes: RouteRecordRaw[] = [
             name: `${BASE_ROUTE}_table_comprehensive`,
             component: () => import('@/pages/Components/Table/index.vue'),
           },
+          {
+            path: 'editor',
+            meta: {
+              title: '编辑器',
+            },
+            name: `${BASE_ROUTE}_editor`,
+            component: () => import('@/pages/Components/Editor/index.vue'),
+          },
         ],
+      },
+      {
+        path: 'form',
+        name: `${BASE_ROUTE}_form`,
+        redirect: `/${BASE_ROUTE}/table/comprehensive`,
+        component: SubLayout,
+        children: [
+          {
+            path: 'basic',
+            meta: {
+              title: '表单',
+            },
+            name: `${BASE_ROUTE}_basic_form`,
+            component: () => import('@/pages/Components/BasicForm/index.vue'),
+          },
+          {
+            path: 'step',
+            meta: {
+              title: '分布表单',
+            },
+            name: `${BASE_ROUTE}_step_form`,
+            component: () => import('@/pages/Components/StepForm/index.vue'),
+          },
+        ],
+      },
+
+      {
+        path: 'editor',
+        meta: {
+          title: '编辑器',
+        },
+        name: `${BASE_ROUTE}_editor`,
+        component: () => import('@/pages/Components/Editor/index.vue'),
+      },
+      {
+        path: 'charts',
+        meta: {
+          title: '图表',
+        },
+        name: `${BASE_ROUTE}_chart`,
+        component: () => import('@/pages/Components/Charts/index.vue'),
       },
     ],
   },

@@ -7,11 +7,13 @@ export const createDynamicStore = <S extends object>(
   return defineStore(storeId, {
     state: (): S => state,
     getters: {
-      getState: state => state,
+      getState() {
+        return this.$state
+      },
     },
     actions: {
       setState(state: S) {
-        this.state = { ...this.state, ...state }
+        this.$state = { ...this.$state, ...state }
       },
     },
   })

@@ -1,20 +1,29 @@
 import { unref, Ref, UnwrapNestedRefs } from 'vue'
 import { useForm, Options } from '../form'
 
-type Condition =
-  | Record<string, any>
-  | Ref<Record<string, any>>
-  | UnwrapNestedRefs<Record<string, any>>
+export type Condition<T extends Object> = T | Ref<T> | UnwrapNestedRefs<T>
 
-export const useCondition = (condition: Condition, options?: Options) => {
+export const useCondition = <ConditionType extends Object>(
+  condition: Condition<ConditionType>,
+  options?: Options
+) => {
   const { isCacheByPinia = false, storeId } = options
+
   const { modelReactive, store } = useForm(unref(condition), {
     isCacheByPinia,
     storeId,
   })
 
+  const setCondition = (condition: Condition<ConditionType>) => {
+    Object.keys(modelReactive.value).forEach(key => {
+      // @ts-ignore
+      modelReactive.value[key] = unref(condition)[key]
+    })
+  }
+
   return {
     store,
     condition: modelReactive,
+    setCondition,
   }
 }

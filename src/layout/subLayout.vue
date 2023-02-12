@@ -1,6 +1,8 @@
 <template>
   <div class="routerWrapper">
-    <router-view></router-view>
+    <suspense>
+      <router-view></router-view>
+    </suspense>
   </div>
 </template>
 

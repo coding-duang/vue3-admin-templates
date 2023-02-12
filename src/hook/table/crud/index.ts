@@ -1,0 +1,1 @@
+export { useTableModal } from './useTableModal'

@@ -1,14 +1,14 @@
-import { defineStore, storeToRefs } from 'pinia'
+import { defineStore } from 'pinia'
 import { componentSetting } from '@/settings'
 import { Pagination } from '@/types'
 
 const {
   table: {
     page,
+    itemCount,
     pageSizes,
     pageSize,
     pageCount,
-    itemCount,
     showQuickJumper,
     showSizePicker,
   },
@@ -19,8 +19,8 @@ export const createDynamicPaginationStore = (pageId: string) => {
     state: (): Pagination => ({
       page,
       pageCount,
-      pageSize,
       itemCount,
+      pageSize,
       pageSizes,
       showQuickJumper,
       showSizePicker,
@@ -28,9 +28,9 @@ export const createDynamicPaginationStore = (pageId: string) => {
     getters: {
       getPagination: state => ({
         page: state.page,
+        itemCount: state.itemCount,
         pageCount: state.pageCount,
         pageSize: state.pageSize,
-        itemCount: state.itemCount,
         pageSizes: state.pageSizes,
         showQuickJumper: state.showQuickJumper,
         showSizePicker: state.showSizePicker,

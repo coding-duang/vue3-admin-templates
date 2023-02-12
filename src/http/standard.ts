@@ -3,22 +3,11 @@ import axios from 'axios'
 
 import { originName } from './config'
 
-export type CustomResponse = {
+export type CustomResponse<R extends any> = {
   success?: boolean
   message?: string
   code: number
-  data?: any
-}
-
-const stringifyResponse = (response: CustomResponse) => {
-  const { code, message, data } = response
-  const isSucc = code >= 200 && code < 300
-  return {
-    code,
-    data,
-    success: isSucc,
-    message: message || '',
-  }
+  data?: R
 }
 
 export class Service {
@@ -41,8 +30,10 @@ export class Service {
     this.useResponse(this._instance)
   }
 
-  public requset(options: AxiosRequestConfig): Promise<CustomResponse> {
-    return this._instance(options) as any as Promise<CustomResponse>
+  public requset<T, R>(
+    options: AxiosRequestConfig
+  ): Promise<CustomResponse<R>> {
+    return this._instance.request<T, CustomResponse<R>>({ ...options })
   }
 
   private useRequest(instance: AxiosInstance) {
@@ -56,8 +47,7 @@ export class Service {
 
   private useResponse(instance: AxiosInstance) {
     instance.interceptors.response.use(
-      // @ts-ignore
-      response => {
+      (response: AxiosResponse<any>) => {
         const res = response.data
         return Promise.resolve(this.analysisResponse(res))
       },
@@ -67,7 +57,7 @@ export class Service {
     )
   }
 
-  private analysisResponse(resp: CustomResponse) {
+  private analysisResponse(resp: any) {
     if (resp.code >= 200 && resp.code < 300) {
       try {
         return resp
@@ -93,10 +83,10 @@ export class Service {
           break
       }
     } else {
-      return stringifyResponse(resp)
+      return Promise.reject(new Error(resp.message))
     }
   }
 }
 
-export const fetchStandard = (options: AxiosRequestConfig) =>
-  Service.getInst().requset(options)
+export const fetchStandard = <T, R>(options: AxiosRequestConfig) =>
+  Service.getInst().requset<T, R>(options)

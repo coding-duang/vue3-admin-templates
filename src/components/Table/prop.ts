@@ -1,5 +1,8 @@
-import { PropType } from 'vue'
-import { dataTableProps } from 'naive-ui'
+import { PropType, Component } from 'vue'
+import { dataTableProps, DrawerProps } from 'naive-ui'
+import { ModalComponentProps } from '@/types'
+
+// type CustomColumns = TableColumns<any> | ((...args: any[]) => TableColumns<any>)
 
 export const baseProps = {
   ...dataTableProps,
@@ -11,6 +14,10 @@ export const baseProps = {
     type: String,
     default: '',
   },
+  condition: {
+    type: Object,
+    default: () => ({}),
+  },
   cacheCondition: {
     type: Boolean,
     default: false,
@@ -18,5 +25,21 @@ export const baseProps = {
   cachePagination: {
     type: Boolean,
     default: false,
+  },
+  modalComponent: {
+    type: Object as PropType<Component>,
+    default: () => ({}),
+  },
+  modalComponentProps: {
+    type: Object as PropType<ModalComponentProps>,
+    default: (): ModalComponentProps => ({}),
+  },
+  drawerAttrs: {
+    type: Object as PropType<DrawerProps>,
+    default: (): DrawerProps => ({
+      width: '60%',
+      placement: 'right',
+      resizable: true,
+    }),
   },
 }
