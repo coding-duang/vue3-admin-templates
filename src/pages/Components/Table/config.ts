@@ -115,31 +115,23 @@ export const createColumns = <Item>(): {
             onPositiveClick: () => {},
           })
         }
-        return h(
-          'div',
-          {
-            class: 'btnGroup',
-          },
-          {
-            default: () => [
-              h(
-                NButton,
-                { type: 'info', onClick: handleEdit },
-                { default: () => '编辑' }
-              ),
-              h(
-                NButton,
-                { type: 'success', onClick: handleDetail },
-                { default: () => '详情' }
-              ),
-              h(
-                NButton,
-                { type: 'error', onClick: handleDelete },
-                { default: () => '删除' }
-              ),
-            ],
-          }
-        )
+        return [
+          h(
+            NButton,
+            { type: 'info', onClick: handleEdit },
+            { default: () => '编辑' }
+          ),
+          h(
+            NButton,
+            { type: 'success', onClick: handleDetail },
+            { default: () => '详情' }
+          ),
+          h(
+            NButton,
+            { type: 'error', onClick: handleDelete },
+            { default: () => '删除' }
+          ),
+        ]
       },
     },
   ]
