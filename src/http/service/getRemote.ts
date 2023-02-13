@@ -1,8 +1,37 @@
 import { fetchStandard } from '../standard'
-import { Pagination } from '@/types'
+import { Pagination, TableApiResult, TableItem } from '@/types'
+import { Condition } from '@/hook'
 
 export class GetRemote {
-  getTableList(params: Pagination) {
-    return fetchStandard({ url: '/table', params })
+  getTableList(params: Pagination & Condition<TableItem>) {
+    return fetchStandard<Pagination & Condition<TableItem>, TableApiResult>({
+      url: '/table',
+      params,
+    })
+  }
+
+  tableCreate(body: TableItem) {
+    return fetchStandard<TableItem, any>({
+      url: '/table/create',
+      method: 'POST',
+      data: body,
+    })
+  }
+
+  tableDelete(body: TableItem) {
+    const { id } = body
+    return fetchStandard<TableItem, any>({
+      url: '/table/delete',
+      method: 'POST',
+      data: { id },
+    })
+  }
+
+  tableUpdate(body: TableItem) {
+    return fetchStandard<TableItem, any>({
+      url: '/table/update',
+      method: 'POST',
+      data: body,
+    })
   }
 }

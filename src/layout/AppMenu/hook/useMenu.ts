@@ -8,7 +8,11 @@ import {
   HourglassOutline,
   LogoWebComponent,
 } from '@vicons/ionicons5'
-import { EditOutlined, TableRowsOutlined } from '@vicons/material'
+import {
+  EditOutlined,
+  TableRowsOutlined,
+  TableChartTwotone,
+} from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
 const menuOptionsObj: MenuOptionObj[] = [
@@ -35,6 +39,14 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '表格',
         key: 'table',
         icon: TableRowsOutlined,
+        children: [
+          {
+            label: '综合表格',
+            path: '/components/table/comprehensive',
+            icon: TableChartTwotone,
+            key: 'comprehensiveTable',
+          },
+        ],
       },
       {
         path: '/components/editor',

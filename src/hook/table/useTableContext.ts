@@ -1,9 +1,14 @@
-import { provide, inject, Ref } from 'vue'
-import { DataTableInst } from 'naive-ui'
+import { provide, inject, ref } from 'vue'
+import { TableRef, TableExpose, TableInst } from '@/types'
 
-export type TableRef = Ref<DataTableInst | null>
+export const createTableContext = (SupplementaryContext: TableExpose = {}) => {
+  const tableContext: TableRef = ref(null)
+  const context = {
+    tableRef: tableContext,
+    ...SupplementaryContext,
+  }
+  provide<Partial<TableInst>>('tableContext', context)
+  return context
+}
 
-export const createTableContext = (tableRef: TableRef) =>
-  provide<TableRef>('tableContext', tableRef)
-
-export const useTableContext = () => inject<TableRef>('tableContext')
+export const useTableContext = () => inject<Partial<TableInst>>('tableContext')

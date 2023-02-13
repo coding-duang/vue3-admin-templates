@@ -23,3 +23,22 @@ export const colorChooseSettings: ColorChooseSet[] = [
     themeType: 'purpleWhiteTheme',
   },
 ]
+
+export const selectOptions = [
+  {
+    label: '已废弃',
+    value: 0,
+  },
+  {
+    label: '已发布',
+    value: 1,
+  },
+  {
+    label: '未发布',
+    value: 2,
+  },
+  {
+    label: '其他',
+    value: 3,
+  },
+]

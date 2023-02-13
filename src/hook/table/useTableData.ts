@@ -1,6 +1,6 @@
-import { Ref, ref } from 'vue'
+import { Ref, ref, onBeforeMount } from 'vue'
 import { CustomResponse } from '@/http'
-import { Pagination } from '@/types'
+import { Pagination, TableApiResult } from '@/types'
 import { Condition } from './useCondition'
 import { componentSetting } from '@/settings'
 
@@ -12,7 +12,7 @@ type ChangeEffect = {
 }
 
 export const useTableData = <Item, Params extends Object>(
-  fetch: (...args: any[]) => Promise<CustomResponse>,
+  fetch: (...args: any[]) => Promise<CustomResponse<TableApiResult>>,
   fetchParams: Params,
   changeEffect: ChangeEffect
 ) => {
@@ -25,8 +25,8 @@ export const useTableData = <Item, Params extends Object>(
       const {
         data: { list, total },
       } = await fetch(fetchParams)
-      console.log(list)
-      tableList.value = list
+
+      tableList.value = list as Item[]
       changeEffect.setPagination({ itemCount: total })
     } catch (error) {
       throw new Error(error)
@@ -54,7 +54,7 @@ export const useTableData = <Item, Params extends Object>(
     await fetchList()
   }
 
-  fetchList()
+  onBeforeMount(() => fetchList())
 
   return {
     tableList,

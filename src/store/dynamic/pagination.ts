@@ -37,11 +37,11 @@ export const createDynamicPaginationStore = (pageId: string) => {
       }),
       getPage: state => state.page,
       getPageCount: state => state.pageCount,
+      getItemCount: state => state.itemCount,
       getPageSize: state => state.pageSize,
       getPageSizes: state => state.pageSizes,
       getShowQuickJumper: state => state.showQuickJumper,
       getShowSizePicker: state => state.showSizePicker,
-      getItemCount: state => state.itemCount,
     },
     actions: {
       setPagination(pagination: Pagination) {

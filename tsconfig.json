@@ -12,6 +12,7 @@
     "module": "ESNext",
     "target": "ESNext",
     "jsx": "preserve",
+    "disableSizeLimit": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
