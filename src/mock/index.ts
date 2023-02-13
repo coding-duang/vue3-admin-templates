@@ -52,3 +52,48 @@ Mock.mock(/\/api\/table/, 'get', (options: MockjsRequestOptions) => {
 
   return response({ list, total: tableData.list.length })
 })
+
+// 删除
+Mock.mock(/\/api\/table\/delete/, 'post', (options: MockjsRequestOptions) => {
+  const body = JSON.parse(options.body)
+  console.log(body)
+  const index = tableData.list.findIndex((item: any) => item.id === body.id)
+  tableData.list.splice(index, 1)
+  return response(tableData.list)
+})
+
+// 更新
+Mock.mock(/\/api\/table\/update/, 'post', (options: MockjsRequestOptions) => {
+  const body = JSON.parse(options.body)
+  const index = tableData.list.findIndex((item: any) => item.id === body.id)
+  const item = Mock.mock({
+    id: '@increment(1)',
+    title: body.title,
+    avatar: Random.image('200x200', '@color'),
+    content: body.content,
+    status: body.status,
+    open: body.open,
+    add_time: '@date(yyyy-MM-dd hh:mm:ss)',
+  })
+  tableData.list.splice(index, 1, item)
+
+  return response(tableData.list)
+})
+
+// 创建
+Mock.mock(/\/api\/table\/create/, 'post', (options: MockjsRequestOptions) => {
+  const body = JSON.parse(options.body)
+  tableData.list.push(
+    Mock.mock({
+      id: '@increment(1)',
+      title: body.title,
+      avatar: Random.image('200x200', '@color'),
+      content: body.content,
+      status: body.status,
+      open: body.open,
+      add_time: '@date(yyyy-MM-dd hh:mm:ss)',
+    })
+  )
+
+  return response(tableData.list)
+})

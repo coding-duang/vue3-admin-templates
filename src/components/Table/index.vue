@@ -30,7 +30,6 @@
 
 <script lang="ts" setup>
 import { computed, unref } from 'vue'
-import { getRemote } from '@/http'
 import { baseProps } from './prop'
 import {
   createTableContext,
@@ -43,7 +42,6 @@ import {
 
 // 获取自定义以及表格的所有props合并
 const props = defineProps(baseProps)
-
 // 初始化表格的crud弹出框逻辑
 const { showModal, openModal, setModal } = useTableModal(props)
 // 初始并逻辑化表格的查询条件
@@ -89,7 +87,7 @@ const {
   updatePage,
   updatePageSize,
   searchByCondition,
-} = useTableData(getRemote.getTableList, params.value, {
+} = useTableData(props.tableDataFetch, params.value, {
   setPagination: props.cachePagination ? store?.setPagination : setPagination,
   setCondition: props.cacheCondition
     ? (conditionStore?.setState as (

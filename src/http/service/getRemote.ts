@@ -9,4 +9,29 @@ export class GetRemote {
       params,
     })
   }
+
+  tableCreate(body: TableItem) {
+    return fetchStandard<TableItem, any>({
+      url: '/table/create',
+      method: 'POST',
+      data: body,
+    })
+  }
+
+  tableDelete(body: TableItem) {
+    const { id } = body
+    return fetchStandard<TableItem, any>({
+      url: '/table/delete',
+      method: 'POST',
+      data: { id },
+    })
+  }
+
+  tableUpdate(body: TableItem) {
+    return fetchStandard<TableItem, any>({
+      url: '/table/update',
+      method: 'POST',
+      data: body,
+    })
+  }
 }

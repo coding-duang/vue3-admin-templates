@@ -1,4 +1,5 @@
 import { h, Ref, ref } from 'vue'
+import { getRemote } from '@/http'
 import { TableItem, ModalComponentProps } from '@/types'
 import { NTag, DataTableColumns, NImage, NSwitch, NButton } from 'naive-ui'
 import Table from '@/components/Table/index.vue'
@@ -10,6 +11,7 @@ export const createColumns = <Item>(): {
 } => {
   const tableRef = ref<typeof Table>(null)
   const componentProps: Ref<ModalComponentProps> = ref({})
+  const loading = ref(false)
   const columns = [
     {
       title: '序号',
@@ -95,6 +97,7 @@ export const createColumns = <Item>(): {
       render: (rowData: TableItem) => {
         const handleEdit = () => {
           tableRef.value?.openModal('edit')
+          console.log(tableRef.value)
           componentProps.value = {
             tableItem: rowData,
             activeType: 'edit',
@@ -111,8 +114,15 @@ export const createColumns = <Item>(): {
           tableRef.value?.openModal('delete', {
             title: '删除',
             content: `是否确认删除${rowData.title}?`,
-            negativeText: '确认',
-            onPositiveClick: () => {},
+            positiveText: '确认',
+            loading: loading.value,
+            positiveButtonProps: { type: 'error' },
+            onPositiveClick: async () => {
+              loading.value = true
+              await getRemote.tableDelete(rowData)
+              loading.value = false
+              await tableRef.value.fetchList()
+            },
           })
         }
         return [

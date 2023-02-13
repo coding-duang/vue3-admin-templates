@@ -43,6 +43,7 @@ export type ModalComponentProps = {
   tableItem?: Record<string, any>
   title?: string
   activeType?: ActiveType
+  [key: string]: any
 }
 
 export type TableApiResult = { list: TableItem[]; total: number }
