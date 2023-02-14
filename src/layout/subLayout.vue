@@ -9,6 +9,6 @@
 <style lang="scss" scoped>
 .routerWrapper {
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: var(--theme-global-bg-color);
 }
 </style>

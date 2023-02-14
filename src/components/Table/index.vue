@@ -1,17 +1,17 @@
 <template>
   <div class="wrapper">
-    <div class="slotArea">
+    <div class="slotArea" ref="slotAreaRef">
       <slot name="condition" :tableRef="tableRef"></slot>
       <slot name="config" :tableRef="tableRef"></slot>
     </div>
     <n-data-table
+      v-bind="filterProps(props, slotAreaRef)"
       ref="tableRef"
       :data="tableList"
       :columns="columns"
       :loading="loading"
       :remote="true"
-      v-bind="$attrs"
-      :pagination="paginationRef"
+      :pagination="pagination"
       @update-page="updatePage"
       @update-page-size="updatePageSize"
     >
@@ -29,8 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, unref } from 'vue'
-import { baseProps } from './prop'
+import { computed, unref, ref } from 'vue'
+import { baseProps, filterProps } from './prop'
 import {
   createTableContext,
   usePagination,
@@ -40,6 +40,8 @@ import {
   Condition,
 } from '@/hook'
 
+const slotAreaRef = ref<HTMLDivElement | null>(null)
+
 // 获取自定义以及表格的所有props合并
 const props = defineProps(baseProps)
 // 初始化表格的crud弹出框逻辑
@@ -47,10 +49,13 @@ const { showModal, openModal, setModal } = useTableModal(props)
 // 初始并逻辑化表格的查询条件
 // （isCacheByPinia：代表你是否要全局缓存条件， storeId：代表你要创建的pinia的store ID）
 const {
+  formRef: conditionRef,
   store: conditionStore,
   condition,
   setCondition,
-} = useCondition(props.condition, {
+  validateForm,
+  resetModelReactive,
+} = useCondition<typeof props.condition>(props.condition, {
   isCacheByPinia: props.cacheCondition,
   storeId: props.storeId,
 })
@@ -62,21 +67,17 @@ const { store, setPagination, pagination } = usePagination({
   storeId: props.storeId,
 })
 
-// 计算出最终使用的pagination
-const paginationRef = computed(() =>
-  props.cachePagination ? unref(store?.getPagination) : unref(pagination)
-)
-
 // 计算出最终请求表格数据时传给后端的参数
 const params = computed(() => {
   const currentCondition = props.cacheCondition
     ? unref(conditionStore.getState)
-    : condition
+    : unref(condition)
 
-  const paginationParams = paginationRef.value && {
-    page: paginationRef.value.page,
-    pageSize: paginationRef.value.pageSize,
+  const paginationParams = {
+    page: pagination.value.page,
+    pageSize: pagination.value.pageSize,
   }
+  console.log(props.cacheCondition, currentCondition)
   return { ...paginationParams, ...currentCondition }
 })
 
@@ -87,13 +88,9 @@ const {
   updatePage,
   updatePageSize,
   searchByCondition,
-} = useTableData(props.tableDataFetch, params.value, {
-  setPagination: props.cachePagination ? store?.setPagination : setPagination,
-  setCondition: props.cacheCondition
-    ? (conditionStore?.setState as (
-        condition: Condition<Record<string, any>>
-      ) => void)
-    : setCondition,
+} = useTableData(props.tableDataFetch, params, {
+  setPagination,
+  setCondition,
 })
 
 // 创建table上下文
@@ -104,13 +101,18 @@ const exposed = {
   setModal,
   updatePage,
   updatePageSize,
+  conditionRef,
+  condition,
+  validateForm,
+  resetModelReactive,
   setCondition,
   setPagination,
   conditionStore,
   searchByCondition,
   paginationStore: store,
 }
-const tableRef = createTableContext(exposed)
+
+const tableRef = createTableContext<typeof props.condition>(exposed)
 // 同时暴露出去组件组合逻辑方法
 defineExpose(exposed)
 </script>
@@ -120,5 +122,9 @@ defineExpose(exposed)
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+.wrapper {
+  background-color: var(--n-color);
+  padding: 15px;
 }
 </style>

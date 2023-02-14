@@ -2,6 +2,8 @@
   <div class="wrapper">
     <Table
       ref="tableRef"
+      :condition="condition"
+      :cache-pagination="true"
       :columns="columns"
       :table-data-fetch="getRemote.getTableList"
       :modal-component="TableForm"
@@ -27,6 +29,11 @@ import TableForm from './NotAssociated/crud/TableForm.vue'
 import { getRemote } from '@/http'
 
 const { tableRef, columns, componentProps } = createColumns<TableItem>()
+const condition = {
+  title: '',
+  status: 1,
+  open: false,
+}
 </script>
 
 <style lang="scss" scoped></style>

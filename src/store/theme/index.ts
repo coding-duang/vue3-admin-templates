@@ -21,9 +21,14 @@ export const useThemeStore: import('pinia').StoreDefinition = defineStore(
     actions: {
       setTheme(key: ThemeType) {
         this.currentTheme = themeOverrides[key]
+        document.body.setAttribute('data-theme', key)
       },
       setDarkTheme() {
         this.darkTheme = !this.darkTheme
+        document.body.setAttribute(
+          'data-theme',
+          this.darkTheme ? 'dark' : 'light'
+        )
       },
     },
   }

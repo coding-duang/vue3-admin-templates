@@ -1,8 +1,46 @@
 import { PropType, Component } from 'vue'
-import { dataTableProps, DrawerProps } from 'naive-ui'
+import { dataTableProps, DataTableProps, DrawerProps } from 'naive-ui'
 import { ModalComponentProps } from '@/types'
+import { computeHeight } from './util'
 
-// type CustomColumns = TableColumns<any> | ((...args: any[]) => TableColumns<any>)
+type CustomProps = {
+  title: {
+    type: StringConstructor
+    default: string
+  }
+  tableDataFetch: {
+    type: PropType<(...args: any[]) => Promise<any>>
+    required: boolean
+  }
+  storeId: {
+    type: StringConstructor
+    default: string
+  }
+  condition: {
+    type: ObjectConstructor
+    default: () => {}
+  }
+  cacheCondition: {
+    type: BooleanConstructor
+    default: boolean
+  }
+  cachePagination: {
+    type: BooleanConstructor
+    default: boolean
+  }
+  modalComponent: {
+    type: PropType<Component>
+    default: () => {}
+  }
+  modalComponentProps: {
+    type: PropType<ModalComponentProps>
+    default: () => ModalComponentProps
+  }
+  drawerAttrs: {
+    type: PropType<DrawerProps>
+    default: () => DrawerProps
+  }
+}
 
 export const baseProps = {
   // n-data-table的自己属性
@@ -56,4 +94,26 @@ export const baseProps = {
       resizable: true,
     }),
   },
+}
+
+type TargetProps = typeof baseProps
+
+export const filterProps = (
+  targetProps: any,
+  slotRef: HTMLDivElement | null
+) => {
+  const props: DataTableProps = {} as DataTableProps
+  const height = computeHeight(slotRef)
+  Object.keys(targetProps).forEach((key: keyof TargetProps) => {
+    // eslint-disable-next-line no-prototype-builtins
+    if (dataTableProps.hasOwnProperty(key)) {
+      if (key === 'maxHeight') {
+        props[key] = targetProps[key] || height
+      } else {
+        // @ts-ignore
+        props[key] = targetProps[key]
+      }
+    }
+  })
+  return props
 }

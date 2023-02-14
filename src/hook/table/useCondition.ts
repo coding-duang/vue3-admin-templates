@@ -9,21 +9,27 @@ export const useCondition = <ConditionType extends Object>(
 ) => {
   const { isCacheByPinia = false, storeId } = options
 
-  const { modelReactive, store } = useForm(unref(condition), {
-    isCacheByPinia,
-    storeId,
-  })
-
-  const setCondition = (condition: Condition<ConditionType>) => {
-    Object.keys(modelReactive.value).forEach(key => {
-      // @ts-ignore
-      modelReactive.value[key] = unref(condition)[key]
+  const { modelReactive, store, formRef, validateForm, resetModelReactive } =
+    useForm(unref(condition), {
+      isCacheByPinia,
+      storeId,
     })
-  }
+
+  const setCondition = store
+    ? store.setState
+    : (condition: Condition<ConditionType>) => {
+        Object.keys(modelReactive.value).forEach(key => {
+          // @ts-ignore
+          modelReactive.value[key] = unref(condition)[key]
+        })
+      }
 
   return {
+    formRef,
     store,
     condition: modelReactive,
+    validateForm,
+    resetModelReactive,
     setCondition,
   }
 }
