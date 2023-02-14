@@ -10,7 +10,6 @@ declare module '@vue/runtime-core' {
     AnimateChoose: typeof import('./src/components/ThemeConfig/components/AnimateChoose.vue')['default']
     Bar: typeof import('./src/components/Charts/bar.vue')['default']
     BasicForm: typeof import('./src/components/BasicForm/index.vue')['default']
-    BigfileUpload: typeof import('./src/components/BigfileUpload/index.vue')['default']
     Candlestick: typeof import('./src/components/Charts/candlestick.vue')['default']
     ChartsCard: typeof import('./src/components/ChartsCard/index.vue')['default']
     ColorChoose: typeof import('./src/components/ThemeConfig/components/ColorChoose.vue')['default']
