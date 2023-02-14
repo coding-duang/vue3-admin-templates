@@ -1,5 +1,6 @@
 import { Component, Ref } from 'vue'
 import {
+  FormInst,
   ButtonProps,
   PaginationProps,
   DataTableInst,
@@ -48,8 +49,12 @@ export type ModalComponentProps = {
 
 export type TableApiResult = { list: TableItem[]; total: number }
 
-export type TableExpose = {
+export type TableExpose<M extends object> = {
   loading?: Ref<boolean>
+  condition?: Ref<Partial<M>>
+  conditionRef?: Ref<FormInst | null>
+  validateForm?: (e: MouseEvent) => void
+  resetModelReactive?: (model?: Partial<M>) => void
   fetchList?: () => Promise<void>
   openModal?: (type: ActiveType, dialogError?: DialogOptions) => void
   setModal?: (show: boolean) => boolean
@@ -64,5 +69,5 @@ export type TableExpose = {
   conditionStore?: ReturnType<ReturnType<typeof createDynamicStore>>
 }
 
-export type TableInst = DataTableInst & TableExpose
-export type TableRef = Ref<TableInst | null>
+export type TableInst<M extends object> = DataTableInst & TableExpose<M>
+export type TableRef<M extends object> = Ref<TableInst<M> | null>

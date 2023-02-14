@@ -44,6 +44,7 @@ Mock.mock(/\/api\/table/, 'get', (options: MockjsRequestOptions) => {
   const { url } = options
   const page = parseInt(getQuery(url, 'page'))
   const pageSize = parseInt(getQuery(url, 'pageSize'))
+  console.log(page, pageSize)
   const start = (page - 1) * pageSize
   const end = page * pageSize
 

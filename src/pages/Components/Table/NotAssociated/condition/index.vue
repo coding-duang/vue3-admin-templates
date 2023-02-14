@@ -5,7 +5,7 @@
       inline
       label-placement="left"
       label-width="auto"
-      :model="modelReactive"
+      :model="condition"
     >
       <n-grid :cols="24" :x-gap="24">
         <n-form-item-gi :span="4">
@@ -13,15 +13,12 @@
         </n-form-item-gi>
 
         <n-form-item-gi :span="4" label="标题" path="title">
-          <n-input
-            v-model:value="modelReactive.title"
-            placeholder="请输入标题"
-          />
+          <n-input v-model:value="condition.title" placeholder="请输入标题" />
         </n-form-item-gi>
 
         <n-form-item-gi :span="4" label="状态" path="status">
           <n-select
-            v-model:value="modelReactive.status"
+            v-model:value="condition.status"
             placeholder="请选择状态"
             :options="selectOptions"
             clearable
@@ -29,7 +26,7 @@
         </n-form-item-gi>
 
         <n-form-item-gi :span="2" label="开关" path="open">
-          <n-switch v-model:value="modelReactive.open" />
+          <n-switch v-model:value="condition.open" />
         </n-form-item-gi>
 
         <n-form-item-gi :span="6">
@@ -48,10 +45,10 @@
 </template>
 
 <script lang="ts" setup>
-import { useForm, useTableContext } from '@/hook'
+import { useTableContext } from '@/hook'
 import { TableItem } from '@/types'
 
-const tableContext = useTableContext()
+const tableContext = useTableContext<TableItem>()
 const selectOptions = [
   {
     label: '已废弃',
@@ -71,17 +68,15 @@ const selectOptions = [
   },
 ]
 
-const { formRef, modelReactive, resetModelReactive } = useForm<TableItem>({
-  title: '',
-  status: 1,
-  open: false,
-})
+const formRef = tableContext.conditionRef
+const condition = tableContext.condition
+const resetModelReactive = tableContext.resetModelReactive
 
-const search = () => tableContext.searchByCondition(modelReactive)
+const search = () => tableContext.searchByCondition(condition)
 
 const reset = () => {
   resetModelReactive()
-  tableContext.searchByCondition(modelReactive)
+  search()
 }
 
 const create = () => tableContext.openModal('create')

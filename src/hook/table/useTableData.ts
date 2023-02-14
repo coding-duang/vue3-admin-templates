@@ -1,19 +1,23 @@
-import { Ref, ref, onBeforeMount } from 'vue'
+import { Ref, ref, onBeforeMount, ComputedRef } from 'vue'
 import { CustomResponse } from '@/http'
 import { Pagination, TableApiResult } from '@/types'
 import { Condition } from './useCondition'
 import { componentSetting } from '@/settings'
 
 type ChangeEffect = {
-  setPagination: (pagination: Pagination) => void
-  setCondition?: <ConditionType extends object>(
-    condition: Condition<ConditionType>
-  ) => void
+  setPagination?: (pagination: Pagination) => void
+  setCondition?: <S extends object>(
+    condition: S
+  ) =>
+    | void
+    | (<ConditionType extends object>(
+        condition: Condition<ConditionType>
+      ) => void)
 }
 
 export const useTableData = <Item, Params extends Object>(
   fetch: (...args: any[]) => Promise<CustomResponse<TableApiResult>>,
-  fetchParams: Params,
+  fetchParams: ComputedRef<Params>,
   changeEffect: ChangeEffect
 ) => {
   const tableList: Ref<Item[]> = ref([])
@@ -24,7 +28,7 @@ export const useTableData = <Item, Params extends Object>(
       loading.value = true
       const {
         data: { list, total },
-      } = await fetch(fetchParams)
+      } = await fetch(fetchParams.value)
 
       tableList.value = list as Item[]
       changeEffect.setPagination({ itemCount: total })
