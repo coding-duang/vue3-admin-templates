@@ -1,5 +1,5 @@
 import { Editor } from '@wangeditor/editor-for-vue'
-import { defineProps, PropType } from 'vue'
+import { PropType } from 'vue'
 import type {
   IDomEditor,
   IEditorConfig,

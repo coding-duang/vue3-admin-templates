@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineProps, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import type { LogicFlow } from '@logicflow/core'
 const props = defineProps<{
   catTurboData?: boolean

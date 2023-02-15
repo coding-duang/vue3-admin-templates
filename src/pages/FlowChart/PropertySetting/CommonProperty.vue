@@ -24,7 +24,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { LogicFlow, NodeData } from '@logicflow/core'
 
 const props = defineProps<{

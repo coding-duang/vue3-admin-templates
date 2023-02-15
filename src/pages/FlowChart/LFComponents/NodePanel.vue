@@ -17,7 +17,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps } from 'vue'
 import type { LogicFlow } from '@logicflow/core'
 type Node = {
   type: string

@@ -17,7 +17,6 @@
 <script lang="ts" setup>
 import CommonProperty from './CommonProperty.vue'
 import User from './User.vue'
-import { defineProps } from 'vue'
 import type { LogicFlow, NodeData } from '@logicflow/core'
 const props = defineProps<{
   lf: LogicFlow

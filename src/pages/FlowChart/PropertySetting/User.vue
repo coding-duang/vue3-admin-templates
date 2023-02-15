@@ -56,7 +56,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { defineProps, onMounted, reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import type { LogicFlow, NodeData } from '@logicflow/core'
 const props = defineProps<{
   lf: LogicFlow
