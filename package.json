@@ -25,7 +25,8 @@
     "pinia": "^2.0.29",
     "vue": "^3.2.45",
     "vue-json-pretty": "^2.2.3",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",

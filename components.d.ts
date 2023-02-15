@@ -20,6 +20,7 @@ declare module '@vue/runtime-core' {
     Line: typeof import('./src/components/Charts/line.vue')['default']
     LockScreen: typeof import('./src/components/LockScreen/index.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
+    NCheckbox: typeof import('naive-ui')['NCheckbox']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDataTable: typeof import('naive-ui')['NDataTable']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']

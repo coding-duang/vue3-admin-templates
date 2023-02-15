@@ -1,5 +1,5 @@
 <template>
-  <n-form>
+  <n-form :model="modelReactive" :rules="rules" ref="formRef">
     <n-grid :cols="24" :x-gap="24">
       <n-form-item-gi :span="12" label="标题" path="title">
         <n-input
@@ -60,13 +60,20 @@
           <template #unchecked>否</template>
         </n-switch>
       </n-form-item-gi>
+
+      <n-form-item-gi :span="24" :offset="22">
+        <n-button v-if="showAction" type="primary" @click="submit"
+          >确定</n-button
+        >
+      </n-form-item-gi>
     </n-grid>
   </n-form>
 </template>
 
 <script lang="ts" setup>
-import { ref, useAttrs } from 'vue'
-import { useForm } from '@/hook'
+import { ref, useAttrs, computed } from 'vue'
+import { useForm, useTableContext } from '@/hook'
+import { getRemote } from '@/http'
 import { TableItem, ModalComponentProps } from '@/types'
 import { componentSetting, selectOptions } from '@/settings'
 import { UploadFileInfo } from 'naive-ui'
@@ -75,11 +82,40 @@ import { UploadFileInfo } from 'naive-ui'
 const attrs = useAttrs() as ModalComponentProps
 const type = attrs?.activeType || 'create'
 
+const tableContext = useTableContext<TableItem>()
+
+const rules = {
+  title: {
+    required: true,
+    trigger: ['blur', 'input'],
+    message: '请输入标题',
+  },
+  content: {
+    required: true,
+    trigger: ['blur', 'input'],
+    message: '请输入简介',
+  },
+}
+
 const tableItem =
   type === 'inquiry' || type === 'edit'
     ? attrs?.tableItem
     : componentSetting.tableItem
-const { modelReactive } = useForm<TableItem>(tableItem)
+const { modelReactive, validateForm, formRef } = useForm<TableItem>(tableItem)
+
+const showAction = computed(() => type === 'create' || type === 'edit')
+
+const submit = async (e: MouseEvent) => {
+  e.preventDefault()
+  const http = type === 'create' ? getRemote.tableCreate : getRemote.tableUpdate
+  formRef.value?.validate(async errors => {
+    if (!errors) {
+      await http(modelReactive.value)
+      await tableContext.fetchList()
+    }
+    console.log('errors')
+  })
+}
 
 // 以下代码是因为upload相关，所以代码稍多，不然不必再做变量逻辑
 const showModalRef = ref(false)

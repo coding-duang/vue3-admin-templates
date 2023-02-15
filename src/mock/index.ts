@@ -84,7 +84,7 @@ Mock.mock(/\/api\/table\/update/, 'post', (options: MockjsRequestOptions) => {
 // 创建
 Mock.mock(/\/api\/table\/create/, 'post', (options: MockjsRequestOptions) => {
   const body = JSON.parse(options.body)
-  tableData.list.push(
+  tableData.list.unshift(
     Mock.mock({
       id: '@increment(1)',
       title: body.title,
