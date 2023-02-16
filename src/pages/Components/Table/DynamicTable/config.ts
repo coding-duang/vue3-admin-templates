@@ -1,6 +1,17 @@
-import { ref, Ref, h } from 'vue'
-import { DataTableColumns, NImage, NTag, NGradientText } from 'naive-ui'
-import { CreateColumns, ModalComponentProps, TableItem } from '@/types'
+import { ref, Ref, h, unref } from 'vue'
+import {
+  DataTableColumns,
+  NImage,
+  NTag,
+  NGradientText,
+  DataTableColumn,
+} from 'naive-ui'
+import {
+  CreateColumns,
+  ModalComponentProps,
+  TableItem,
+  SetColumnsType,
+} from '@/types'
 
 export const createColumns = <Column>(): CreateColumns<Column> => {
   const tableRef = ref<
@@ -8,7 +19,7 @@ export const createColumns = <Column>(): CreateColumns<Column> => {
   >(null)
   const componentProps: Ref<ModalComponentProps> = ref({})
 
-  const columns: DataTableColumns<Column> = [
+  const columns = ref<DataTableColumns<Column>>([
     {
       title: '序号',
       key: 'id',
@@ -33,7 +44,7 @@ export const createColumns = <Column>(): CreateColumns<Column> => {
     {
       title: '自我介绍',
       key: 'content',
-      width: 280,
+      width: 350,
       align: 'center',
       ellipsis: {
         tooltip: true,
@@ -82,11 +93,28 @@ export const createColumns = <Column>(): CreateColumns<Column> => {
         )
       },
     },
-  ]
+  ])
+
+  const setColumns = (
+    columnItem: DataTableColumn<Column>,
+    type: SetColumnsType = 'push'
+  ) => {
+    switch (type) {
+      case 'push':
+      case 'unshift':
+      case 'pop':
+      case 'shift':
+        columns.value[type](columnItem)
+        break
+      default:
+        break
+    }
+  }
 
   return {
     tableRef,
-    columns,
+    columns: unref(columns),
     componentProps,
+    setColumns,
   }
 }

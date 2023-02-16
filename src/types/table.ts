@@ -5,6 +5,7 @@ import {
   PaginationProps,
   DataTableInst,
   DialogOptions,
+  DataTableColumn,
   DataTableColumns,
 } from 'naive-ui'
 import { Condition } from '@/hook/table/useCondition'
@@ -21,6 +22,12 @@ export interface PopConfirm {
   confirm: Fn
   cancel?: Fn
   icon?: Component
+}
+
+export type SetColumnsType = 'push' | 'unshift' | 'pop' | 'shift'
+export type SetColumnsParamOptions = {
+  start: number
+  deleteCount: number
 }
 
 export type ActionItem = {
@@ -53,6 +60,11 @@ export type CreateColumns<Column> = {
   tableRef: Ref<typeof import('../components/Table/index.vue')['default']>
   columns: DataTableColumns<Column>
   componentProps: Ref<ModalComponentProps>
+  setColumns?: (
+    column: DataTableColumn<Column>,
+    type?: SetColumnsType,
+    options?: SetColumnsParamOptions
+  ) => void
 }
 
 export type TableApiResult = { list: TableItem[]; total: number }

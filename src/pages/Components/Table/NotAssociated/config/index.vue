@@ -7,6 +7,9 @@
       <n-checkbox v-model:checked="modelReactive.bordered">边框</n-checkbox>
     </div>
     <div class="item">
+      <n-checkbox v-model:checked="modelReactive.selection">勾选行</n-checkbox>
+    </div>
+    <div class="item">
       <n-dropdown trigger="click" :options="options" @select="handleSelect">
         <n-tooltip trigger="hover">
           <template #trigger>
@@ -22,6 +25,8 @@
 </template>
 
 <script lang="ts" setup>
+import { watch, PropType } from 'vue'
+import { CreateColumns, TableItem } from '@/types'
 import { useForm } from '@/hook'
 import { FormatSizeOutlined } from '@vicons/material'
 
@@ -30,12 +35,14 @@ type Model = {
   striped: boolean
   bordered: boolean
   size: Size
+  selection: boolean
 }
 
 const { modelReactive } = useForm<Model>({
   striped: false,
   bordered: false,
   size: 'medium',
+  selection: false,
 })
 
 const options = [
@@ -52,6 +59,20 @@ const options = [
     label: '宽松',
   },
 ]
+
+const props = defineProps({
+  setColumns: Function as PropType<CreateColumns<TableItem>['setColumns']>,
+})
+
+watch(
+  () => modelReactive.value.selection,
+  (newVal: boolean) => {
+    const item = {
+      type: 'selection',
+    } as CreateColumns<TableItem>['columns'][number]
+    newVal ? props.setColumns(item, 'unshift') : props.setColumns(item, 'shift')
+  }
+)
 
 const handleSelect = (key: Size) => (modelReactive.value.size = key)
 
