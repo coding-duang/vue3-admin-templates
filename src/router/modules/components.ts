@@ -31,6 +31,12 @@ const ComponentsRoutes: RouteRecordRaw[] = [
             component: () => import('@/pages/Components/Table/index.vue'),
           },
           {
+            path: 'dynamic',
+            name: `${BASE_ROUTE}_table_dynamic`,
+            component: () =>
+              import('@/pages/Components/Table/DynamicTable/index.vue'),
+          },
+          {
             path: 'editor',
             meta: {
               title: '编辑器',
@@ -43,7 +49,7 @@ const ComponentsRoutes: RouteRecordRaw[] = [
       {
         path: 'form',
         name: `${BASE_ROUTE}_form`,
-        redirect: `/${BASE_ROUTE}/table/comprehensive`,
+        // redirect: `/${BASE_ROUTE}/table/comprehensive`,
         component: SubLayout,
         children: [
           {

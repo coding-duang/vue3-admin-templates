@@ -12,10 +12,6 @@
       <template #condition>
         <ConditionForm />
       </template>
-
-      <template #modalFooter>
-        <n-button type="primary">确定</n-button>
-      </template>
     </Table>
   </div>
 </template>

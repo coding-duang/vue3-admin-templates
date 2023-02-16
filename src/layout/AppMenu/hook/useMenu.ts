@@ -12,6 +12,7 @@ import {
   EditOutlined,
   TableRowsOutlined,
   TableChartTwotone,
+  DynamicFeedOutlined,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
@@ -45,6 +46,12 @@ const menuOptionsObj: MenuOptionObj[] = [
             path: '/components/table/comprehensive',
             icon: TableChartTwotone,
             key: 'comprehensiveTable',
+          },
+          {
+            label: '动态表格',
+            path: '/components/table/dynamic',
+            icon: DynamicFeedOutlined,
+            key: 'dynamicTable',
           },
         ],
       },

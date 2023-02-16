@@ -5,6 +5,7 @@ import { Condition } from './useCondition'
 import { componentSetting } from '@/settings'
 
 type ChangeEffect = {
+  setModal?: (show: boolean) => void
   setPagination?: (pagination: Pagination) => void
   setCondition?: <S extends object>(
     condition: S
@@ -25,13 +26,14 @@ export const useTableData = <Item, Params extends Object>(
 
   const fetchList = async () => {
     try {
+      changeEffect?.setModal(false)
       loading.value = true
       const {
         data: { list, total },
       } = await fetch(fetchParams.value)
 
       tableList.value = list as Item[]
-      changeEffect.setPagination({ itemCount: total })
+      changeEffect?.setPagination({ itemCount: total })
     } catch (error) {
       throw new Error(error)
     } finally {
