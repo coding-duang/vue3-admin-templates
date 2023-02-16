@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import '@wangeditor/editor/dist/css/style.css'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
+import { onBeforeUnmount, ref, shallowRef } from 'vue'
 import { useCallbacks } from './callback'
 import {
   EditorProps as props,
-  EditorConfigType,
-  ToolbarConfigType,
   EditorType,
 } from './props'
-import { IDomEditor } from '@wangeditor/editor'
 
 const editorRef = shallowRef()
 
