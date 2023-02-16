@@ -41,12 +41,53 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         ],
       },
       {
+        path: 'form',
+        name: `${BASE_ROUTE}_form`,
+        redirect: `/${BASE_ROUTE}/table/comprehensive`,
+        component: SubLayout,
+        children: [
+          {
+            path: 'basic',
+            meta: {
+              title: '表单',
+            },
+            name: `${BASE_ROUTE}_basic_form`,
+            component: () => import('@/pages/Components/BasicForm/index.vue'),
+          },
+          {
+            path: 'step',
+            meta: {
+              title: '分布表单',
+            },
+            name: `${BASE_ROUTE}_step_form`,
+            component: () => import('@/pages/Components/StepForm/index.vue'),
+          },
+        ],
+      },
+
+      {
         path: 'editor',
         meta: {
           title: '编辑器',
         },
         name: `${BASE_ROUTE}_editor`,
         component: () => import('@/pages/Components/Editor/index.vue'),
+      },
+      {
+        path: 'charts',
+        meta: {
+          title: '图表',
+        },
+        name: `${BASE_ROUTE}_chart`,
+        component: () => import('@/pages/Components/Charts/index.vue'),
+      },
+      {
+        path: 'upload',
+        meta: {
+          title: '文件上传',
+        },
+        name: `${BASE_ROUTE}_upload`,
+        component: () => import('@/pages/Components/Upload/index.vue'),
       },
     ],
   },

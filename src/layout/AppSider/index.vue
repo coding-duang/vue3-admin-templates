@@ -38,7 +38,7 @@ const collapsed = ref(false)
     overflow: hidden;
     font-size: 18px;
     line-height: 55px;
-    color: #515a6e;
+    color: var(--n-item-text-color);
     text-overflow: ellipsis;
     white-space: nowrap;
     vertical-align: middle;

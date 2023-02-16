@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import { setupNaiveUI } from './utils'
+import '@/mock'
 
 const setupApp = () => {
   const app = createApp(App)

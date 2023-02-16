@@ -8,5 +8,7 @@ export const enum PageEnum {
   HOME_PATH = '/dashboard/console',
   HOME_NAME = 'Home',
 
+  FLOWCHART_PATH = '/flowchart/example',
+
   ERROR_NAME = 'ErrorPage',
 }

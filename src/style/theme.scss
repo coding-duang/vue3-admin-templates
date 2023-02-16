@@ -5,9 +5,25 @@
   --theme-hover: #36ad6a;
   --theme-text-color: rgb(31, 34, 37);
   --theme-bg-color: #fff;
+  --theme-global-bg-color: #f6f8f9;
 }
 
-.blue{
+[data-theme=dark]{
+  --theme-global-bg-color: rgba(38, 38, 42, 1);
+  --theme-bg-color: rgb(24, 24, 28);
+}
+
+[data-theme=greenWhiteTheme]{
+  --theme-color: #18a058;
+  --theme-background: #18a058;
+  --theme-border: #18a058;
+  --theme-hover: #36ad6a;
+  --theme-text-color: rgb(31, 34, 37);
+  --theme-bg-color: #fff;
+  --theme-global-bg-color: #f6f8f9;
+}
+
+[data-theme=blueWhiteTheme]{
   --theme-color: #2080f0;
   --theme-background: #2080f0;
   --theme-border: #2080f0;
@@ -16,7 +32,7 @@
   --theme-bg-color: #2080f0;
 }
 
-.red{
+[data-theme=redWhiteTheme]{
   --theme-color: #d03050;
   --theme-background: #d03050;
   --theme-border: #d03050;
@@ -25,7 +41,7 @@
   --theme-bg-color: #d03050;
 }
 
-.purple{
+[data-theme=purpleWhiteTheme]{
   --theme-color: rgba(207, 36, 213, 1);
   --theme-background: rgba(207, 36, 213, 1);
   --theme-border: rgba(207, 36, 213, 1);
