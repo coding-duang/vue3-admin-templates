@@ -11,12 +11,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, inject } from 'vue'
+import { ref, inject, watchEffect } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useThemeStore } from '@/store'
 import { Emitter } from '@/object'
 import { EventEnum } from '@/enum'
 import { colorChooseSettings, ColorChooseSet } from '@/settings'
 
+const themeStore = useThemeStore()
+const { getThemeKey } = storeToRefs(themeStore)
 const currentColorIndex = ref(0)
+
+watchEffect(() => {
+  const index = colorChooseSettings.findIndex(
+    (item: ColorChooseSet) => item.themeType === getThemeKey.value
+  )
+  index > -1 && (currentColorIndex.value = index)
+})
+
 const emitter = inject<Emitter<EventEnum>>('emitter')
 
 const choose = (index: number, item: ColorChooseSet) => {

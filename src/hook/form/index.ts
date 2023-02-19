@@ -36,9 +36,9 @@ export const useForm = <M extends object>(
         message.error('校验失败!')
         return
       }
-      message.success('valid!')
+      console.log('这是验证通过的表单数据:', modelReactive.value)
       callback && (await callback(modelReactive.value))
-      messageReactive.destroy()
+      messageReactive.destroy && messageReactive.destroy()
     })
   }
   const resetModelReactive = (model?: Partial<M>) => {
@@ -48,6 +48,7 @@ export const useForm = <M extends object>(
         : cloneModel[key as keyof M]
       isCacheByPinia && store?.setState(cloneModel)
     })
+    console.log(modelReactive.value)
   }
 
   return {

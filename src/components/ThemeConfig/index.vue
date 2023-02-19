@@ -7,6 +7,9 @@
       <Title title="系统主题颜色" />
       <ColorChoose />
 
+      <Title title="导航栏模式" />
+      <NavMode />
+
       <Title title="全局动画" />
       <AnimateChoose />
     </n-drawer-content>
@@ -19,6 +22,7 @@ import Title from './components/Title.vue'
 import SubjectMode from './components/SubjectMode.vue'
 import ColorChoose from './components/ColorChoose.vue'
 import AnimateChoose from './components/AnimateChoose.vue'
+import NavMode from './components/NavMode.vue'
 
 const show = ref(false)
 </script>
