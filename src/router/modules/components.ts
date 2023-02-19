@@ -58,12 +58,14 @@ const ComponentsRoutes: RouteRecordRaw[] = [
           {
             path: 'basic',
             name: `${BASE_ROUTE}_basic_form`,
-            component: () => import('@/pages/Components/BasicForm/index.vue'),
+            component: () =>
+              import('@/pages/Components/Form/BasicForm/index.vue'),
           },
           {
             path: 'step',
             name: `${BASE_ROUTE}_step_form`,
-            component: () => import('@/pages/Components/StepForm/index.vue'),
+            component: () =>
+              import('@/pages/Components/Form/StepForm/index.vue'),
           },
         ],
       },
