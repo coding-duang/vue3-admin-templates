@@ -23,7 +23,8 @@ export const EditorProps = defineProps({
     default: () => ({}),
   },
   toolbarStyle: {
-    type: String,
+    type: Object,
+    default: () => ({}),
   },
   editorStyle: {
     type: String,
@@ -38,5 +39,9 @@ export const EditorProps = defineProps({
   },
   editorProps: {
     type: Object as PropType<IDomEditor>,
+  },
+  hideToolbar: {
+    type: Boolean,
+    default: false,
   },
 })

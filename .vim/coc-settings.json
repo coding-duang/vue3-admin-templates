@@ -1,7 +1,5 @@
 {
-  "cSpell.words": [
-    "ionicons",
-    "vicons",
-    "wangeditor"
-  ]
+  "cSpell.words": ["ionicons", "vicons", "wangeditor"],
+  "volar.takeOverMode.enabled": true,
+  "tsserver.enable": false
 }

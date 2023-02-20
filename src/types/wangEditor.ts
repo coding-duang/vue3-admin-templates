@@ -12,3 +12,10 @@ declare module '@wangeditor/editor' {
     children: SlateDescendant[]
   }
 }
+
+export type RegisterType = 'module' | 'plugin'
+export interface RegisterFn {
+  type: RegisterType
+  key: string
+  Factory: any
+}
