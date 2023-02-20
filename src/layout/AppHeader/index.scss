@@ -7,7 +7,32 @@
     align-items: center;
     margin: auto 30px;
     height: 60px;
-
+    .horizontalBox{
+      display: flex;
+      align-items: center;
+      .logoWrapper {
+        display: flex;
+        // justify-content: center;
+        align-items: center;
+        padding: 8px 0;
+        margin-right: 15px;
+        .title {
+          margin-left: 10px;
+          display: inline-block;
+          margin-left: 5px;
+          overflow: hidden;
+          font-size: 18px;
+          line-height: 55px;
+          color: var(--n-item-text-color);
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          vertical-align: middle;
+          transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.1s,
+            font-size 0s;
+        }
+      }
+    }
+    
     .logWrapper{
       display: flex;
       justify-content: flex-end;

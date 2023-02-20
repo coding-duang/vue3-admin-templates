@@ -22,11 +22,13 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useThemeStore } from '@/store'
 import { Moon, SunnySharp } from '@vicons/ionicons5'
 
-const darkTheme = ref(false)
 const themeStore = useThemeStore()
+const { getDarkTheme } = storeToRefs(themeStore)
+const darkTheme = ref(getDarkTheme.value)
 
 watch(
   () => darkTheme.value,

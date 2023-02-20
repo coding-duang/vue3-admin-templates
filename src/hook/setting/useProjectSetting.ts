@@ -17,5 +17,6 @@ export const useProjectSetting = () => {
     getIsPageAnimate,
     getNavTheme,
     getPageAnimateType,
+    projectSettingStore,
   }
 }

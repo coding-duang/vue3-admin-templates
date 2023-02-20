@@ -1,10 +1,9 @@
-import { h, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { h, ref, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import { renderIcon } from '@/utils'
 import type { MenuOption } from 'naive-ui'
 import {
   HomeOutline,
-  InformationCircleSharp,
   HourglassOutline,
   LogoWebComponent,
 } from '@vicons/ionicons5'
@@ -13,6 +12,11 @@ import {
   TableRowsOutlined,
   TableChartTwotone,
   DynamicFeedOutlined,
+  FormatAlignJustifyOutlined,
+  FormatListNumberedFilled,
+  NextPlanOutlined,
+  PieChartOutlineTwotone,
+  DriveFolderUploadOutlined,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
@@ -20,14 +24,8 @@ const menuOptionsObj: MenuOptionObj[] = [
   {
     path: '/',
     label: '首页',
-    key: 'dashboard',
+    key: 'console',
     icon: HomeOutline,
-  },
-  {
-    path: '/flowchart',
-    label: '流程图',
-    key: 'flowchart',
-    icon: HourglassOutline,
   },
   {
     path: '/components',
@@ -45,13 +43,33 @@ const menuOptionsObj: MenuOptionObj[] = [
             label: '综合表格',
             path: '/components/table/comprehensive',
             icon: TableChartTwotone,
-            key: 'comprehensiveTable',
+            key: 'comprehensive',
           },
           {
             label: '动态表格',
             path: '/components/table/dynamic',
             icon: DynamicFeedOutlined,
-            key: 'dynamicTable',
+            key: 'dynamic',
+          },
+        ],
+      },
+      {
+        path: '/components/form',
+        label: '表单',
+        key: 'form',
+        icon: FormatAlignJustifyOutlined,
+        children: [
+          {
+            path: '/components/form/basic',
+            label: '综合表单',
+            key: 'basic',
+            icon: FormatListNumberedFilled,
+          },
+          {
+            path: '/components/form/step',
+            label: '分步表单',
+            key: 'step',
+            icon: NextPlanOutlined,
           },
         ],
       },
@@ -62,28 +80,22 @@ const menuOptionsObj: MenuOptionObj[] = [
         icon: EditOutlined,
       },
       {
-        path: '/components/form/basic',
-        label: '综合表单',
-        key: 'form',
-        icon: InformationCircleSharp,
-      },
-      {
-        path: '/components/form/step',
-        label: '分步表单',
-        key: 'stepForm',
-        icon: InformationCircleSharp,
+        path: '/components/flowchart',
+        label: '流程图',
+        key: 'flowchart',
+        icon: HourglassOutline,
       },
       {
         path: '/components/charts',
         label: '图表',
         key: 'charts',
-        icon: InformationCircleSharp,
+        icon: PieChartOutlineTwotone,
       },
       {
         path: '/components/upload',
-        label: '文件上传',
+        label: '大文件上传',
         key: 'upload',
-        icon: InformationCircleSharp,
+        icon: DriveFolderUploadOutlined,
       },
     ],
   },
@@ -91,59 +103,16 @@ const menuOptionsObj: MenuOptionObj[] = [
 
 export const useMenu = () => {
   const activeKey = ref<string | null>(null)
-  const collapsed = ref(false)
 
-  const menuOptions: MenuOption[] = [
-    {
-      label: () =>
-        h(
-          RouterLink,
-          {
-            to: {
-              path: '/',
-            },
-          },
-          { default: () => '首页' }
-        ),
-      key: 'dashboard',
-      icon: renderIcon(HomeOutline),
-    },
-    {
-      label: () =>
-        h(
-          RouterLink,
-          {
-            to: {
-              path: '/FlowChart',
-            },
-          },
-          { default: () => '流程图' }
-        ),
-      key: 'FlowChart',
-      icon: renderIcon(HourglassOutline),
-    },
-    {
-      label: '组件',
-      key: 'component',
-      icon: renderIcon(LogoWebComponent),
-      children: [
-        {
-          label: () =>
-            h(
-              RouterLink,
-              {
-                to: {
-                  path: '/404',
-                },
-              },
-              { default: () => '组件一' }
-            ),
-          key: 'notFound',
-          icon: renderIcon(InformationCircleSharp),
-        },
-      ],
-    },
-  ]
+  const route = useRoute()
+
+  watch(
+    () => route.path,
+    (newVal: string | null) => {
+      const key = newVal.split('/').pop()
+      activeKey.value = key
+    }
+  )
 
   return {
     activeKey,
