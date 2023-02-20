@@ -3,7 +3,7 @@
     <n-form
       ref="formRef"
       :model="modelReactive"
-      :rules="rules"
+      :rules="baseRules"
       label-placement="left"
       label-width="auto"
     >
@@ -50,8 +50,8 @@
       <n-form-item label="个人爱好:" path="hobby">
         <n-select
           v-model:value="modelReactive.hobby"
-          placeholder="请选择个人爱好"
           :options="selectOptions"
+          placeholder="请选择个人爱好"
         ></n-select>
       </n-form-item>
 
@@ -117,21 +117,13 @@
 
 <script lang="ts" setup>
 import { useForm } from '@/hook'
-import { FormItemRule, FormRules } from 'naive-ui'
-
-type FormType = {
-  name: string
-  password: string
-  sex: 'male' | 'female'
-  address: string[]
-  hobby: string
-  goodat: string[]
-  born: number
-  workTime: [number, number]
-  selfIntroduction: string
-  favorable: number
-  anonymous: boolean
-}
+import {
+  checkboxGroup,
+  radioGroup,
+  baseRules,
+  selectOptions,
+  FormType,
+} from '../options'
 
 const initValues: FormType = {
   name: '',
@@ -150,117 +142,17 @@ const { formRef, modelReactive, resetModelReactive, validateForm } =
   useForm(initValues)
 
 const reset = (e: MouseEvent) => resetModelReactive()
-const rules: FormRules = {
-  // 自定义校验
-  name: {
-    required: true,
-    trigger: 'blur',
-    validator: (rule: FormItemRule, value: string) => {
-      if (!value || !value.trim()) {
-        return new Error('请输入名称')
-      } else if (value.length > 4) {
-        return new Error('姓名超过4个字')
-      }
-      return true
-    },
-  },
-  password: {
-    required: true,
-    message: '请输入密码',
-    trigger: 'blur',
-  },
-  radio: {
-    required: true,
-    message: '请选择radio',
-    trigger: 'change',
-  },
-  checkbox: {
-    type: 'array', // ！注意 type
-    required: true,
-    message: '请选择checkbox',
-    trigger: 'change',
-  },
-  select: {
-    required: true,
-    message: '请选择 select',
-    trigger: ['blur', 'select'],
-  },
-  multipleSelect: {
-    type: 'array',
-    required: true,
-    message: '请选择 multiple select',
-    trigger: ['blur', 'select'],
-  },
-  date: {
-    type: 'number',
-    required: true,
-    message: '请输入date',
-    trigger: ['blur', 'change'],
-  },
-  dateRange: {
-    type: 'array',
-    required: true,
-    message: '请输入 date range',
-    trigger: ['blur', 'change'],
-  },
-  textarea: {
-    required: true,
-    message: '请输入textarea',
-    trigger: ['blur'],
-  },
-  rate: {
-    type: 'number',
-    required: true,
-    message: '请输入rate',
-    trigger: ['blur', 'change'],
-  },
-}
-
-const radioGroup = [
-  {
-    value: 'male',
-    label: '男',
-  },
-  {
-    value: 'female',
-    label: '女',
-  },
-]
-
-// checkbox group
-const checkboxGroup = [
-  {
-    value: 'Shanghai',
-    label: '上海',
-  },
-  {
-    value: 'Beijing',
-    label: '北京',
-  },
-  {
-    value: 'Guangzhou',
-    label: '广州',
-  },
-  {
-    value: 'Shenzhen',
-    label: '深圳',
-  },
-]
 
 const submit = (e: MouseEvent) =>
   validateForm(e, () => {
     console.log('执行我自定义的函数')
   })
-
-const selectOptions = ['唱歌', '舞蹈', '钢琴', '编码'].map(item => ({
-  label: item,
-  value: item,
-}))
 </script>
 
 <style lang="scss" scoped>
 .form-wrap {
-  width: 50%;
-  margin: 4vh auto;
+  height: calc(100vh - 160px);
+  padding: 30px;
+  background-color: var(--n-color);
 }
 </style>
