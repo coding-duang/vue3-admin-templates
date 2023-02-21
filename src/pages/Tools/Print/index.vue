@@ -36,7 +36,7 @@
       <template #header>
         <div>自定义打印内容</div>
       </template>
-      <Editor ref="EditorRef" />
+      <Editor ref="EditorRef" :on-change="onChange" />
       <template #action>
         <n-button type="primary" v-print="printCustom">打印</n-button>
       </template>
@@ -48,6 +48,7 @@
 import { ref } from 'vue'
 import print from 'vue3-print-nb'
 import { usePrint } from '@/hook'
+import { EditorType } from '@/pages/Components/Editor/props'
 import Editor from '@/pages/Components/Editor/index.vue'
 import { PrintTable } from './components/table'
 
@@ -62,6 +63,10 @@ const EditorRef = ref<typeof Editor | null>(null)
 const showModal = ref(false)
 const customHTML = ref('')
 
+const onChange = (editor: EditorType) => {
+  customHTML.value = editor.getHtml()
+}
+
 const printTable = usePrint({
   id: 'printTable',
 })
@@ -72,12 +77,7 @@ const printImage = usePrint({
 
 const printCustom = usePrint({
   id: 'printCustom',
-  openCallback: () => {
-    customHTML.value = EditorRef.value?.editorRef.getHtml()
-  },
 })
-
-const callbacks = {}
 </script>
 
 <style lang="scss" scoped>

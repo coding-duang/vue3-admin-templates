@@ -33,14 +33,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, provide, nextTick } from 'vue'
-import { zhCN, dateZhCN, darkTheme } from 'naive-ui'
-import { storeToRefs } from 'pinia'
-import { Emitter } from '@/object'
-import { EventEnum } from '@/enum'
-import { useLockStore, useThemeStore } from '@/store'
 import LockScreen from '@/components/LockScreen/index.vue'
+import { EventEnum } from '@/enum'
+import { Emitter } from '@/object'
 import { ColorChooseSet } from '@/settings'
+import { useLockStore, useThemeStore } from '@/store'
+import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
+import { storeToRefs } from 'pinia'
+import { computed, nextTick, provide, ref } from 'vue'
 
 const emitter = new Emitter<EventEnum>()
 
