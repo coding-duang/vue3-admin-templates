@@ -14,4 +14,5 @@ export const getMD = (html: string, parent: HTMLElement) => {
 
   parent.innerHTML = ''
   parent.append(textarea)
+  return txt
 }

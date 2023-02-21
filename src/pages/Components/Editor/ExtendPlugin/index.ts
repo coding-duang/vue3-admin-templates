@@ -1,9 +1,10 @@
 import { registerPlugins, registerModules } from '@/utils'
 import { IRegisterMenuConf } from '@wangeditor/core'
 import { ExportFileConf } from './ExportFile'
-import { PreviewConf } from './Preview'
+// 暂时没想好设计
+// import { PreviewConf } from './Preview'
 
-export const modules = [ExportFileConf, PreviewConf]
+export const modules = [ExportFileConf]
 
 export const plugins: IRegisterMenuConf[] = []
 

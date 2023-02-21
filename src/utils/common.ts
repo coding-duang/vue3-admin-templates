@@ -1,5 +1,5 @@
 import { h, Component } from 'vue'
-import { NIcon } from 'naive-ui'
+import { NIcon, createDiscreteApi } from 'naive-ui'
 
 type FullscreenFn = (options?: {
   navigationUI?: 'auto' | 'hide' | 'show'
@@ -10,6 +10,8 @@ type Cores = {
   webkitRequestFullscreen?: FullscreenFn
   msRequestFullscreen?: FullscreenFn
 }
+
+const { message } = createDiscreteApi(['message'])
 
 export const renderIcon = (icon: Component) => () =>
   h(NIcon, null, { default: () => h(icon) })
@@ -63,5 +65,27 @@ export class Log {
       return JSON.stringify(msg)
     }
     return msg
+  }
+}
+
+// copy from modal
+export function copyToClipboard(
+  text: string,
+  parent: HTMLElement = document.body
+) {
+  try {
+    const input = document.createElement('input')
+
+    input.value = text
+    parent.append(input)
+
+    input.select()
+    document.execCommand('copy')
+
+    parent.removeChild(input)
+    message.success('复制成功')
+  } catch (error) {
+    Log.error(error)
+    message.error('复制失败')
   }
 }

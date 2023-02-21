@@ -19,3 +19,9 @@ export interface RegisterFn {
   key: string
   Factory: any
 }
+export type currentValue =
+  | { type: 'md' | 'html'; content: string | null }
+  | {
+      type: 'png'
+      content: HTMLCanvasElement | null
+    }

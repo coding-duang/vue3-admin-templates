@@ -18,11 +18,17 @@ export const getPng = async (html: string, parent: HTMLElement) => {
   })
 
   const img = document.createElement('img')
+
   img.src = canvas.toDataURL('image/png')
-  img.style.width = '100%'
-  img.style.height = '100%'
-  img.style.objectFit = 'fill'
+  setImgStyle(img)
 
   parent.innerHTML = ''
   parent.append(img)
+  return canvas
+}
+
+function setImgStyle(img: HTMLImageElement) {
+  img.style.width = '100%'
+  img.style.height = '100%'
+  img.style.objectFit = 'fill'
 }
