@@ -10,13 +10,12 @@ import {
   CreateColumns,
   ModalComponentProps,
   TableItem,
+  TableComponent,
   SetColumnsType,
 } from '@/types'
 
 export const createColumns = <Column>(): CreateColumns<Column> => {
-  const tableRef = ref<
-    typeof import('@/components/Table/index.vue')['default'] | null
-  >(null)
+  const tableRef = ref<TableComponent | null>(null)
   const componentProps: Ref<ModalComponentProps> = ref({})
 
   const columns = ref<DataTableColumns<Column>>([

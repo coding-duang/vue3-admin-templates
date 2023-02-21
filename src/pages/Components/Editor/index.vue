@@ -2,9 +2,8 @@
 import '@wangeditor/editor/dist/css/style.css'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
-import { useCallbacks } from './callback'
 import {
-  EditorProps as props,
+  EditorProps,
   EditorConfigType,
   ToolbarConfigType,
   EditorType,
@@ -12,6 +11,7 @@ import {
 import { IDomEditor } from '@wangeditor/editor'
 
 const editorRef = shallowRef()
+const props = defineProps(EditorProps)
 
 const valueHtml = ref(props?.initHtml ?? '')
 
@@ -31,17 +31,12 @@ const handleCreated = (editor: EditorType) => {
   }
 }
 
-const {
-  handleBlur,
-  handleFocus,
-  handleChange,
-  customAlert,
-  customPaste,
-  handleDestroyed,
-} = useCallbacks()
-
 onBeforeUnmount(() => {
   if (editorRef?.value?.destroy) editorRef.value.destroy()
+})
+
+defineExpose({
+  editorRef,
 })
 </script>
 
@@ -59,12 +54,7 @@ onBeforeUnmount(() => {
       v-model="valueHtml"
       :style="props?.editorStyle"
       @onCreated="handleCreated"
-      @onChange="handleChange"
-      @onDestroyed="handleDestroyed"
-      @onFocus="handleFocus"
-      @onBlur="handleBlur"
-      @customAlert="customAlert"
-      @customPaste="customPaste"
+      v-bind="props.callbacks"
     />
   </div>
 </template>

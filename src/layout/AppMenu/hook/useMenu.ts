@@ -17,6 +17,8 @@ import {
   NextPlanOutlined,
   PieChartOutlineTwotone,
   DriveFolderUploadOutlined,
+  SettingsInputComponentOutlined,
+  LocalPrintshopOutlined,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
@@ -96,6 +98,20 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '大文件上传',
         key: 'upload',
         icon: DriveFolderUploadOutlined,
+      },
+    ],
+  },
+  {
+    path: '/tools',
+    label: '工具',
+    key: 'tools',
+    icon: SettingsInputComponentOutlined,
+    children: [
+      {
+        path: '/tools/print',
+        label: '打印',
+        key: 'print',
+        icon: LocalPrintshopOutlined,
       },
     ],
   },
