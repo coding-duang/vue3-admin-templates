@@ -6,7 +6,7 @@
     </div>
     <n-data-table
       v-bind="filterProps(props, slotAreaRef)"
-      ref="tableRef"
+      ref="tableRef.tableContext"
       :data="tableList"
       :columns="columns"
       :loading="loading"
@@ -114,6 +114,7 @@ const exposed = {
 }
 
 const tableRef = createTableContext<typeof props.condition>(exposed)
+
 // 同时暴露出去组件组合逻辑方法
 defineExpose(exposed)
 </script>

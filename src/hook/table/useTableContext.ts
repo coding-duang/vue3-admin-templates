@@ -5,10 +5,8 @@ export const createTableContext = <M extends object>(
   SupplementaryContext: TableExpose<M> = {}
 ) => {
   const tableContext: TableRef<M> = ref(null)
-  const context = {
-    tableRef: tableContext,
-    ...SupplementaryContext,
-  }
+  const context = Object.assign({ tableContext }, SupplementaryContext)
+
   provide<Partial<TableInst<M>>>('tableContext', context)
   return context
 }
