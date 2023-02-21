@@ -2,7 +2,14 @@
   <div class="controlWrapper">
     <div class="label">{{ label }}</div>
     <div class="content">
-      <n-switch v-bind="$attrs" v-if="!options"></n-switch>
+      <n-switch v-bind="$attrs" v-if="!options">
+        <template #checked>
+          <slot name="switchChecked"></slot>
+        </template>
+        <template #unchecked>
+          <slot name="switchUnchecked"></slot>
+        </template>
+      </n-switch>
       <n-select
         v-bind="$attrs"
         :options="options"

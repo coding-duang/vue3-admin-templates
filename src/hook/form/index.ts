@@ -14,7 +14,7 @@ export const useForm = <M extends object>(
   formModel: Partial<M> = {},
   options: Options = {}
 ) => {
-  const { isAsync = false, isCacheByPinia = false, storeId, callback } = options
+  const { isAsync = false, isCacheByPinia = false, storeId } = options
 
   const store = isCacheByPinia
     ? createDynamicStore<Partial<M>>(storeId, formModel)()
@@ -26,20 +26,20 @@ export const useForm = <M extends object>(
   const model = isCacheByPinia ? unref<Partial<M>>(store.getState) : formModel
   const modelReactive = ref(model)
 
-  const validateForm = (e: MouseEvent) => {
+  const validateForm = (e: MouseEvent, callback?: (...args: any[]) => void) => {
     e.preventDefault()
-    const messageReactive = isAsync
-      ? message.loading('校验中...', { duration: 0 })
-      : null
 
     formRef.value?.validate(async errors => {
-      if (!errors) {
-        message.success('valid!')
-        callback && (await callback())
+      const messageReactive = isAsync ? message.loading('校验中...') : null
+
+      if (errors) {
+        messageReactive && messageReactive.destroy()
+        message.error('校验失败!')
         return
       }
-      message.error('invalid!')
-      messageReactive.destroy()
+      console.log('这是验证通过的表单数据:', modelReactive.value)
+      callback && (await callback(modelReactive.value))
+      messageReactive && messageReactive.destroy()
     })
   }
   const resetModelReactive = (model?: Partial<M>) => {
@@ -49,6 +49,7 @@ export const useForm = <M extends object>(
         : cloneModel[key as keyof M]
       isCacheByPinia && store?.setState(cloneModel)
     })
+    console.log(modelReactive.value)
   }
 
   return {

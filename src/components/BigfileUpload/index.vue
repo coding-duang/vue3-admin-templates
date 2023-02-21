@@ -3,19 +3,7 @@ import { ref, defineComponent } from 'vue'
 import { fetchStandard } from '@/http/standard'
 import SparkMD5 from 'spark-md5'
 import { useMessage } from 'naive-ui'
-
-type UploadList = Array<{
-  file: File
-  filename: string
-  key: string
-}>
-
-type BufferPromise = {
-  buffer: FileReader['result']
-  HASH: string
-  suffix: string
-  filename: string
-}
+import type { MessageReactive } from 'naive-ui'
 
 export default defineComponent({
   name: 'BigfileUpload',
@@ -35,61 +23,61 @@ export default defineComponent({
   },
   setup(props) {
     const message = useMessage()
+    const shortMessage = useMessage()
     const disable = ref(false)
     const processValue = ref(0)
     const fileDom = ref<HTMLInputElement | null>(null)
+    let messageReactive: MessageReactive | null = null
 
-    const fileToBuffer = (file: File): Promise<BufferPromise> => {
+    type ChunkFileList = {
+      file: Blob
+      index: number
+    }[]
+
+    const stateReset = () => {
+      disable.value = false
+      processValue.value = 0
+    }
+
+    const calculateHashByFilechunks = (chunks: ChunkFileList) => {
       return new Promise(resolve => {
-        const fileReader = new FileReader()
-        fileReader.readAsArrayBuffer(file)
+        const spark = new SparkMD5.ArrayBuffer()
+        let count = 0
 
-        fileReader.onload = ev => {
-          const buffer = ev.target.result
-          const spark = new SparkMD5.ArrayBuffer()
-          spark.append(buffer as ArrayBuffer)
-          const HASH = spark.end()
-          const suffix = /\.([a-zA-Z0-9]+)$/.exec(file.name)[1]
-
-          resolve({
-            buffer,
-            HASH,
-            suffix,
-            filename: `${HASH}.${suffix}`,
+        const appendToSpark = (file: Blob) => {
+          return new Promise(resolve => {
+            const reader = new FileReader()
+            reader.readAsArrayBuffer(file)
+            reader.onload = ev => {
+              const buffer = ev.target.result
+              spark.append(buffer as ArrayBuffer)
+              resolve({})
+            }
           })
         }
+
+        const workLoop = async (deadline: IdleDeadline) => {
+          if (count < chunks.length && deadline.timeRemaining() > 0) {
+            await appendToSpark(chunks[count].file)
+            count++
+          }
+
+          if (count === chunks.length) {
+            resolve(spark.end())
+          }
+
+          window.requestIdleCallback(workLoop)
+        }
+
+        window.requestIdleCallback(workLoop)
       })
     }
 
-    const fileChange = async () => {
-      const file = fileDom.value.files[0]
-      if (!file) return
-
-      message.loading('资源解析中', {
-        duration: 0,
-      })
-      disable.value = true
-
-      let alReady: Array<string> = []
-
-      const { HASH, suffix } = await fileToBuffer(file)
-
-      try {
-        const data: any = await fetchStandard({
-          method: 'get',
-          url: 'http://127.0.0.1:8888/upload_already',
-          params: { HASH },
-        })
-
-        if (+data.code === 200) {
-          alReady = data.fileList
-        }
-      } catch (error) {}
-
+    const createFileChunk = (file: File) => {
       let max = 1024 * 1024 * props.maxSize
       let count = Math.ceil(file.size / max)
       let index = 0
-      const chunks: Array<{ file: Blob; filename: string }> = []
+      const chunks: ChunkFileList = []
 
       if (count > props.maxCount) {
         max = file.size / props.maxCount
@@ -99,81 +87,132 @@ export default defineComponent({
       while (index < count) {
         chunks.push({
           file: file.slice(index * max, (index + 1) * max),
-          filename: `${HASH}_${index + 1}.${suffix}`,
+          index,
         })
         index++
       }
 
-      index = 0
+      return chunks
+    }
 
-      const complate = async () => {
+    const fileChange = async () => {
+      const file = fileDom.value.files[0]
+      if (!file) return
+
+      const suffix = /\.([a-zA-Z0-9]+)$/.exec(file.name)[1]
+      messageReactive = message.loading('资源解析中', {
+        duration: 0,
+      })
+      disable.value = true
+
+      const chunkFileList = createFileChunk(file)
+      const hash = await calculateHashByFilechunks(chunkFileList)
+
+      if (messageReactive) {
+        messageReactive.destroy()
+        messageReactive = null
+      }
+
+      const newChunkFileList = chunkFileList.map(item => {
+        return {
+          file: item.file,
+          key: item.index,
+          filename: `${hash}_${item.index + 1}.${suffix}`,
+        }
+      })
+
+      let alReady: Array<string> = []
+
+      try {
+        const data: any = await fetchStandard({
+          method: 'get',
+          url: 'http://127.0.0.1:8888/upload_already',
+          params: { HASH: hash },
+        })
+        if (+data.code === 200) {
+          alReady = data.fileList
+        }
+      } catch (error) {}
+
+      const complate = async (index: number) => {
         index++
         processValue.value = index
 
-        if (index < count) return
+        if (index < newChunkFileList.length) return
         processValue.value = 100
 
         try {
           const data: any = await fetchStandard({
             method: 'post',
             url: 'http://127.0.0.1:8888/upload_merge',
-            data: { HASH, count },
+            data: { HASH: hash, count: newChunkFileList.length },
             headers: {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
           })
           if (+data.code === 200) {
-            alert(
+            shortMessage.info(
               `恭喜您，文件上传成功，您可以基于 ${data.servicePath} 访问该文件~~`
             )
-            disable.value = false
-            processValue.value = 0
+            stateReset()
             return
           }
         } catch (error) {
-          alert('切片合并失败，请您稍后再试~~')
-          disable.value = false
-          processValue.value = 0
+          shortMessage.error(`切片合并失败，请您稍后再试~~`)
+          stateReset()
         }
       }
 
-      chunks.forEach(async chunk => {
-        const currentConnectCount = 0
-
-        if (alReady.length > 0 && alReady.includes(chunk.filename)) {
-          complate()
-          return
+      const pool: Array<Promise<any>> = []
+      let isBreak = false
+      for (let i = 0; i < newChunkFileList.length; i++) {
+        if (isBreak) break
+        if (
+          alReady.length > 0 &&
+          alReady.includes(newChunkFileList[i].filename)
+        ) {
+          complate(i)
+          continue
         }
 
         const fm = new FormData()
-        fm.append('file', chunk.file)
-        fm.append('filename', chunk.filename)
+        fm.append('file', newChunkFileList[i].file)
+        fm.append('filename', newChunkFileList[i].filename)
 
-        const uploadPipe = async () => {
-          try {
-            const data: any = await fetchStandard({
-              method: 'post',
-              url: 'http://127.0.0.1:8888/upload_chunk',
-              data: fm,
-            })
+        const task = fetchStandard({
+          method: 'post',
+          url: 'http://127.0.0.1:8888/upload_chunk',
+          data: fm,
+        })
+
+        task
+          .then((data: any) => {
             if (+data.code === 200) {
-              complate()
+              const indexT = pool.findIndex(t => t === task)
+              pool.splice(indexT)
+              complate(i)
               return
             }
             return Promise.reject(data.codeText)
+          })
+          .catch(_error => {
+            isBreak = true
+            shortMessage.error(`当前切片上传失败，请稍后再试~~2`)
+            stateReset()
+          })
+
+        pool.push(task)
+
+        if (pool.length >= 5) {
+          try {
+            await Promise.race(pool)
           } catch (error) {
-            if (currentConnectCount < props.reconnecNumber) {
-              // 需要给个正在重新上传的文案
-              uploadPipe()
-            } else {
-              alert('当前切片上传失败，请您稍后再试~~')
-              disable.value = false
-            }
+            shortMessage.error(`当前切片上传失败，请稍后再试~~1`)
+            stateReset()
+            break
           }
         }
-        await uploadPipe()
-      })
-
+      }
       fileDom.value.value = ''
     }
 
@@ -330,19 +369,11 @@ export default defineComponent({
     font-style: normal;
   }
 
-  .upload_abbre,
-  .upload_box .upload_progress {
-    margin-top: 10px;
-  }
-  .upload_abbre img {
-    display: block;
-    width: 100%;
-  }
-
   .upload_progress {
     position: relative;
     height: 5px;
     background: #eee;
+    margin-top: 30px;
   }
 
   .upload_progress .value {
@@ -385,7 +416,6 @@ export default defineComponent({
   .upload_drag .text a {
     color: #409eff;
   }
-
   .upload_mark {
     position: absolute;
     top: 0;

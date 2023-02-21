@@ -5,22 +5,25 @@
     :collapsed-width="64"
     :width="280"
     :collapsed="collapsed"
-    show-trigger
+    :show-trigger="getNavMode === 'vertical'"
     @collapse="collapsed = true"
     @expand="collapsed = false"
   >
-    <div class="logoWrapper">
+    <div class="logoWrapper" v-if="getNavMode === 'vertical'">
       <n-icon :size="36" :component="LogoVue"></n-icon>
       <div v-show="!collapsed" class="title">Vue3 Admin Template</div>
     </div>
-    <AppMenu :collapsed="collapsed" />
+    <AppMenu :collapsed="collapsed" :mode="getNavMode" />
   </n-layout-sider>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useProjectSetting } from '@/hook'
 import { LogoVue } from '@vicons/ionicons5'
 import AppMenu from '../AppMenu/index.vue'
+
+const { getNavMode } = useProjectSetting()
 
 const collapsed = ref(false)
 </script>

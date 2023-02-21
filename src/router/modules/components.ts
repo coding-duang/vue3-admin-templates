@@ -31,6 +31,12 @@ const ComponentsRoutes: RouteRecordRaw[] = [
             component: () => import('@/pages/Components/Table/index.vue'),
           },
           {
+            path: 'dynamic',
+            name: `${BASE_ROUTE}_table_dynamic`,
+            component: () =>
+              import('@/pages/Components/Table/DynamicTable/index.vue'),
+          },
+          {
             path: 'editor',
             meta: {
               title: '编辑器',
@@ -43,28 +49,35 @@ const ComponentsRoutes: RouteRecordRaw[] = [
       {
         path: 'form',
         name: `${BASE_ROUTE}_form`,
-        redirect: `/${BASE_ROUTE}/table/comprehensive`,
+        meta: {
+          title: '表单',
+        },
+        redirect: `/${BASE_ROUTE}/form/basic`,
         component: SubLayout,
         children: [
           {
             path: 'basic',
-            meta: {
-              title: '表单',
-            },
             name: `${BASE_ROUTE}_basic_form`,
-            component: () => import('@/pages/Components/BasicForm/index.vue'),
+            component: () =>
+              import('@/pages/Components/Form/BasicForm/index.vue'),
           },
           {
             path: 'step',
-            meta: {
-              title: '分布表单',
-            },
             name: `${BASE_ROUTE}_step_form`,
-            component: () => import('@/pages/Components/StepForm/index.vue'),
+            component: () =>
+              import('@/pages/Components/Form/StepForm/index.vue'),
           },
         ],
       },
-
+      {
+        path: 'flowChart',
+        name: `${BASE_ROUTE}_flowChart`,
+        component: () => import('@/pages/FlowChart/index.vue'),
+        meta: {
+          title: '流程图',
+          permissions: [],
+        },
+      },
       {
         path: 'editor',
         meta: {

@@ -2,14 +2,14 @@ import { h, Ref, ref } from 'vue'
 import { getRemote } from '@/http'
 import { TableItem, ModalComponentProps } from '@/types'
 import { NTag, DataTableColumns, NImage, NSwitch, NButton } from 'naive-ui'
-import Table from '@/components/Table/index.vue'
 
 export const createColumns = <Item>(): {
-  tableRef: Ref<typeof Table>
+  tableRef: Ref<typeof import('@/components/Table/index.vue')['default']>
   columns: DataTableColumns<Item>
   componentProps: Ref<ModalComponentProps>
 } => {
-  const tableRef = ref<typeof Table>(null)
+  const tableRef =
+    ref<typeof import('@/components/Table/index.vue')['default']>(null)
   const componentProps: Ref<ModalComponentProps> = ref({})
   const loading = ref(false)
   const columns = [
@@ -97,7 +97,6 @@ export const createColumns = <Item>(): {
       render: (rowData: TableItem) => {
         const handleEdit = () => {
           tableRef.value?.openModal('edit')
-          console.log(tableRef.value)
           componentProps.value = {
             tableItem: rowData,
             activeType: 'edit',

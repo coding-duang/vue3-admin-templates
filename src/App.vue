@@ -22,14 +22,14 @@
               </router-view>
             </template>
           </suspense>
+          <transition name="zoom-fade">
+            <LockScreen v-show="getIsLocked" />
+          </transition>
         </n-message-provider>
         <!-- </n-notification-provider> -->
       </n-dialog-provider>
     </n-loading-bar-provider>
   </n-config-provider>
-  <transition name="zoom-fade">
-    <LockScreen v-show="getIsLocked" />
-  </transition>
 </template>
 
 <script lang="ts" setup>

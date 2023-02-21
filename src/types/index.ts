@@ -17,4 +17,6 @@ export type ButtonGroupConfig = {
 export * from './user'
 export * from './router'
 export * from './table'
+export * from './chat'
+export * from './eCharts'
 export * from './wangEditor'

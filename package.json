@@ -6,7 +6,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "build:dev": "vue-tsc --noEmit && vite build --mode development",
     "format": "prettier --write ./src",
-    "lint": "eslint src/**/*.{js,vue,ts,jsx,tsx}",
+    "lint": "eslint src/**/*.{js,vue,ts,jsx,tsx} --fix",
     "preview": "vite preview",
     "commit": "git add . && git status && git-cz",
     "prepare": "husky install"
@@ -27,7 +27,8 @@
     "turndown": "^7.1.1",
     "vue": "^3.2.45",
     "vue-json-pretty": "^2.2.3",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",

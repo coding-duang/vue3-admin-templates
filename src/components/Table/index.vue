@@ -20,8 +20,8 @@
     <n-drawer v-model:show="showModal" v-bind="drawerAttrs">
       <n-drawer-content :title="modalComponentProps?.title || ''" closable>
         <component :is="modalComponent" v-bind="modalComponentProps" />
-        <template #footer>
-          <slot name="modalFooter"></slot>
+        <template #footer v-if="modalComponentProps.useDrawerFooter">
+          <slot name="modalFooter" :props="modalComponentProps"></slot>
         </template>
       </n-drawer-content>
     </n-drawer>
@@ -77,7 +77,7 @@ const params = computed(() => {
     page: pagination.value.page,
     pageSize: pagination.value.pageSize,
   }
-  console.log(props.cacheCondition, currentCondition)
+
   return { ...paginationParams, ...currentCondition }
 })
 
@@ -91,6 +91,7 @@ const {
 } = useTableData(props.tableDataFetch, params, {
   setPagination,
   setCondition,
+  setModal,
 })
 
 // 创建table上下文

@@ -6,4 +6,5 @@ export type UserInfo = {
   username?: string
   role?: Role
   sex?: Sex
+  userid?: number | string
 }
