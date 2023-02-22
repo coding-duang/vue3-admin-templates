@@ -1,6 +1,6 @@
 <template>
   <div class="main">
-    <AccessAnalysis :key="version" />
+    <AccessAnalysis />
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { AccessAnalysis } from './components/AccessAnalysis'
 
 const version = ref(0)
 
-useInterval(() => version.value++)
+// useInterval(() => version.value++)
 </script>
 
 <style lang="scss" scoped>

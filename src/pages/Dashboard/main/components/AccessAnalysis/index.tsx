@@ -1,21 +1,27 @@
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, provide, watch } from 'vue'
 import { AnalysisItemType } from './type'
-import { AnalysisData, Line, Bar, Line2, Pie } from './config'
+import { useConfig } from './config'
 import { useChart } from '@/hook'
+import { ECOption } from '@/types'
 import { NGrid, NGridItem, NNumberAnimation, NIcon } from 'naive-ui'
 import { ArrowUpwardOutlined, ArrowDownwardOutlined } from '@vicons/material'
 import styles from './index.module.scss'
 
+type ConfigData = ReturnType<typeof useConfig>['configData']
+
 export const AccessAnalysis = defineComponent({
   name: 'AccessAnalysis',
   setup() {
+    const { configData } = useConfig()
+
+    provide<ConfigData>('configData', configData)
     return () => {
       return <div class={ styles.AccessAnalysis }>
         <div class={ styles.subtitle }>数据分析</div>
         <NGrid cols="4" x-gap={ 12 } y-gap={ 8 } item-responsive responsive="screen">
-          { AnalysisData.map(
+          { configData.value.AnalysisData.map(
             (analysis: AnalysisItemType, index: number) => <NGridItem span="4 m:2 l:1">
-              <AnalysisItem data={ analysis } index={ index } />
+              <AnalysisItem data={ analysis } index={ index } chartData={ configData.value.chart } />
           </NGridItem>)}
         </NGrid>
       </div>
@@ -33,11 +39,18 @@ const AnalysisItem = defineComponent({
     index: {
       type: Number,
       default: 0
+    },
+    chartData: {
+      type: Array as PropType<ECOption[]>,
+      required: true
     }
   },
   setup(props) {
-    const configList = [Line, Bar, Line2, Pie]
-    const { chartRef } = useChart(configList[props.index])
+    const { chartRef, chartInstance } = useChart(props.chartData[props.index])
+
+    watch(() => props.chartData, newVal => {
+      chartInstance.value.setOption(newVal[props.index])
+    })
     return () => {
       return <div class={ [styles.itemWrapper, styles[`bg${props.index + 1}`]] }>
           <div class={ styles.left }>
