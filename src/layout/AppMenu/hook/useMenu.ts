@@ -20,6 +20,7 @@ import {
   SettingsInputComponentOutlined,
   LocalPrintshopOutlined,
   ApiFilled,
+  AutoFixOffRound,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
@@ -99,6 +100,12 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '大文件上传',
         key: 'upload',
         icon: DriveFolderUploadOutlined,
+      },
+      {
+        path: '/components/download',
+        label: '文件下载',
+        key: 'download',
+        icon: AutoFixOffRound,
       },
       {
         path: '/components/draggable',
