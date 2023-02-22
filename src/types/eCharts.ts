@@ -10,6 +10,7 @@ import {
   TooltipComponentOption,
   GridComponentOption,
   DatasetComponentOption,
+  LegendComponentOption,
 } from 'echarts/components'
 
 export type ECOption = echarts.ComposeOption<
@@ -20,4 +21,5 @@ export type ECOption = echarts.ComposeOption<
   | TooltipComponentOption
   | GridComponentOption
   | DatasetComponentOption
+  | LegendComponentOption
 >

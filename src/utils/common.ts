@@ -89,3 +89,14 @@ export function copyToClipboard(
     message.error('复制失败')
   }
 }
+
+export const frandom = (x: number, y: number) =>
+  Math.floor(x + Math.random() * (y - x + 1))
+
+export const sleep = (time: number = 2000) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(null)
+    }, time)
+  })
+}

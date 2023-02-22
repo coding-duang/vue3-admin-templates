@@ -21,6 +21,7 @@ import {
   DatasetComponent,
   TransformComponent,
   SingleAxisComponent,
+  LegendComponent,
 } from 'echarts/components'
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -43,6 +44,7 @@ echarts.use([
   SingleAxisComponent,
   DatasetComponent,
   TransformComponent,
+  LegendComponent,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer,
