@@ -11,6 +11,9 @@ import {
 import { Condition } from '@/hook/table/useCondition'
 import { createDynamicStore, createDynamicPaginationStore } from '@/store'
 
+export type TableComponent =
+  typeof import('@/components/Table/index.vue')['default']
+
 export type Pagination = PaginationProps
 
 export type Fn = (...args: any[]) => void

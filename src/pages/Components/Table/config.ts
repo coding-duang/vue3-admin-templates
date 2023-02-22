@@ -1,15 +1,14 @@
 import { h, Ref, ref } from 'vue'
 import { getRemote } from '@/http'
-import { TableItem, ModalComponentProps } from '@/types'
+import { TableItem, ModalComponentProps, TableComponent } from '@/types'
 import { NTag, DataTableColumns, NImage, NSwitch, NButton } from 'naive-ui'
 
 export const createColumns = <Item>(): {
-  tableRef: Ref<typeof import('@/components/Table/index.vue')['default']>
+  tableRef: Ref<TableComponent | null>
   columns: DataTableColumns<Item>
   componentProps: Ref<ModalComponentProps>
 } => {
-  const tableRef =
-    ref<typeof import('@/components/Table/index.vue')['default']>(null)
+  const tableRef = ref<TableComponent | null>(null)
   const componentProps: Ref<ModalComponentProps> = ref({})
   const loading = ref(false)
   const columns = [

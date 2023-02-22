@@ -1,18 +1,22 @@
 <script setup lang="ts">
+import '@wangeditor/editor/dist/css/style.css'
+import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { onBeforeUnmount, ref, shallowRef, watch } from 'vue'
+import {
+  EditorProps,
+  EditorConfigType,
+  ToolbarConfigType,
+  EditorType,
+} from './props'
 // imports
 import { DomEditor, IToolbarConfig } from '@wangeditor/editor'
-import { Editor } from '@wangeditor/editor-for-vue'
-import { onBeforeUnmount, ref, shallowRef, watch, computed } from 'vue'
-
-import { useCallbacks } from './callback'
-import { EditorProps as props, EditorType } from './props'
-
 import { initModules, initPlugins, modules, plugins } from './ExtendPlugin'
 import EditorToolBar from './Toolbar/index.vue'
 
-import '@wangeditor/editor/dist/css/style.css'
 // 引入自定义样式
 import './ExtendPlugin/ExportFile/index.scss'
+
+const props = defineProps(EditorProps)
 
 // state
 const editorRef = shallowRef()
@@ -74,18 +78,13 @@ const onEditorCreated = (editor: EditorType) => {
   }
 }
 
-const {
-  handleBlur,
-  handleFocus,
-  handleChange,
-  handleDestroyed,
-  customAlert,
-  customPaste,
-} = useCallbacks()
-
 // lifecycle
 onBeforeUnmount(() => {
   if (editorRef?.value?.destroy) editorRef.value.destroy()
+})
+
+defineExpose({
+  editorRef,
 })
 </script>
 
@@ -103,12 +102,12 @@ onBeforeUnmount(() => {
       class="editor"
       :style="props?.editorStyle"
       @onCreated="onEditorCreated"
-      @onChange="handleChange"
-      @onDestroyed="handleDestroyed"
-      @onFocus="handleFocus"
-      @onBlur="handleBlur"
-      @customAlert="customAlert"
-      @customPaste="customPaste"
+      @onChange="props.onChange"
+      @onDestroyed="props.onDestroyed"
+      @onFocus="props.onFocus"
+      @onBlur="props.onBlur"
+      @customAlert="props.customAlert"
+      @customPaste="props.customPaste"
     />
   </div>
 </template>
