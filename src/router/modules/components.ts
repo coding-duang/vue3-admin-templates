@@ -102,6 +102,14 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         name: `${BASE_ROUTE}_upload`,
         component: () => import('@/pages/Components/Upload/index.vue'),
       },
+      {
+        path: 'draggable',
+        meta: {
+          title: '拖拽',
+        },
+        name: `${BASE_ROUTE}_draggable`,
+        component: () => import('@/pages/Components/Draggable/index.vue'),
+      },
     ],
   },
 ]

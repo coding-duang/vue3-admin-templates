@@ -19,6 +19,7 @@ import {
   DriveFolderUploadOutlined,
   SettingsInputComponentOutlined,
   LocalPrintshopOutlined,
+  ApiFilled,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
@@ -98,6 +99,12 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '大文件上传',
         key: 'upload',
         icon: DriveFolderUploadOutlined,
+      },
+      {
+        path: '/components/draggable',
+        label: '拖拽',
+        key: 'draggable',
+        icon: ApiFilled,
       },
     ],
   },
