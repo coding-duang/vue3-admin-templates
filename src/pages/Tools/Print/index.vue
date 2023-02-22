@@ -30,13 +30,15 @@
     <n-modal
       v-model:show="showModal"
       preset="dialog"
-      :style="{ width: 'auto' }"
+      :style="{ width: 'auto', height: '450px' }"
       title="Dialog"
     >
       <template #header>
         <div>自定义打印内容</div>
       </template>
-      <Editor ref="EditorRef" :on-change="onChange" />
+      <div class="editor_dialog_wrap">
+        <Editor ref="EditorRef" :on-change="onChange" />
+      </div>
       <template #action>
         <n-button type="primary" v-print="printCustom">打印</n-button>
       </template>
@@ -97,5 +99,8 @@ const printCustom = usePrint({
   #printImage {
     margin-top: 20px;
   }
+}
+.editor_dialog_wrap {
+  height: 400px;
 }
 </style>
