@@ -1,17 +1,22 @@
 <template>
   <div class="main">
     <AccessAnalysis />
+    <Trend />
+    <ChinaMap />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { useInterval } from '@/hook'
+import { provide } from 'vue'
+import { useConfig } from './components/AccessAnalysis/config'
 import { AccessAnalysis } from './components/AccessAnalysis'
+import { Trend } from './components/Trend'
+import { ChinaMap } from './components/ChinaMap'
+import { ConfigData } from './components/AccessAnalysis/type'
 
-const version = ref(0)
+const { configData } = useConfig()
 
-// useInterval(() => version.value++)
+provide<ConfigData>('configData', configData)
 </script>
 
 <style lang="scss" scoped>

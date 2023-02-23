@@ -1,20 +1,15 @@
-import { defineComponent, PropType, provide, watch } from 'vue'
-import { AnalysisItemType } from './type'
-import { useConfig } from './config'
+import { defineComponent, PropType, watch, inject } from 'vue'
+import { AnalysisItemType, ConfigData } from './type'
 import { useChart } from '@/hook'
 import { ECOption } from '@/types'
 import { NGrid, NGridItem, NNumberAnimation, NIcon } from 'naive-ui'
 import { ArrowUpwardOutlined, ArrowDownwardOutlined } from '@vicons/material'
 import styles from './index.module.scss'
 
-type ConfigData = ReturnType<typeof useConfig>['configData']
-
 export const AccessAnalysis = defineComponent({
   name: 'AccessAnalysis',
   setup() {
-    const { configData } = useConfig()
-
-    provide<ConfigData>('configData', configData)
+    const configData = inject<ConfigData>('configData')
     return () => {
       return <div class={ styles.AccessAnalysis }>
         <div class={ styles.subtitle }>数据分析</div>

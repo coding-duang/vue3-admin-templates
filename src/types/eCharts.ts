@@ -3,6 +3,7 @@ import {
   BarSeriesOption,
   PieSeriesOption,
   LineSeriesOption,
+  RadarSeriesOption,
 } from 'echarts/charts'
 
 import {
@@ -17,6 +18,7 @@ export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
   | LineSeriesOption
   | PieSeriesOption
+  | RadarSeriesOption
   | TitleComponentOption
   | TooltipComponentOption
   | GridComponentOption
