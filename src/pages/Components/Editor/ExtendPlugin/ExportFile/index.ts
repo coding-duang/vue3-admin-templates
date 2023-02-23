@@ -2,9 +2,10 @@ import { IModalMenu, IRegisterMenuConf } from '@wangeditor/core'
 import { IDomEditor, SlateNode } from '@wangeditor/editor'
 import { DOMElement } from '@wangeditor/editor/dist/editor/src/utils/dom'
 import { saveAs } from 'file-saver'
+import { createDiscreteApi } from 'naive-ui'
 
 import { currentValue } from '@/types'
-import { copyToClipboard } from '@/utils'
+import { copyToClipboard, hasContent } from '@/utils'
 import { getMD } from './Markdown'
 import { getPng } from './Png'
 
@@ -12,6 +13,9 @@ import { getPng } from './Png'
 const EDITOR_CONTAINER_ID = 'editor_export_container'
 const EDITOR_FOOTER_ID = 'editor_export_footer'
 const EDITOR_CONTENT_ID = 'editor_export_content'
+const EDITOR_SELECTION_ID = 'editor_export_content_selection'
+
+const { message } = createDiscreteApi(['message'])
 
 class ExportFile implements IModalMenu {
   title = '导出'
@@ -51,6 +55,7 @@ function exportFileDialog(editor: IDomEditor) {
     <option value="html">HTML</option>
     <option value="png">PNG</option>
   `
+  select.classList.add(EDITOR_SELECTION_ID)
 
   select.style.cursor = 'pointer'
 
@@ -93,6 +98,11 @@ function exportFileDialog(editor: IDomEditor) {
       value = (currentValue.content as HTMLCanvasElement).toDataURL('image/png')
     } else {
       value = currentValue.content
+    }
+
+    if (!value) {
+      message.error('内容为空, 复制失败!')
+      return
     }
 
     copyToClipboard(value)
@@ -155,31 +165,46 @@ function setDialogContent(
 }
 
 function exportFile({ type, content }: currentValue) {
+  if (!content) {
+    message.error('内容为空, 导出失败!')
+    return
+  }
   switch (type) {
     case 'md': {
-      const blob = new Blob([content], {
-        type: 'text/markdown;charset=utf-8',
-      })
-      saveAs(blob, 'export.md')
+      save(
+        new Blob([content], {
+          type: 'text/markdown;charset=utf-8',
+        }),
+        'export.md'
+      )
       break
     }
     case 'png': {
       content.toBlob(blob => {
-        saveAs(blob, 'export.png')
+        save(blob, 'export.png')
       })
       break
     }
     case 'html': {
+      if (!hasContent(content)) {
+        message.error('内容为空, 导出失败!')
+        return
+      }
       const blob = new Blob([content], {
         type: 'text/html;charset=utf-8',
       })
-      saveAs(blob, 'export.html')
+      save(blob, 'export.html')
       break
     }
     default:
       console.log('exportFile', type)
       break
   }
+}
+
+function save(data: Blob | string, filename: string) {
+  saveAs(data, 'export.html')
+  message.success('导出成功!')
 }
 
 export const ExportFileConf: IRegisterMenuConf = {

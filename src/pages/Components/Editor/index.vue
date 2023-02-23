@@ -8,26 +8,20 @@ import {
   ToolbarConfigType,
   EditorType,
 } from './props'
-// imports
+
 import { DomEditor, IToolbarConfig } from '@wangeditor/editor'
-import { initModules, initPlugins, modules, plugins } from './ExtendPlugin'
+import { initEditorPlugins, modules, plugins } from './ExtendPlugin'
 import EditorToolBar from './Toolbar/index.vue'
 
 // 引入自定义样式
 import './ExtendPlugin/ExportFile/index.scss'
 
+// props
 const props = defineProps(EditorProps)
 
 // state
 const editorRef = shallowRef()
 const valueHtml = ref(props?.initHtml ?? '')
-
-const initEditorPlugins = () => {
-  initModules()
-  initPlugins()
-}
-
-initEditorPlugins()
 
 // toolbar config
 const toolbarConfig = ref<Partial<IToolbarConfig>>({})
@@ -74,6 +68,8 @@ const onEditorCreated = (editor: EditorType) => {
 onBeforeUnmount(() => {
   if (editorRef?.value?.destroy) editorRef.value.destroy()
 })
+
+initEditorPlugins()
 
 defineExpose({
   editorRef,

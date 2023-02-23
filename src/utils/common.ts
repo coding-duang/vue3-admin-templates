@@ -89,3 +89,12 @@ export function copyToClipboard(
     message.error('复制失败')
   }
 }
+
+// 判断HTML标签中是否有内容
+export function hasContent(html: string) {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  const result = !!div.textContent.trim()
+  div.remove()
+  return result
+}
