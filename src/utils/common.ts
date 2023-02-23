@@ -105,6 +105,7 @@ export function openWindow(
   noreferrer && feature.push('noreferrer=yes')
 
   window.open(url, target, feature.join(','))
+}
 
 // 判断HTML标签中是否有内容
 export function hasContent(html: string) {
@@ -113,4 +114,15 @@ export function hasContent(html: string) {
   const result = !!div.textContent.trim()
   div.remove()
   return result
+}
+
+export const frandom = (x: number, y: number) =>
+  Math.floor(x + Math.random() * (y - x + 1))
+
+export const sleep = (time: number = 2000) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(null)
+    }, time)
+  })
 }

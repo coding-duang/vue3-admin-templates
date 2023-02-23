@@ -21,15 +21,31 @@ import {
   LocalPrintshopOutlined,
   ApiFilled,
   AutoFixOffRound,
+  MapsHomeWorkRound,
+  WorkFilled,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
 
 const menuOptionsObj: MenuOptionObj[] = [
   {
-    path: '/',
+    path: '/dashboard',
     label: '首页',
     key: 'console',
     icon: HomeOutline,
+    children: [
+      {
+        path: '/dashboard/console',
+        label: '主控台',
+        key: 'console',
+        icon: MapsHomeWorkRound,
+      },
+      {
+        path: '/dashboard/work',
+        label: '工作台',
+        key: 'work',
+        icon: WorkFilled,
+      },
+    ],
   },
   {
     path: '/components',

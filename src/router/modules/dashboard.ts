@@ -20,9 +20,18 @@ const DashboardRoutes: RouteRecordRaw[] = [
       {
         path: 'console',
         name: `${BASE_ROUTE}_console`,
-        component: () => import('@/pages/Dashboard/index.vue'),
+        component: () => import('@/pages/Dashboard/main/index.vue'),
         meta: {
-          title: '控制台',
+          title: '主控台',
+          permissions: [],
+        },
+      },
+      {
+        path: 'work',
+        name: `${BASE_ROUTE}_work`,
+        component: () => import('@/pages/Dashboard/main/index.vue'),
+        meta: {
+          title: '工作台',
           permissions: [],
         },
       },
