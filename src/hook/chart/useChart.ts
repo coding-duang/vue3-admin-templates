@@ -13,6 +13,8 @@ import {
   FunnelChart,
   GaugeChart,
   ThemeRiverChart,
+  MapChart,
+  EffectScatterChart,
 } from 'echarts/charts'
 import {
   TitleComponent,
@@ -21,6 +23,10 @@ import {
   DatasetComponent,
   TransformComponent,
   SingleAxisComponent,
+  LegendComponent,
+  ToolboxComponent,
+  VisualMapComponent,
+  GeoComponent,
 } from 'echarts/components'
 import { LabelLayout, UniversalTransition } from 'echarts/features'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -36,6 +42,7 @@ echarts.use([
   SunburstChart,
   FunnelChart,
   GaugeChart,
+  MapChart,
   ThemeRiverChart,
   TitleComponent,
   TooltipComponent,
@@ -43,6 +50,11 @@ echarts.use([
   SingleAxisComponent,
   DatasetComponent,
   TransformComponent,
+  LegendComponent,
+  ToolboxComponent,
+  VisualMapComponent,
+  GeoComponent,
+  EffectScatterChart,
   LabelLayout,
   UniversalTransition,
   CanvasRenderer,

@@ -106,3 +106,14 @@ export function openWindow(
 
   window.open(url, target, feature.join(','))
 }
+
+export const frandom = (x: number, y: number) =>
+  Math.floor(x + Math.random() * (y - x + 1))
+
+export const sleep = (time: number = 2000) => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(null)
+    }, time)
+  })
+}
