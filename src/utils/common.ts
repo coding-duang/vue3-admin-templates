@@ -90,6 +90,22 @@ export function copyToClipboard(
   }
 }
 
+export function openWindow(
+  url: string,
+  opt?: {
+    target?: '_self' | '_blank' | string
+    noopener?: boolean
+    noreferrer?: boolean
+  }
+) {
+  const { target = '__blank', noopener = true, noreferrer = true } = opt || {}
+  const feature: string[] = []
+
+  noopener && feature.push('noopener=yes')
+  noreferrer && feature.push('noreferrer=yes')
+
+  window.open(url, target, feature.join(','))
+
 // 判断HTML标签中是否有内容
 export function hasContent(html: string) {
   const div = document.createElement('div')

@@ -103,6 +103,14 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         component: () => import('@/pages/Components/Upload/index.vue'),
       },
       {
+        path: 'download',
+        meta: {
+          title: '文件下载',
+        },
+        name: `${BASE_ROUTE}_download`,
+        component: () => import('@/pages/Components/Download/index.vue')
+      },
+      {
         path: 'draggable',
         meta: {
           title: '拖拽',
