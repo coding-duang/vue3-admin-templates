@@ -107,6 +107,15 @@ export function openWindow(
   window.open(url, target, feature.join(','))
 }
 
+// 判断HTML标签中是否有内容
+export function hasContent(html: string) {
+  const div = document.createElement('div')
+  div.innerHTML = html
+  const result = !!div.textContent.trim()
+  div.remove()
+  return result
+}
+
 export const frandom = (x: number, y: number) =>
   Math.floor(x + Math.random() * (y - x + 1))
 

@@ -1,5 +1,5 @@
 import { Editor } from '@wangeditor/editor-for-vue'
-import { defineProps, PropType } from 'vue'
+import { defineProps, PropType, CSSProperties } from 'vue'
 import type {
   IDomEditor,
   IEditorConfig,
@@ -27,7 +27,8 @@ export const EditorProps = {
     default: () => ({}),
   },
   editorStyle: {
-    type: String,
+    type: Object as PropType<CSSProperties>,
+    default: () => ({}),
   },
   editorConfig: {
     type: Object as PropType<EditorConfigType>,

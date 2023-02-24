@@ -3,6 +3,7 @@
   height: 100%;
   .editor {
     width: 100%;
+    height: calc(100% - 40px) !important;
   }
 
   .preview-md {
