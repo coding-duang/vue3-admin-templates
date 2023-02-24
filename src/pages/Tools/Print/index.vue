@@ -27,6 +27,8 @@
       <div v-html="customHTML"></div>
     </div>
 
+    <n-button v-cropper="options">点我</n-button>
+
     <n-modal
       v-model:show="showModal"
       preset="dialog"
@@ -64,6 +66,15 @@ export default {
 const EditorRef = ref<typeof Editor | null>(null)
 const showModal = ref(false)
 const customHTML = ref('')
+
+const options = {
+  triggerCallback({ code, msg }: { code: number; msg: string }) {
+    console.log(code, msg)
+  },
+  completeCallback(res: any) {
+    console.log(res)
+  },
+}
 
 onBeforeUnmount(() => {
   customHTML.value = ''

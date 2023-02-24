@@ -117,3 +117,37 @@ export const sleep = (time: number = 2000) => {
     }, time)
   })
 }
+
+export function on(
+  element: Element | HTMLElement | Document | Window,
+  event: string,
+  handler: (...args: any[]) => void
+): void {
+  if (element && event && handler) {
+    element.addEventListener(event, handler, false)
+  }
+}
+
+export function off(
+  element: Element | HTMLElement | Document | Window,
+  event: string,
+  handler: (...args: any[]) => void
+): void {
+  if (element && event && handler) {
+    element.removeEventListener(event, handler, false)
+  }
+}
+
+export function once(
+  el: HTMLElement,
+  event: string,
+  fn: (...args: any[]) => void
+): void {
+  const listener = function (this: any, ...args: unknown[]) {
+    if (fn) {
+      fn.apply(this, args)
+    }
+    off(el, event, listener)
+  }
+  on(el, event, listener)
+}
