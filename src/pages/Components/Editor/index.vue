@@ -47,10 +47,6 @@ watch(
           .map(plugin => plugin.key)
           .concat(modules.map(module => module.key)),
       }
-
-      // get toolbar height
-      const toolbar = DomEditor?.getToolbar?.(editor)
-      console.log('toolbar --> ', toolbar)
     }
   }
 )
@@ -59,15 +55,11 @@ watch(
 const onEditorCreated = (editor: EditorType) => {
   editorRef.value = editor
 
-  // get toolbar config
   setTimeout(() => {
-    const toolbar = DomEditor?.getToolbar?.(editorRef.value)
-    const curToolbarConfig = toolbar?.getConfig()
-
-    const len =
-      curToolbarConfig.toolbarKeys?.filter(key => key !== '|').length || 0
-
-    console.log('curToolbarConfig --> ', curToolbarConfig)
+    /* const toolbar = DomEditor?.getToolbar?.(editorRef.value) */
+    /* const curToolbarConfig = toolbar?.getConfig() */
+    /* const len = */
+    /*   curToolbarConfig.toolbarKeys?.filter(key => key !== '|').length || 0 */
   })
 
   if (props?.editorProps) {

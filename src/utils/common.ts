@@ -90,6 +90,23 @@ export function copyToClipboard(
   }
 }
 
+export function openWindow(
+  url: string,
+  opt?: {
+    target?: '_self' | '_blank' | string
+    noopener?: boolean
+    noreferrer?: boolean
+  }
+) {
+  const { target = '__blank', noopener = true, noreferrer = true } = opt || {}
+  const feature: string[] = []
+
+  noopener && feature.push('noopener=yes')
+  noreferrer && feature.push('noreferrer=yes')
+
+  window.open(url, target, feature.join(','))
+}
+
 export const frandom = (x: number, y: number) =>
   Math.floor(x + Math.random() * (y - x + 1))
 

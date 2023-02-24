@@ -19,6 +19,8 @@ import {
   DriveFolderUploadOutlined,
   SettingsInputComponentOutlined,
   LocalPrintshopOutlined,
+  ApiFilled,
+  AutoFixOffRound,
   MapsHomeWorkRound,
   WorkFilled,
 } from '@vicons/material'
@@ -98,12 +100,6 @@ const menuOptionsObj: MenuOptionObj[] = [
         icon: EditOutlined,
       },
       {
-        path: '/components/flowchart',
-        label: '流程图',
-        key: 'flowchart',
-        icon: HourglassOutline,
-      },
-      {
         path: '/components/charts',
         label: '图表',
         key: 'charts',
@@ -128,6 +124,24 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '打印',
         key: 'print',
         icon: LocalPrintshopOutlined,
+      },
+      {
+        path: '/tools/flowchart',
+        label: '流程图',
+        key: 'flowchart',
+        icon: HourglassOutline,
+      },
+      {
+        path: '/tools/download',
+        label: '文件下载',
+        key: 'download',
+        icon: AutoFixOffRound,
+      },
+      {
+        path: '/tools/draggable',
+        label: '拖拽',
+        key: 'draggable',
+        icon: ApiFilled,
       },
     ],
   },

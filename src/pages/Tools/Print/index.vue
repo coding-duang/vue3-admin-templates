@@ -36,7 +36,9 @@
       <template #header>
         <div>自定义打印内容</div>
       </template>
-      <Editor ref="EditorRef" :on-change="onChange" />
+      <div class="editor_dialog_wrap">
+        <Editor ref="EditorRef" :on-change="onChange" />
+      </div>
       <template #action>
         <n-button type="primary" v-print="printCustom">打印</n-button>
       </template>
@@ -45,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, onBeforeUnmount } from 'vue'
 import print from 'vue3-print-nb'
 import { usePrint } from '@/hook'
 import { EditorType } from '@/pages/Components/Editor/props'
@@ -62,6 +64,10 @@ export default {
 const EditorRef = ref<typeof Editor | null>(null)
 const showModal = ref(false)
 const customHTML = ref('')
+
+onBeforeUnmount(() => {
+  customHTML.value = ''
+})
 
 const onChange = (editor: EditorType) => {
   customHTML.value = editor.getHtml()
@@ -97,5 +103,13 @@ const printCustom = usePrint({
   #printImage {
     margin-top: 20px;
   }
+  #printCustom {
+    position: absolute;
+    top: 10000px;
+    z-index: -1;
+  }
+}
+.editor_dialog_wrap {
+  height: 400px;
 }
 </style>

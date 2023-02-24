@@ -70,15 +70,6 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         ],
       },
       {
-        path: 'flowChart',
-        name: `${BASE_ROUTE}_flowChart`,
-        component: () => import('@/pages/FlowChart/index.vue'),
-        meta: {
-          title: '流程图',
-          permissions: [],
-        },
-      },
-      {
         path: 'editor',
         meta: {
           title: '编辑器',
