@@ -7,4 +7,7 @@ export type UserInfo = {
   role?: Role
   sex?: Sex
   userid?: number | string
+  userId: number
+  roleId: 0 | 1 | 2 | 3
+  token: string
 }

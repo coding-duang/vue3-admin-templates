@@ -40,7 +40,7 @@ export class Service {
     instance.interceptors.request.use(config => {
       // console.log(config)
       // TODO 临时使用的token
-      config.headers.authorization = 'token'
+      // config.headers.authorization = 'token'
       return config
     })
   }
