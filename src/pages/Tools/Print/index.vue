@@ -27,6 +27,8 @@
       <div v-html="customHTML"></div>
     </div>
 
+    <n-button v-cropper="options">点我</n-button>
+
     <n-modal
       v-model:show="showModal"
       preset="dialog"
@@ -48,7 +50,7 @@
 </template>
 
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, onBeforeUnmount } from 'vue'
 import print from 'vue3-print-nb'
 import { usePrint } from '@/hook'
 import { EditorType } from '@/pages/Components/Editor/props'
@@ -65,6 +67,19 @@ export default {
 const EditorRef = ref<typeof Editor | null>(null)
 const showModal = ref(false)
 const customHTML = ref('')
+
+const options = {
+  triggerCallback({ code, msg }: { code: number; msg: string }) {
+    console.log(code, msg)
+  },
+  completeCallback(res: any) {
+    console.log(res)
+  },
+}
+
+onBeforeUnmount(() => {
+  customHTML.value = ''
+})
 
 const onChange = (editor: EditorType) => {
   customHTML.value = editor.getHtml()
@@ -99,6 +114,11 @@ const printCustom = usePrint({
   }
   #printImage {
     margin-top: 20px;
+  }
+  #printCustom {
+    position: absolute;
+    top: 10000px;
+    z-index: -1;
   }
 }
 .editor_wrap_content {

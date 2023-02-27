@@ -70,15 +70,6 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         ],
       },
       {
-        path: 'flowChart',
-        name: `${BASE_ROUTE}_flowChart`,
-        component: () => import('@/pages/FlowChart/index.vue'),
-        meta: {
-          title: '流程图',
-          permissions: [],
-        },
-      },
-      {
         path: 'editor',
         meta: {
           title: '编辑器',
@@ -101,22 +92,6 @@ const ComponentsRoutes: RouteRecordRaw[] = [
         },
         name: `${BASE_ROUTE}_upload`,
         component: () => import('@/pages/Components/Upload/index.vue'),
-      },
-      {
-        path: 'download',
-        meta: {
-          title: '文件下载',
-        },
-        name: `${BASE_ROUTE}_download`,
-        component: () => import('@/pages/Components/Download/index.vue')
-      },
-      {
-        path: 'draggable',
-        meta: {
-          title: '拖拽',
-        },
-        name: `${BASE_ROUTE}_draggable`,
-        component: () => import('@/pages/Components/Draggable/index.vue'),
       },
     ],
   },
