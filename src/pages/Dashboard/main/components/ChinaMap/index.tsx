@@ -22,11 +22,11 @@ export const ChinaMap = defineComponent({
             <Card
               cardProps={{
                 contentStyle: {
-                  background: '#404a59'
+                  background: 'linear-gradient(to right, #404a59, #404a31)'
                 },
                 headerStyle: {
                   color: '#fff',
-                  background: '#404a59'
+                  background: 'linear-gradient(to right, #404a59, #404a31)'
                 }
               }}
               loading={ loading.value }

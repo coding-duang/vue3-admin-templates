@@ -1,6 +1,7 @@
 import { fetchStandard } from '../standard'
 import { Pagination, TableApiResult, TableItem } from '@/types'
 import { Condition } from '@/hook'
+import { AuthCondition } from '@/types/auth'
 
 export class GetRemote {
   getTableList(params: Pagination & Condition<TableItem>) {
@@ -30,6 +31,14 @@ export class GetRemote {
   tableUpdate(body: TableItem) {
     return fetchStandard<TableItem, any>({
       url: '/table/update',
+      method: 'POST',
+      data: body,
+    })
+  }
+
+  getOriginRoutes(body: AuthCondition) {
+    return fetchStandard<AuthCondition, any>({
+      url: '/auth/routes',
       method: 'POST',
       data: body,
     })

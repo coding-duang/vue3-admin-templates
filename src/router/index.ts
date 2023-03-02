@@ -1,7 +1,8 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 import { createDiscreteApi } from 'naive-ui'
 import { PageEnum } from '@/enum'
-import { RedirectRoute } from './base'
+import { baseRoutes } from './base'
+import usePermissionGuard from './guard/permission'
 
 const { loadingBar } = createDiscreteApi(['loadingBar'])
 
@@ -19,16 +20,19 @@ const getDynamicRoutes = () => {
 }
 
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Root',
-    redirect: PageEnum.HOME_PATH,
-    meta: {
-      title: 'Root',
-    },
-  },
-  RedirectRoute,
-  ...getDynamicRoutes(),
+  // {
+  //   path: '/',
+  //   name: 'Root',
+  //   redirect: PageEnum.HOME_PATH,
+  //   meta: {
+  //     title: 'Root',
+  //   },
+  // },
+  // ErrorRoute,
+  // RedirectRoute,
+  // ...getDynamicRoutes(),
+  // TODO: 添加错误路由
+  ...baseRoutes,
 ]
 
 const router = createRouter({
@@ -36,17 +40,6 @@ const router = createRouter({
   routes,
   strict: true,
   scrollBehavior: () => ({ left: 0, top: 0 }),
-})
-
-router.beforeEach(() => {
-  loadingBar.start()
-  // todo
-  return true
-})
-
-router.afterEach(() => {
-  // todo
-  loadingBar.finish()
 })
 
 export default router

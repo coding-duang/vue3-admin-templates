@@ -1,5 +1,6 @@
 import Mock, { MockjsRequestOptions, Random } from 'mockjs'
 import { CodeEnum } from '@/enum'
+import { adminRoutes } from './auth'
 
 const getQuery = (url: string, name: string) => {
   const index = url.indexOf('?')
@@ -97,4 +98,8 @@ Mock.mock(/\/api\/table\/create/, 'post', (options: MockjsRequestOptions) => {
   )
 
   return response(tableData.list)
+})
+
+Mock.mock(/\/auth\/routes/, 'post', (options: MockjsRequestOptions) => {
+  return response(adminRoutes)
 })

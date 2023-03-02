@@ -1,3 +1,5 @@
+import * as echarts from 'echarts/core'
+
 export const createChinaMapData = () => {
   const data = [
     { name: '海门', value: 9 },
@@ -403,11 +405,25 @@ export const createChinaMapData = () => {
     textStyle: {
       fontFamily: 'Inter, "Helvetica Neue", Arial, sans-serif',
     },
-    backgroundColor: '#404a59',
+    backgroundColor: new echarts.graphic.LinearGradient(
+      0,
+      0,
+      1,
+      0,
+      [
+        {
+          offset: 0,
+          color: '#404a59', // 0% 处的颜色
+        },
+        {
+          offset: 1,
+          color: '#404a31', // 100% 处的颜色
+        },
+      ],
+      false
+    ),
     title: {
       text: '全国分公司详情',
-      // subtext: 'data from PM25.in',
-      // sublink: 'http://www.pm25.in',
       left: 'left',
       textStyle: {
         color: '#fff',
@@ -420,7 +436,7 @@ export const createChinaMapData = () => {
       orient: 'vertical',
       y: 'bottom',
       x: 'right',
-      data: ['pm2.5'],
+      data: ['分公司'],
       textStyle: {
         color: '#fff',
       },

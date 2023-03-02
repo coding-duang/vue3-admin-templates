@@ -1,5 +1,6 @@
-import { h, ref, watch } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { h, ref, watch, getCurrentInstance } from 'vue'
+import { RouteRecordRaw, RouterLink, useRoute } from 'vue-router'
+import { useAuthRoutesStore } from '@/store'
 import { renderIcon } from '@/utils'
 import type { MenuOption } from 'naive-ui'
 import {
@@ -25,6 +26,8 @@ import {
   WorkFilled,
 } from '@vicons/material'
 import { MenuOptionObj } from '@/types'
+import { Icons } from './registerIcons'
+import { isExternal, strMontage } from '@/router/guard/utils'
 
 const menuOptionsObj: MenuOptionObj[] = [
   {
@@ -100,12 +103,6 @@ const menuOptionsObj: MenuOptionObj[] = [
         icon: EditOutlined,
       },
       {
-        path: '/components/flowchart',
-        label: '流程图',
-        key: 'flowchart',
-        icon: HourglassOutline,
-      },
-      {
         path: '/components/charts',
         label: '图表',
         key: 'charts',
@@ -116,18 +113,6 @@ const menuOptionsObj: MenuOptionObj[] = [
         label: '大文件上传',
         key: 'upload',
         icon: DriveFolderUploadOutlined,
-      },
-      {
-        path: '/components/download',
-        label: '文件下载',
-        key: 'download',
-        icon: AutoFixOffRound,
-      },
-      {
-        path: '/components/draggable',
-        label: '拖拽',
-        key: 'draggable',
-        icon: ApiFilled,
       },
     ],
   },
@@ -143,6 +128,24 @@ const menuOptionsObj: MenuOptionObj[] = [
         key: 'print',
         icon: LocalPrintshopOutlined,
       },
+      {
+        path: '/tools/flowchart',
+        label: '流程图',
+        key: 'flowchart',
+        icon: HourglassOutline,
+      },
+      {
+        path: '/tools/download',
+        label: '文件下载',
+        key: 'download',
+        icon: AutoFixOffRound,
+      },
+      {
+        path: '/tools/draggable',
+        label: '拖拽',
+        key: 'draggable',
+        icon: ApiFilled,
+      },
     ],
   },
 ]
@@ -151,45 +154,101 @@ export const useMenu = () => {
   const activeKey = ref<string | null>(null)
 
   const route = useRoute()
+  const authStore = useAuthRoutesStore()
+
+  const renderLabel = (route: RouteRecordRaw) => {
+    if (route.children?.length > 0 && !route.meta.isSingle) {
+      return route.meta.title
+    }
+    if (isExternal(route.path)) {
+      return () =>
+        h(
+          'a',
+          {
+            href: route.path,
+            target: '_blank',
+          },
+          { default: () => route.meta.title }
+        )
+    }
+    return () =>
+      h(
+        RouterLink,
+        {
+          to: {
+            path: route.path,
+          },
+        },
+        { default: () => route.meta.title }
+      )
+  }
+
+  const getMenuOptions = (routes: RouteRecordRaw[]) => {
+    const menuOptions: MenuOption[] = []
+    routes.forEach(route => {
+      const {
+        path,
+        meta: { title: label },
+        meta: { icon },
+        children,
+      } = route
+      const key = strMontage(path, '-')
+
+      const menu: MenuOption = {
+        label: renderLabel(route),
+        key,
+        icon: renderIcon(Icons[icon] || EditOutlined),
+      }
+      if (children && children.length > 0) {
+        menu.children = getMenuOptions(children)
+      }
+      menuOptions.push(menu)
+    })
+    return menuOptions
+  }
 
   watch(
     () => route.path,
     (newVal: string | null) => {
-      const key = newVal.split('/').pop()
+      // const key = newVal.split('/').pop()
+      const key = strMontage(newVal, '-')
       activeKey.value = key
+    },
+    {
+      immediate: true,
     }
   )
 
   return {
     activeKey,
-    menuOptions: getMenuOptions(),
+    menuOptions: getMenuOptions(authStore.getAuthSideBar),
   }
 }
 
-function getMenuOptions(): MenuOption[] {
-  return menuOptionsObj.map(route => getRouterInfo(route))
-}
+// function getMenuOptions(): MenuOption[] {
+//   return menuOptionsObj.map(route => getRouterInfo(route))
+// }
 
-function getRouterInfo(routerInfo: MenuOptionObj): MenuOption {
-  const { path, label, key, icon, children } = routerInfo
+// function getRouterInfo(routerInfo: MenuOptionObj): MenuOption {
+//   const { path, label, key, icon, children } = routerInfo
 
-  return {
-    label: renderLabel(path, label),
-    key,
-    icon: renderIcon(icon),
-    children: children?.map(item => getRouterInfo(item)),
-  } as MenuOption
-}
+//   return {
+//     label: renderLabel(path, label),
+//     key,
+//     icon: renderIcon(icon),
+//     children: children?.map(item => getRouterInfo(item)),
+//   } as MenuOption
+// }
 
-function renderLabel(path: string, label: string) {
-  return () =>
-    h(
-      RouterLink,
-      {
-        to: {
-          path,
-        },
-      },
-      { default: () => label }
-    )
-}
+// function renderLabel(path: string, label: string) {
+//   return () =>
+//     h(
+//       RouterLink,
+//       {
+//         to: {
+//           path,
+//         },
+//       },
+//       { default: () => label }
+//     )
+// }

@@ -7,10 +7,16 @@ export const useUserStore = defineStore('user', {
     userinfo: {
       avatar: UserAvatar,
       username: 'admin',
+      userId: 0,
+      roleId: 0,
+      token: '1',
     },
   }),
   getters: {
     getUserinfo: state => state.userinfo,
+    isTokenExpire() {
+      return !this.userinfo.token
+    },
   },
   actions: {
     setUserinfo(userinfo: UserInfo) {
