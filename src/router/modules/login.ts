@@ -1,26 +1,23 @@
 import { RouteRecordRaw } from 'vue-router'
-import Login from '@/pages/Login/index.vue'
-
-const BASE_ROUTE = 'Login'
+import Signup from '@/pages/Login/Signup'
+import Signin from '@/pages/Login/Signin'
 
 const LoginRoutes: RouteRecordRaw[] = [
   {
-    path: `/${BASE_ROUTE}`,
-    name: BASE_ROUTE,
-    component: Login,
+    path: 'sign-in',
+    name: '登录',
+    component: Signin,
     meta: {
       title: '登录',
     },
-    children: [
-      {
-        path: 'print',
-        name: `${BASE_ROUTE}_print`,
-        component: () => import('@/pages/Tools/Print/index.vue'),
-        meta: {
-          title: '打印',
-        },
-      },
-    ],
+  },
+  {
+    path: 'sign-up',
+    name: '注册',
+    component: Signup,
+    meta: {
+      title: '注册',
+    },
   },
 ]
 

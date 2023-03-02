@@ -1,10 +1,11 @@
-<script lang="ts" setup>
-import { defineComponent } from 'vue'
-</script>
-
 <template>
-  <div>登录</div>
-  <div>注册</div>
+  <div class="loginPage">
+    <div class="loginBox">
+      <RouterView />
+    </div>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import './index.scss';
+</style>

@@ -3,6 +3,9 @@ import { PageEnum } from '@/enum'
 // import AppLayout from '@/layout/AppLayout/index.vue'
 import ErrorPage from '@/pages/ErrorPage/404/index.vue'
 import DefaultPage from '@/pages/redirect/DefaultRoute.vue'
+import LoginRoutes from './modules/login'
+
+import Login from '@/pages/Login/index.vue'
 
 // export const ErrorRoute: RouteRecordRaw = {
 // path: '/:path(.*)*',
@@ -43,15 +46,6 @@ import DefaultPage from '@/pages/redirect/DefaultRoute.vue'
 // }
 
 export const baseRoutes: RouteRecordRaw[] = [
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: () => import('@/views/login/index.vue'),
-  //   meta: {
-  //     hidden: true,
-  //     title: '登录',
-  //   },
-  // },
   // {
   //   path: '/personal',
   //   name: 'personal',
@@ -124,6 +118,17 @@ export const baseRoutes: RouteRecordRaw[] = [
       title: '',
       hidden: true,
       noShowTabbar: true,
+    },
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    redirect: '/login/sign-in',
+    component: Login,
+    children: LoginRoutes,
+    meta: {
+      hidden: true,
+      title: '登录',
     },
   },
 ]
