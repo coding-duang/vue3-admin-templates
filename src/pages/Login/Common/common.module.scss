@@ -1,0 +1,17 @@
+.header {
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loginWrap {
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.submit {
+  margin-top: 20px;
+  text-align: center;
+}
