@@ -1,5 +1,13 @@
 import { Glasses, GlassesOutline, SwapHorizontal } from '@vicons/ionicons5'
-import { FormInst, NButton, NForm, NFormItem, NIcon, NInput } from 'naive-ui'
+import {
+  FormInst,
+  NButton,
+  NForm,
+  NFormItem,
+  NIcon,
+  NInput,
+  NTooltip,
+} from 'naive-ui'
 import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getSignInRules, useValidate } from '../Common/Validate'
@@ -31,17 +39,24 @@ export default defineComponent({
       // TODO:  Auto login
     })
 
+    const switchRegister = () => {
+      router.replace('/login/sign-up')
+    }
+
     return () => (
       <div class={styles.loginWrap}>
         <p class={styles.header}>
-          <span
-            onClick={() => {
-              router.replace('/login/sign-up')
-            }}
-          >
-            <NIcon size="24">
-              <SwapHorizontal />
-            </NIcon>
+          <span onClick={switchRegister}>
+            <NTooltip trigger={'hover'} placement={'top-start'}>
+              {{
+                default: () => <span>注册</span>,
+                trigger: () => (
+                  <NIcon size="24">
+                    <SwapHorizontal />
+                  </NIcon>
+                ),
+              }}
+            </NTooltip>
           </span>
         </p>
         <NForm ref={fromRef} model={formData} rules={rules}>

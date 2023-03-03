@@ -18,7 +18,7 @@ export default defineComponent({
 
     return () => (
       <>
-        <NFormItem label="邮箱" path="emil" labelPlacement="top">
+        <NFormItem label="邮箱" path="email" labelPlacement="top">
           <NInput
             v-model={[formData.value.email, 'value']}
             clearable

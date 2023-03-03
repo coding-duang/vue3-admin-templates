@@ -1,6 +1,14 @@
 import { defineComponent, provide, ref } from 'vue'
 import { SwapHorizontal } from '@vicons/ionicons5'
-import { FormInst, NButton, NForm, NFormItem, NIcon, NSpace } from 'naive-ui'
+import {
+  FormInst,
+  NButton,
+  NForm,
+  NFormItem,
+  NIcon,
+  NSpace,
+  NTooltip,
+} from 'naive-ui'
 import { useRouter } from 'vue-router'
 
 import { formDataKey } from '@/utils'
@@ -39,9 +47,16 @@ export default defineComponent({
       <div class={styles.loginWrap}>
         <p class={styles.header}>
           <span onClick={switchLogin}>
-            <NIcon size="24">
-              <SwapHorizontal />
-            </NIcon>
+            <NTooltip trigger={'hover'} placement={'top-start'}>
+              {{
+                default: () => <span>登陆</span>,
+                trigger: () => (
+                  <NIcon size="24">
+                    <SwapHorizontal />
+                  </NIcon>
+                ),
+              }}
+            </NTooltip>
           </span>
         </p>
         <NForm ref={fromRef} rules={rules} model={formData}>
@@ -59,6 +74,14 @@ export default defineComponent({
                 onClick={() => {
                   registerType.value =
                     registerType.value === 'mobile' ? 'email' : 'mobile'
+
+                  formData.value = {
+                    [FormEnum.PASSWORD]: '',
+                    [FormEnum.MOBILE]: '',
+                    [FormEnum.REPEAT_PASSWORD]: '',
+                    [FormEnum.VERIFY_CODE]: '',
+                    [FormEnum.EMAIL]: '',
+                  }
                 }}
               >
                 {registerType.value === 'mobile' ? '邮箱注册' : '手机号注册'}
