@@ -2,7 +2,7 @@
   cursor: pointer;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
@@ -12,6 +12,14 @@
 }
 
 .submit {
+  width: 100%;
   margin-top: 20px;
-  text-align: center;
+}
+
+.registerBtn {
+  @extend .submit;
+}
+
+.loginBtn {
+  @extend .submit;
 }

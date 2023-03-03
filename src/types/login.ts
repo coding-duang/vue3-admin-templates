@@ -4,17 +4,19 @@ export type LoginStateType = {
 }
 
 export enum FormEnum {
-  AUTH_CODE = 'authCode',
+  VERIFY_CODE = 'verifyCode',
   MOBILE = 'mobile',
   PASSWORD = 'password',
   REPEAT_PASSWORD = 'reenteredPassword',
+  EMAIL = 'email',
 }
 
 export type FormValuesType = {
   [FormEnum.MOBILE]: string
   [FormEnum.PASSWORD]?: string
   [FormEnum.REPEAT_PASSWORD]?: string
-  [FormEnum.AUTH_CODE]?: string
+  [FormEnum.VERIFY_CODE]?: string
+  [FormEnum.EMAIL]?: string
 }
 
 export enum NotFoundTypeEnum {
