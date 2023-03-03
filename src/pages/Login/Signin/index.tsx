@@ -1,6 +1,6 @@
 import { Glasses, GlassesOutline, SwapHorizontal } from '@vicons/ionicons5'
 import { FormInst, NButton, NForm, NFormItem, NIcon, NInput } from 'naive-ui'
-import { onMounted, ref } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { getSignInRules, useValidate } from '../Common/Validate'
 
@@ -28,20 +28,21 @@ export default defineComponent({
     })
 
     onMounted(() => {
-      //TODO:  Auto login
+      // TODO:  Auto login
     })
 
     return () => (
       <div class={styles.loginWrap}>
         <p class={styles.header}>
-          <NIcon
-            size="24"
+          <span
             onClick={() => {
               router.replace('/login/sign-up')
             }}
           >
-            <SwapHorizontal />
-          </NIcon>
+            <NIcon size="24">
+              <SwapHorizontal />
+            </NIcon>
+          </span>
         </p>
         <NForm ref={fromRef} model={formData} rules={rules}>
           <NFormItem label="账号" label-placement="top" path="mobile">
@@ -68,7 +69,7 @@ export default defineComponent({
               }}
             </NInput>
           </NFormItem>
-          <NFormItem class={styles.submit}>
+          <NFormItem class={styles.loginBtn}>
             <NButton>登录</NButton>
           </NFormItem>
         </NForm>

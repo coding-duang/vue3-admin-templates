@@ -1,8 +1,14 @@
-import { FormEnum, FormValuesType } from '@/types'
-import { Glasses, GlassesOutline, SwapHorizontal } from '@vicons/ionicons5'
-import { FormInst, NButton, NForm, NFormItem, NIcon, NInput } from 'naive-ui'
+import { defineComponent, provide, ref } from 'vue'
+import { SwapHorizontal } from '@vicons/ionicons5'
+import { FormInst, NButton, NForm, NFormItem, NIcon, NSpace } from 'naive-ui'
 import { useRouter } from 'vue-router'
+
+import { formDataKey } from '@/utils'
 import { getSignUpRules, useValidate } from '../Common/Validate'
+import { FormEnum, FormValuesType } from '@/types'
+import Email from './Email'
+import Mobile from './Mobile'
+
 import styles from './index.module.scss'
 
 export default defineComponent({
@@ -11,86 +17,54 @@ export default defineComponent({
     const router = useRouter()
     const fromRef = ref<FormInst | null>(null)
 
+    const registerType = ref<'mobile' | 'email'>('mobile')
+
     const formData = ref<FormValuesType>({
       [FormEnum.PASSWORD]: '',
       [FormEnum.MOBILE]: '',
       [FormEnum.REPEAT_PASSWORD]: '',
+      [FormEnum.VERIFY_CODE]: '',
     })
 
-    const { validatePhone, validatePassword, validatePasswordSame } =
-      useValidate(formData)
+    provide(formDataKey, formData)
 
-    const rules = getSignUpRules({
-      validatePhone,
-      validatePassword,
-      validatePasswordSame,
-    })
+    // 校验规则
+    const rules = getSignUpRules(useValidate(formData))
+
+    const switchLogin = () => {
+      router.replace('/login/sign-in')
+    }
 
     return () => (
       <div class={styles.loginWrap}>
         <p class={styles.header}>
-          <NIcon
-            size="24"
-            onClick={() => {
-              router.replace('/login/sign-in')
-            }}
-          >
-            <SwapHorizontal />
-          </NIcon>
+          <span onClick={switchLogin}>
+            <NIcon size="24">
+              <SwapHorizontal />
+            </NIcon>
+          </span>
         </p>
         <NForm ref={fromRef} rules={rules} model={formData}>
-          <NFormItem
-            label="账号"
-            path="mobile"
-            label-placement="top"
-            class={styles.item}
-          >
-            <NInput
-              v-model={[formData.value.mobile, 'value']}
-              clearable
-              placeholder="请输入11位手机号码"
-            />
-          </NFormItem>
-          <NFormItem label="密码" path="password" label-placement="top">
-            <NInput
-              type="password"
-              show-password-on="click"
-              v-model={[formData.value.password, 'value']}
-            >
-              {{
-                passwordVisibleIcon: () => (
-                  <NIcon size={16} component={GlassesOutline} />
-                ),
-                passwordInvisibleIcon: () => (
-                  <NIcon size={16} component={Glasses} />
-                ),
-              }}
-            </NInput>
-          </NFormItem>
-          <NFormItem
-            label="再次输入密码"
-            path="reenteredPassword"
-            first
-            label-placement="top"
-          >
-            <NInput
-              type="password"
-              show-password-on="click"
-              v-model={[formData.value.reenteredPassword, 'value']}
-            >
-              {{
-                passwordVisibleIcon: () => (
-                  <NIcon size={16} component={GlassesOutline} />
-                ),
-                passwordInvisibleIcon: () => (
-                  <NIcon size={16} component={Glasses} />
-                ),
-              }}
-            </NInput>
-          </NFormItem>
-          <NFormItem class={styles.submit}>
-            <NButton>注册</NButton>
-          </NFormItem>
+          {registerType.value !== 'mobile' ? <Email /> : <Mobile />}
+
+          <NSpace justify="space-between">
+            <NFormItem class={styles.registerBtn} showFeedback={false}>
+              <NButton>注册</NButton>
+            </NFormItem>
+            <NFormItem class={styles.registerBtn} showFeedback={false}>
+              <NButton
+                text
+                tag="div"
+                type="primary"
+                onClick={() => {
+                  registerType.value =
+                    registerType.value === 'mobile' ? 'email' : 'mobile'
+                }}
+              >
+                {registerType.value === 'mobile' ? '邮箱注册' : '手机号注册'}
+              </NButton>
+            </NFormItem>
+          </NSpace>
         </NForm>
       </div>
     )

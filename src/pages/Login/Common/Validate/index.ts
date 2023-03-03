@@ -29,10 +29,33 @@ export const useValidate = (formData: Ref<FormValuesType>) => {
 
     return true
   }
+
+  function validateEmail(): boolean {
+    const regex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+
+    if (!regex.test(formData.value.mobile)) {
+      return false
+    }
+
+    return true
+  }
+
+  function validatorVerifyCode() {
+    const regex = /^\d{6}$/
+
+    if (!regex.test(formData.value.verifyCode)) {
+      return false
+    }
+
+    return true
+  }
+
   return {
     validatePassword,
     validatePasswordSame,
     validatePhone,
+    validatorVerifyCode,
+    validateEmail,
   }
 }
 
@@ -40,10 +63,14 @@ export const getSignUpRules = ({
   validatePassword,
   validatePasswordSame,
   validatePhone,
+  validatorVerifyCode,
+  validateEmail,
 }: {
   validatePassword: (...args: any) => boolean
   validatePasswordSame: (...args: any) => boolean
   validatePhone: (...args: any) => boolean
+  validatorVerifyCode: (...args: any) => boolean
+  validateEmail: (...args: any) => boolean
 }) =>
   ({
     mobile: [
@@ -73,6 +100,22 @@ export const getSignUpRules = ({
         trigger: ['blur', 'input'],
       },
     ],
+    verifyCode: [
+      {
+        required: true,
+        validator: validatorVerifyCode,
+        message: '请输入6位验证码',
+        trigger: ['blur', 'input'],
+      },
+    ],
+    email: [
+      {
+        required: true,
+        validator: validateEmail,
+        message: '请输入邮箱',
+        trigger: ['blur', 'input'],
+      },
+    ],
   } as FormRules)
 
 export const getSignInRules = ({
@@ -86,7 +129,7 @@ export const getSignInRules = ({
     mobile: [
       {
         required: true,
-        message: '请输入手机号码',
+        message: '请输入账号',
       },
       {
         validator: validatePhone,

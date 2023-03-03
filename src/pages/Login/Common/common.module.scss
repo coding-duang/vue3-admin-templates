@@ -12,6 +12,14 @@
 }
 
 .submit {
+  width: 100%;
   margin-top: 20px;
-  text-align: center;
+}
+
+.registerBtn {
+  @extend .submit;
+}
+
+.loginBtn {
+  @extend .submit;
 }
