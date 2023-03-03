@@ -7,4 +7,6 @@ export type UserInfo = {
   role?: Role
   sex?: Sex
   userid?: number | string
+  post?: string
+  belong?: string
 }

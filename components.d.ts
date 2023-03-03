@@ -12,7 +12,6 @@ declare module '@vue/runtime-core' {
     Charts: typeof import('./src/components/Charts/index.vue')['default']
     ColorChoose: typeof import('./src/components/ThemeConfig/components/ColorChoose.vue')['default']
     ControlItem: typeof import('./src/components/ThemeConfig/components/ControlItem.vue')['default']
-    Cropper: typeof import('./src/components/Cropper/index.vue')['default']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     LockScreen: typeof import('./src/components/LockScreen/index.vue')['default']
     NAlert: typeof import('naive-ui')['NAlert']
@@ -70,5 +69,6 @@ declare module '@vue/runtime-core' {
     Table: typeof import('./src/components/Table/index.vue')['default']
     ThemeConfig: typeof import('./src/components/ThemeConfig/index.vue')['default']
     Title: typeof import('./src/components/ThemeConfig/components/Title.vue')['default']
+    Weather: typeof import('./src/components/Weather/index.vue')['default']
   }
 }

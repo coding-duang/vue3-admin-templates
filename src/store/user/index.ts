@@ -7,6 +7,8 @@ export const useUserStore = defineStore('user', {
     userinfo: {
       avatar: UserAvatar,
       username: 'admin',
+      post: '前端工程师',
+      belong: '阿里巴巴-达摩院',
     },
   }),
   getters: {

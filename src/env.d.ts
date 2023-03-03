@@ -15,3 +15,17 @@ declare module 'vue3-print-nb' {
 
   export default _print
 }
+
+type _Window = Window & typeof globalThis
+interface Window extends _Window {
+  WIDGET?: {
+    layout: string
+    width: string
+    height: string
+    background: string
+    dataColor: string
+    borderRadius: string
+    key: string
+  }
+}
+export default Window

@@ -8,12 +8,17 @@ export const modules = [ExportFileConf]
 
 export const plugins: IRegisterMenuConf[] = []
 
-export const initModules = () => {
+const initModules = () => {
   registerModules(modules)
 }
 
-export const initPlugins = () => {
+const initPlugins = () => {
   registerPlugins(plugins)
+}
+
+export const initEditorPlugins = () => {
+  initModules()
+  initPlugins()
 }
 
 export * from './ExportFile'

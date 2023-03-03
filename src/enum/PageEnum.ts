@@ -5,7 +5,7 @@ export const enum PageEnum {
   REDIRECT_PATH = '/redirect',
   REDIRECT_NAME = 'Redirect',
 
-  HOME_PATH = '/dashboard/console',
+  HOME_PATH = '/dashboard/work',
   HOME_NAME = 'Home',
 
   FLOWCHART_PATH = '/flowchart/example',

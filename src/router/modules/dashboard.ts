@@ -29,7 +29,7 @@ const DashboardRoutes: RouteRecordRaw[] = [
       {
         path: 'work',
         name: `${BASE_ROUTE}_work`,
-        component: () => import('@/pages/Dashboard/main/index.vue'),
+        component: () => import('@/pages/Dashboard/work/index.vue'),
         meta: {
           title: '工作台',
           permissions: [],

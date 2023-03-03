@@ -1,9 +1,18 @@
 <template>
-  <div class="workWrapper"></div>
+  <div class="workWrapper">
+    <WorkTable />
+    <Mine />
+  </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { WorkTable } from './components/WorkTable'
+import Mine from './components/Mine/index.vue'
+</script>
 
 <style lang="scss" scoped>
-// @import "./index.scss";
+.workWrapper {
+  padding: 20px;
+  background-color: var(--theme-global-bg-color);
+}
 </style>
