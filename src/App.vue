@@ -16,9 +16,9 @@
           <suspense>
             <template #default>
               <router-view v-slot="{ Component }" v-if="isRouterAlive">
-                <transition mode="out-in" name="slide" appear>
-                  <component :is="Component"></component>
-                </transition>
+                <!-- <transition mode="out-in" name="slide" appear> -->
+                <component :is="Component"></component>
+                <!-- </transition> -->
               </router-view>
             </template>
           </suspense>
