@@ -1,48 +1,50 @@
 <template>
-  <div class="logic-flow-view">
-    <!-- 辅助工具栏 -->
-    <Control
-      class="demo-control"
-      v-if="lf"
-      :lf="lf"
-      @catData="catData"
-    ></Control>
-    <!-- 节点面板 -->
-    <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList"></NodePanel>
-    <!-- 画布 -->
-    <div id="LF-view" ref="container"></div>
-    <!-- 用户节点自定义操作面板 -->
-    <AddPanel
-      v-if="showAddPanel"
-      class="add-panel"
-      :style="addPanelStyle"
-      :lf="lf"
-      :nodeData="addClickNode"
-      @addNodeFinish="hideAddPanel"
-    >
-    </AddPanel>
-    <!-- 属性面板 -->
-    <n-drawer
-      v-model:show="dialogVisible"
-      direction="rtl"
-      default-width="502"
-      :on-after-leave="closeDialog"
-    >
-      <n-drawer-content title="设置节点属性">
-        <PropertyDialog
-          v-if="dialogVisible"
-          :nodeData="clickNode"
-          :lf="lf"
-          @setPropertiesFinish="closeDialog"
-        ></PropertyDialog>
-      </n-drawer-content>
-    </n-drawer>
-    <!-- 数据查看面板 -->
-    <n-modal preset="dialog" v-model:show="dataVisible">
-      <template #header> 数据 </template>
-      <DataDialog :graphData="graphData"></DataDialog>
-    </n-modal>
-  </div>
+  <n-layout>
+    <div class="logic-flow-view">
+      <!-- 辅助工具栏 -->
+      <Control
+        class="demo-control"
+        v-if="lf"
+        :lf="lf"
+        @catData="catData"
+      ></Control>
+      <!-- 节点面板 -->
+      <NodePanel v-if="lf" :lf="lf" :nodeList="nodeList"></NodePanel>
+      <!-- 画布 -->
+      <div id="LF-view" ref="container"></div>
+      <!-- 用户节点自定义操作面板 -->
+      <AddPanel
+        v-if="showAddPanel"
+        class="add-panel"
+        :style="addPanelStyle"
+        :lf="lf"
+        :nodeData="addClickNode"
+        @addNodeFinish="hideAddPanel"
+      >
+      </AddPanel>
+      <!-- 属性面板 -->
+      <n-drawer
+        v-model:show="dialogVisible"
+        direction="rtl"
+        default-width="502"
+        :on-after-leave="closeDialog"
+      >
+        <n-drawer-content title="设置节点属性">
+          <PropertyDialog
+            v-if="dialogVisible"
+            :nodeData="clickNode"
+            :lf="lf"
+            @setPropertiesFinish="closeDialog"
+          ></PropertyDialog>
+        </n-drawer-content>
+      </n-drawer>
+      <!-- 数据查看面板 -->
+      <n-modal preset="dialog" v-model:show="dataVisible">
+        <template #header> 数据 </template>
+        <DataDialog :graphData="graphData"></DataDialog>
+      </n-modal>
+    </div>
+  </n-layout>
 </template>
 
 <script lang="ts" setup>
@@ -55,8 +57,9 @@ import AddPanel from './LFComponents/AddPanel.vue'
 import Control from './LFComponents/Control.vue'
 import PropertyDialog from './PropertySetting/PropertyDialog.vue'
 import DataDialog from './LFComponents/DataDialog.vue'
-import { nodeList } from './config'
-import { onMounted, ref, reactive, Ref } from 'vue'
+import { nodeList, normalThemeMode, darkThemeMode } from './config'
+import { onMounted, ref, reactive, Ref, watch } from 'vue'
+import { useThemeStore } from '@/store'
 
 import {
   registerStart,
@@ -67,6 +70,7 @@ import {
   registerPolyline,
   registerTask,
   registerConnect,
+  registerBase,
 } from './registerNode'
 
 import demoData from './data.json'
@@ -77,9 +81,29 @@ const addPanelStyle = reactive({
   top: '0px',
   left: '0px',
 })
+const container = ref(null)
+const nodeData: NodeData = null
+let addClickNode: NodeData = null
+const clickNode: Ref<NodeData> = ref()
+const dialogVisible = ref(false)
+let graphData = {}
+const dataVisible = ref(false)
+let moveData: Record<string, any> = {}
+const themeStore = useThemeStore()
+
+watch(
+  () => themeStore.getDarkTheme,
+  (darkTheme: boolean, oldTheme: boolean) => {
+    lf.value.setTheme(darkTheme ? darkThemeMode : normalThemeMode)
+    lf.value.options.background = {
+      backgroundColor: darkTheme ? '#000' : '#fff',
+    }
+    lf.value.render(lf.value.getGraphData())
+  }
+)
 const config = {
   background: {
-    backgroundColor: '#f7f9ff',
+    backgroundColor: themeStore.getDarkTheme ? '#000' : '#fff',
   },
   grid: {
     size: 10,
@@ -91,21 +115,11 @@ const config = {
   edgeTextDraggable: true,
   hoverOutline: false,
 }
-const container = ref(null)
-const nodeData: NodeData = null
-let addClickNode: NodeData = null
-const clickNode: Ref<NodeData> = ref()
-const dialogVisible = ref(false)
-let graphData = {}
-const dataVisible = ref(false)
-let moveData: Record<string, any> = {}
-
 onMounted(() => {
   initLf()
 })
 
 const initLf = () => {
-  console.log('container.value', container.value)
   // 画布配置
   lf.value = new LogicFlow({
     ...config,
@@ -113,36 +127,7 @@ const initLf = () => {
     container: container.value,
   })
   // 设置主题
-  lf.value.setTheme({
-    circle: {
-      stroke: '#000000',
-      strokeWidth: 1,
-      outlineColor: '#88f',
-    },
-    rect: {
-      outlineColor: '#88f',
-      strokeWidth: 1,
-    },
-    polygon: {
-      strokeWidth: 1,
-    },
-    polyline: {
-      stroke: '#000000',
-      hoverStroke: '#000000',
-      selectedStroke: '#000000',
-      outlineColor: '#88f',
-      strokeWidth: 1,
-    },
-    nodeText: {
-      color: '#000000',
-    },
-    edgeText: {
-      color: '#000000',
-      background: {
-        fill: '#f7f9ff',
-      },
-    },
-  })
+  lf.value.setTheme(themeStore.getDarkTheme ? darkThemeMode : normalThemeMode)
   registerNode()
 }
 
@@ -155,6 +140,7 @@ const registerNode = () => {
   registerPolyline(lf.value)
   registerTask(lf.value)
   registerConnect(lf.value)
+  registerBase(lf.value)
   render()
 }
 

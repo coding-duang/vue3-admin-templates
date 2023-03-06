@@ -9,6 +9,7 @@ import registerDownload from './registerDownload'
 import registerPolyline from './registerPolyline'
 import registerTask from './registerTask'
 import registerConnect from './registerConnect'
+import registerBase from './registerBase'
 export {
   registerStart,
   registerUser,
@@ -18,4 +19,5 @@ export {
   registerPolyline,
   registerTask,
   registerConnect,
+  registerBase,
 }

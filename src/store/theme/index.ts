@@ -8,7 +8,7 @@ type State = {
   currentTheme: GlobalThemeOverrides
 }
 
-export const useThemeStore: import('pinia').StoreDefinition = defineStore(
+export const useThemeStore = defineStore(
   'theme',
   {
     state: (): State => ({

@@ -61,6 +61,7 @@ const dragNode = (item: Node) => {
   font-size: 12px;
   margin-top: 5px;
   user-select: none;
+  color: #000;
 }
 .node-start {
   background: url('../background/start.png') no-repeat;
