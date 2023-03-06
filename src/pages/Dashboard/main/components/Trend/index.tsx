@@ -14,35 +14,43 @@ export const Trend = defineComponent({
       loading.value = false
     }, 1500)
     return () => {
-      return <div class={ styles.Trend }>
-        <NGrid cols="4" x-gap={ 12 } y-gap={ 8 } item-responsive responsive="screen">
-          <NGridItem span="4 m:4 l:2">
-            <Card
-              cardProps={{ title: '趋势' }}
-              loading={ loading.value }
-              options={ configData.value.TrendChartData }
-            />
-          </NGridItem>
+      return (
+        <div class={styles.Trend}>
+          <NGrid
+            cols="4"
+            x-gap={12}
+            y-gap={8}
+            item-responsive
+            responsive="screen"
+          >
+            <NGridItem span="4 m:4 l:2">
+              <Card
+                cardProps={{ title: '趋势' }}
+                loading={loading.value}
+                options={configData.value.TrendChartData}
+              />
+            </NGridItem>
 
-          <NGridItem span="2 m:2 l:1">
-            <Card
-              cardProps={{ title: '消费排名' }}
-              loading={ loading.value }
-              options={ configData.value.TrendRankChartData }
-            />
-          </NGridItem>
+            <NGridItem span="2 m:2 l:1">
+              <Card
+                cardProps={{ title: '消费排名' }}
+                loading={loading.value}
+                options={configData.value.TrendRankChartData}
+              />
+            </NGridItem>
 
-          <NGridItem span="2 m:2 l:1">
-          <Card
-              cardProps={{ title: '消费群体' }}
-              loading={ loading.value }
-              options={ configData.value.consumerGroupData }
-            />
-          </NGridItem>
-        </NGrid>
-      </div>
+            <NGridItem span="2 m:2 l:1">
+              <Card
+                cardProps={{ title: '消费群体' }}
+                loading={loading.value}
+                options={configData.value.consumerGroupData}
+              />
+            </NGridItem>
+          </NGrid>
+        </div>
+      )
     }
-  }
+  },
 })
 
 export const Card = defineComponent({
@@ -50,28 +58,34 @@ export const Card = defineComponent({
   props: {
     cardProps: {
       type: Object as PropType<Partial<CardProps>>,
-      default: () => ({} as Partial<CardProps>)
+      default: () => ({} as Partial<CardProps>),
     },
     loading: {
       type: Boolean,
-      default: true
+      default: true,
     },
     options: {
       type: Object as PropType<ECOption>,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     return () => {
-      return <NCard hoverable { ...props.cardProps }>
-        {{
-          default: () => {
-            return props.loading ? <NSkeleton height="40px" text repeat={ 5 } /> : <Chart options={ props.options } />
-          }
-        }}
-      </NCard>
+      return (
+        <NCard hoverable {...props.cardProps}>
+          {{
+            default: () => {
+              return props.loading ? (
+                <NSkeleton height="40px" text repeat={5} />
+              ) : (
+                <Chart options={props.options} />
+              )
+            },
+          }}
+        </NCard>
+      )
     }
-  }
+  },
 })
 
 const Chart = defineComponent({
@@ -79,16 +93,19 @@ const Chart = defineComponent({
   props: {
     options: {
       type: Object as PropType<ECOption>,
-      required: true
-    }
+      required: true,
+    },
   },
   setup(props) {
     const { chartRef, chartInstance } = useChart(props.options)
 
-    watch(() => props.options, newVal => {
-      chartInstance.value.setOption(newVal)
-    })
+    watch(
+      () => props.options,
+      newVal => {
+        chartInstance.value.setOption(newVal)
+      }
+    )
 
-    return () => <div class={ styles.chart } ref={ chartRef }></div>
-  }
+    return () => <div class={styles.chart} ref={chartRef}></div>
+  },
 })

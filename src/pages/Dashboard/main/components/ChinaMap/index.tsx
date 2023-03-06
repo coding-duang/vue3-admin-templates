@@ -16,24 +16,32 @@ export const ChinaMap = defineComponent({
 
     const configData = createChinaMapData()
 
-    return () => <div>
-      <NGrid cols="4" x-gap={ 12 } y-gap={ 8 } item-responsive responsive="screen">
+    return () => (
+      <div>
+        <NGrid
+          cols="4"
+          x-gap={12}
+          y-gap={8}
+          item-responsive
+          responsive="screen"
+        >
           <NGridItem span="4 m:4 l:4">
             <Card
               cardProps={{
                 contentStyle: {
-                  background: 'linear-gradient(to right, #404a59, #404a31)'
+                  background: 'linear-gradient(to right, #404a59, #404a31)',
                 },
                 headerStyle: {
                   color: '#fff',
-                  background: 'linear-gradient(to right, #404a59, #404a31)'
-                }
+                  background: 'linear-gradient(to right, #404a59, #404a31)',
+                },
               }}
-              loading={ loading.value }
-              options={ configData }
+              loading={loading.value}
+              options={configData}
             />
           </NGridItem>
         </NGrid>
-    </div>
-  }
+      </div>
+    )
+  },
 })

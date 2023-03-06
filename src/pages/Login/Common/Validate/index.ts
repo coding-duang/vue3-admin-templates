@@ -6,8 +6,6 @@ export const useValidate = (formData: Ref<FormValuesType>) => {
   function validatePassword(): boolean {
     const regex = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,20}$/
 
-    console.log(regex.test(formData.value.password), formData.value.password)
-
     if (!regex.test(formData.value.password)) {
       return false
     }
@@ -23,6 +21,12 @@ export const useValidate = (formData: Ref<FormValuesType>) => {
     const regex =
       /^1(3\d|4[01456879]|5[0-3,5-9]|6[2567]|7[0-8]|8[0-9]|9[0-3,5-9])\d{8}$/
 
+    console.log(
+      'validatePhone',
+      formData.value.mobile,
+      regex.test(formData.value.mobile)
+    )
+
     if (!regex.test(formData.value.mobile)) {
       return false
     }
@@ -31,12 +35,11 @@ export const useValidate = (formData: Ref<FormValuesType>) => {
   }
 
   function validateEmail(): boolean {
-    const regex = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
-
-    if (!regex.test(formData.value.mobile)) {
+    // 邮箱正则, 正确的邮箱格式
+    const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+    if (!regex.test(formData.value.email)) {
       return false
     }
-
     return true
   }
 
@@ -112,7 +115,7 @@ export const getSignUpRules = ({
       {
         required: true,
         validator: validateEmail,
-        message: '请输入邮箱',
+        message: '请输入正确邮箱',
         trigger: ['blur', 'input'],
       },
     ],
@@ -121,17 +124,18 @@ export const getSignUpRules = ({
 export const getSignInRules = ({
   validatePassword,
   validatePhone,
+  validatorVerifyCode,
+  validateEmail,
 }: {
   validatePassword: (...args: any) => boolean
   validatePhone: (...args: any) => boolean
+  validatorVerifyCode: (...args: any) => boolean
+  validateEmail: (...args: any) => boolean
 }) =>
   ({
     mobile: [
       {
         required: true,
-        message: '请输入账号',
-      },
-      {
         validator: validatePhone,
         message: '请输入正确的手机号码',
         trigger: ['input', 'blur'],
@@ -142,6 +146,22 @@ export const getSignInRules = ({
         required: true,
         validator: validatePassword,
         message: '请输入8-20位数字和字母组合',
+        trigger: ['blur', 'input'],
+      },
+    ],
+    verifyCode: [
+      {
+        required: true,
+        validator: validatorVerifyCode,
+        message: '请输入6位验证码',
+        trigger: ['blur', 'input'],
+      },
+    ],
+    email: [
+      {
+        required: true,
+        validator: validateEmail,
+        message: '请输入正确邮箱',
         trigger: ['blur', 'input'],
       },
     ],

@@ -1,6 +1,5 @@
-import { sessionCodeKey, sessionKey } from '../LoginForm/Hooks/config'
-
-export function sessionSync() {
+export function cacheCode(sessionKey: string) {
+  const sessionCodeKey = `${sessionKey}_code`
   const getItem = (key: string) => {
     return window.sessionStorage.getItem(key)
   }
@@ -14,24 +13,12 @@ export function sessionSync() {
   }
 
   return {
-    get: () => {
-      return {
-        time: getItem(sessionCodeKey),
-        phone: getItem(sessionKey),
-      }
-    },
-    set: ({ time, phone }: { phone?: string; time?: string }) => {
-      if (phone) {
-        setItem(sessionKey, phone)
-      }
-
-      if (time) {
-        setItem(sessionCodeKey, time)
-      }
+    get: () => getItem(sessionCodeKey),
+    set: (time: string) => {
+      if (time) setItem(sessionCodeKey, time)
     },
     clear: () => {
       removeItem(sessionCodeKey)
-      removeItem(sessionKey)
     },
   }
 }

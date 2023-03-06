@@ -9,12 +9,11 @@ export const PrintTable = defineComponent({
     const { columns, tableData } = createColumns<ColumnItem>()
 
     return () => {
-      return <div class={ styles.printTable }>
-        <NDataTable
-          columns={ columns }
-          data={ tableData }
-        />
-      </div>
+      return (
+        <div class={styles.printTable}>
+          <NDataTable columns={columns} data={tableData} />
+        </div>
+      )
     }
-  }
+  },
 })
