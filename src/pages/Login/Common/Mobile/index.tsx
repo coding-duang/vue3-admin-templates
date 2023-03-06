@@ -17,9 +17,6 @@ export default defineComponent({
         ref({
           mobile: '',
           verifyCode: '',
-          password: '',
-          reenteredPassword: '',
-          email: '',
         })
     )
     const message = useMessage()
