@@ -35,9 +35,9 @@ export type Meta = {
 }
 
 export type MenuOptionObj = {
-  path: string,
-  label: string,
-  key: string,
-  icon: Component,
+  path: string
+  label: string
+  key: string
+  icon: Component
   children?: MenuOptionObj[]
 }

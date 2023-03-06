@@ -1,4 +1,5 @@
-export default ['#95a2ff',
+export default [
+  '#95a2ff',
   '#fa8080',
   '#ffc076',
   '#fae768',
@@ -9,4 +10,5 @@ export default ['#95a2ff',
   '#434348',
   '#90ed7d',
   '#f7a35c',
-  '#8085e9']
+  '#8085e9',
+]

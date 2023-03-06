@@ -17,29 +17,29 @@ export default defineComponent({
     })
 
     return {
-      year
+      year,
     }
-  }
+  },
 })
 </script>
 
 <style lang="scss" scoped>
-.ag-footer{
+.ag-footer {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 55px;
   padding: 0 20px 0 20px;
-  color: rgba(0,0,0,0.45);
+  color: rgba(0, 0, 0, 0.45);
   border-top: 1px dashed #dcdfe6;
-  background: rgba(255,255,255,1); // TODO
+  background: rgba(255, 255, 255, 1); // TODO
 }
 
-.copyright-line{
+.copyright-line {
   margin: 0 5px;
-  font-style:normal;
-  &::before{
-    content: "";
+  font-style: normal;
+  &::before {
+    content: '';
   }
 }
 </style>

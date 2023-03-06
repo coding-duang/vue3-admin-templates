@@ -15,7 +15,7 @@ import { formDataKey } from '@/utils'
 import { getSignUpRules, useValidate } from '../Common/Validate'
 import { FormEnum, FormValuesType } from '@/types'
 import Email from './Email'
-import Mobile from './Mobile'
+import Mobile from '../Common/Mobile'
 
 import styles from './index.module.scss'
 
