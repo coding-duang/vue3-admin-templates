@@ -14,6 +14,7 @@ declare module '@vue/runtime-core' {
     ControlItem: typeof import('./src/components/ThemeConfig/components/ControlItem.vue')['default']
     Footer: typeof import('./src/components/footer/index.vue')['default']
     LockScreen: typeof import('./src/components/LockScreen/index.vue')['default']
+    NAlert: typeof import('naive-ui')['NAlert']
     NavMode: typeof import('./src/components/ThemeConfig/components/NavMode.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     NButtonGroup: typeof import('naive-ui')['NButtonGroup']
