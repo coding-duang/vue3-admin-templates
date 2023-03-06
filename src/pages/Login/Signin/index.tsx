@@ -22,11 +22,12 @@ export default defineComponent({
     const router = useRouter()
 
     const formData = ref<FormValuesType>({
-      [FormEnum.PASSWORD]: '',
-      [FormEnum.MOBILE]: '',
+      [FormEnum.MOBILE]: '13012341234',
+      [FormEnum.PASSWORD]: 'Abc123456',
     })
 
     const fromRef = ref<FormInst | null>(null)
+    const loading = ref(false)
 
     const { validatePhone, validatePassword } = useValidate(formData)
 
@@ -35,12 +36,30 @@ export default defineComponent({
       validatePassword,
     })
 
-    onMounted(() => {
-      // TODO:  Auto login
-    })
-
     const switchRegister = () => {
       router.replace('/login/sign-up')
+    }
+
+    const login = () => {
+      // TEST: 13012341234  Abc123456
+      formData.value.mobile = '13012341234'
+      formData.value.password = 'Abc123456'
+
+      if (!formData.value.mobile) {
+        message.warning('请输入手机号码')
+        return
+      }
+
+      if (!formData.value.password) {
+        message.warning('请输入密码')
+        return
+      }
+
+      loading.value = true
+      setTimeout(() => {
+        loading.value = false
+        router.push('/')
+      }, 1000)
     }
 
     return () => (
@@ -85,7 +104,9 @@ export default defineComponent({
             </NInput>
           </NFormItem>
           <NFormItem class={styles.loginBtn}>
-            <NButton>登录</NButton>
+            <NButton loading={loading.value} onClick={login}>
+              登录
+            </NButton>
           </NFormItem>
         </NForm>
       </div>

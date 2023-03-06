@@ -1,7 +1,8 @@
 import { defineComponent, inject, Ref, ref } from 'vue'
-import { NFormItem, NInput } from 'naive-ui'
+import { NFormItem, NIcon, NInput } from 'naive-ui'
 import { formDataKey } from '@/utils'
 import { FormValuesType } from '@/types'
+import { Glasses, GlassesOutline } from '@vicons/ionicons5'
 
 export default defineComponent({
   name: 'MobileSingUp',
@@ -25,12 +26,43 @@ export default defineComponent({
             placeholder="请输入邮箱"
           />
         </NFormItem>
-        <NFormItem label="验证码" path="verifyCode" labelPlacement="top">
+
+        <NFormItem label="密码" path="password" label-placement="top">
           <NInput
-            v-model={[formData.value.verifyCode, 'value']}
-            clearable
-            placeholder="请输入验证码"
-          />
+            type="password"
+            show-password-on="click"
+            v-model={[formData.value.password, 'value']}
+          >
+            {{
+              passwordVisibleIcon: () => (
+                <NIcon size={16} component={GlassesOutline} />
+              ),
+              passwordInvisibleIcon: () => (
+                <NIcon size={16} component={Glasses} />
+              ),
+            }}
+          </NInput>
+        </NFormItem>
+        <NFormItem
+          label="再次输入密码"
+          path="reenteredPassword"
+          first
+          label-placement="top"
+        >
+          <NInput
+            type="password"
+            show-password-on="click"
+            v-model={[formData.value.reenteredPassword, 'value']}
+          >
+            {{
+              passwordVisibleIcon: () => (
+                <NIcon size={16} component={GlassesOutline} />
+              ),
+              passwordInvisibleIcon: () => (
+                <NIcon size={16} component={Glasses} />
+              ),
+            }}
+          </NInput>
         </NFormItem>
       </>
     )
