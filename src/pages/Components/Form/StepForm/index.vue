@@ -26,7 +26,7 @@
           <n-button @click="prev" v-if="stepCurrent > 1">
             <template #icon>
               <n-icon>
-                <md-arrow-round-back />
+                <ArrowBackOutlined />
               </n-icon>
             </template>
             上一步
@@ -35,7 +35,7 @@
           <n-button @click="submit" v-if="stepCurrent < stepCount">
             <template #icon>
               <n-icon>
-                <md-arrow-round-forward />
+                <ArrowForwardOutlined />
               </n-icon>
             </template>
             下一步
@@ -61,7 +61,7 @@ import { stepRules, ExperimentForm } from '../options'
 import StepOne from './stepOne.vue'
 import StepTwo from './stepTwo.vue'
 import StepThree from './stepThree.vue'
-import { MdArrowRoundBack, MdArrowRoundForward } from '@vicons/ionicons4'
+import { ArrowBackOutlined, ArrowForwardOutlined } from '@vicons/material'
 
 const initValues: ExperimentForm = {
   name: '',

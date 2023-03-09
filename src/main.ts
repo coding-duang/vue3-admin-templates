@@ -3,9 +3,9 @@ import { createApp } from 'vue'
 
 import App from './App.vue'
 import router from './router'
+
 import setRouterGuard from './router/guard/index'
 import { setupNaiveUI, setupDirective } from './utils'
-
 import '@/mock'
 
 const setupApp = () => {

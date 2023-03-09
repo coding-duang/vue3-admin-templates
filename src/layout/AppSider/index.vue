@@ -10,7 +10,7 @@
     @expand="collapsed = false"
   >
     <div class="logoWrapper" v-if="getNavMode === 'vertical'">
-      <n-icon :size="36" :component="LogoVue"></n-icon>
+      <img :src="vueSvg" class="logo" />
       <div v-show="!collapsed" class="title">Vue3 Admin Template</div>
     </div>
     <AppMenu :collapsed="collapsed" :mode="getNavMode" />
@@ -20,7 +20,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useProjectSetting } from '@/hook'
-import { LogoVue } from '@vicons/ionicons5'
+import vueSvg from '@/assets/dashboard/1.svg'
 import AppMenu from '../AppMenu/index.vue'
 
 const { getNavMode } = useProjectSetting()

@@ -1,4 +1,4 @@
-import { Glasses, GlassesOutline, SwapHorizontal } from '@vicons/ionicons5'
+import { LockRound, LockOpenFilled, SwapHorizontalCircleOutlined } from '@vicons/material'
 import {
   FormInst,
   NButton,
@@ -17,7 +17,7 @@ import Mobile from '../Common/Mobile'
 import { FormEnum, FormValuesType } from '@/types'
 
 import styles from './index.module.scss'
-import { formDataKey } from '@/utils'
+import { formDataKey, setToken } from '@/utils'
 
 const testDefault = {
   [FormEnum.MOBILE]: '13012341234',
@@ -62,6 +62,7 @@ export default defineComponent({
         .then(() => {
           loading.value = true
           setTimeout(() => {
+            setToken('mockToken')
             loading.value = false
             router.push('/')
           }, 1000)
@@ -80,7 +81,7 @@ export default defineComponent({
                 default: () => <span>注册</span>,
                 trigger: () => (
                   <NIcon size="24">
-                    <SwapHorizontal />
+                    <SwapHorizontalCircleOutlined />
                   </NIcon>
                 ),
               }}
@@ -108,10 +109,10 @@ export default defineComponent({
                 >
                   {{
                     passwordVisibleIcon: () => (
-                      <NIcon size={16} component={GlassesOutline} />
+                      <NIcon size={16} component={LockOpenFilled} />
                     ),
                     passwordInvisibleIcon: () => (
-                      <NIcon size={16} component={Glasses} />
+                      <NIcon size={16} component={LockRound} />
                     ),
                   }}
                 </NInput>

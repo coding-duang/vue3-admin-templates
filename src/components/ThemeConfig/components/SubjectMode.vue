@@ -5,12 +5,12 @@
         <n-switch v-model:value="darkTheme" class="dark-theme-switch">
           <template #checked>
             <n-icon size="14" color="#ffd93b">
-              <SunnySharp />
+              <WbSunnyRound />
             </n-icon>
           </template>
           <template #unchecked>
             <n-icon size="14" color="#ffd93b">
-              <Moon />
+              <ShieldMoonRound />
             </n-icon>
           </template>
         </n-switch>
@@ -24,7 +24,7 @@
 import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useThemeStore } from '@/store'
-import { Moon, SunnySharp } from '@vicons/ionicons5'
+import { ShieldMoonRound, WbSunnyRound } from '@vicons/material'
 
 const themeStore = useThemeStore()
 const { getDarkTheme } = storeToRefs(themeStore)

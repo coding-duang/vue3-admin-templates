@@ -1,11 +1,9 @@
 import { RouteRecordRaw } from 'vue-router'
-import { PageEnum } from '@/enum'
-// import AppLayout from '@/layout/AppLayout/index.vue'
 import ErrorPage from '@/pages/ErrorPage/404/index.vue'
-import DefaultPage from '@/pages/redirect/DefaultRoute.vue'
 import LoginRoutes from './modules/login'
 
 import Login from '@/pages/Login/index.vue'
+import { getToken } from '@/utils'
 
 // export const ErrorRoute: RouteRecordRaw = {
 // path: '/:path(.*)*',
@@ -113,7 +111,7 @@ export const baseRoutes: RouteRecordRaw[] = [
   {
     path: window.location.hash.replace('#', '') || window.location.pathname,
     name: 'defaultRouteName',
-    component: () => import('@/pages/redirect/DefaultRoute.vue'),
+    component: () => import('@/pages/Redirect/DefaultRoute.vue'),
     meta: {
       title: '',
       hidden: true,
@@ -129,6 +127,24 @@ export const baseRoutes: RouteRecordRaw[] = [
     meta: {
       hidden: true,
       title: '登录',
+    },
+    beforeEnter: (to, from, next) => {
+      console.log('beforeEnter', to, from, next)
+      const fromPath = from.path
+      console.log('fromPath', fromPath)
+      console.log('token..', getToken())
+
+      if (!getToken()) {
+        return next()
+      }
+
+      const loginPaths = ['/login/sign-in', '/login/sign-up', '/login']
+
+      if (loginPaths.includes(fromPath)) {
+        return next('/dashboard/work')
+      }
+
+      return next(fromPath)
     },
   },
 ]

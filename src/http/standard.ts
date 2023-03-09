@@ -2,6 +2,7 @@ import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import axios from 'axios'
 
 import { originName } from './config'
+import { getToken } from '@/utils'
 
 export type CustomResponse<R extends any> = {
   success?: boolean
@@ -38,9 +39,10 @@ export class Service {
 
   private useRequest(instance: AxiosInstance) {
     instance.interceptors.request.use(config => {
-      // console.log(config)
-      // TODO 临时使用的token
-      // config.headers.authorization = 'token'
+      const token = getToken()
+      if (token) {
+        config.headers.Authorization = token
+      }
       return config
     })
   }

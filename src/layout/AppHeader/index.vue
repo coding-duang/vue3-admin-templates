@@ -5,7 +5,7 @@
         <n-grid-item span="0 600:2 800:2">
           <div class="horizontalBox" v-if="getNavMode === 'horizontal'">
             <div class="logoWrapper">
-              <n-icon :size="40" :component="LogoVue"></n-icon>
+              <img :src="vueSvg" class="logo" />
               <div class="title">Vue3 Admin Template</div>
             </div>
             <AppSider />
@@ -39,7 +39,8 @@ import { useUserStore } from '@/store'
 import { renderIcon } from '@/utils'
 import AppSider from '../AppSider/index.vue'
 import ButtonGroup from './ButtonGroup.vue'
-import { PersonOutline, LogOutOutline, LogoVue } from '@vicons/ionicons5'
+import vueSvg from '@/assets/dashboard/1.svg'
+import { PersonOutlineFilled, LogOutRound } from '@vicons/material'
 
 const userStore = useUserStore()
 const { getUserinfo } = storeToRefs(userStore)
@@ -50,12 +51,12 @@ const options = [
   {
     label: '个人中心',
     key: 'user-center',
-    icon: renderIcon(PersonOutline),
+    icon: renderIcon(PersonOutlineFilled),
   },
   {
     label: '退出登陆',
     key: 'logout',
-    icon: renderIcon(LogOutOutline),
+    icon: renderIcon(LogOutRound),
   },
 ]
 

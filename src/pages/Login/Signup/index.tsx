@@ -1,5 +1,5 @@
 import { defineComponent, provide, ref } from 'vue'
-import { SwapHorizontal } from '@vicons/ionicons5'
+import { SwapHorizontalCircleOutlined } from '@vicons/material'
 import {
   FormInst,
   NButton,
@@ -8,6 +8,7 @@ import {
   NIcon,
   NSpace,
   NTooltip,
+  useMessage,
 } from 'naive-ui'
 import { useRouter } from 'vue-router'
 
@@ -23,7 +24,9 @@ export default defineComponent({
   name: 'SingUp',
   setup() {
     const router = useRouter()
-    const fromRef = ref<FormInst | null>(null)
+    const formRef = ref<FormInst | null>(null)
+    const message = useMessage()
+    const loading = ref(false)
 
     const registerType = ref<'mobile' | 'email'>('mobile')
 
@@ -43,6 +46,23 @@ export default defineComponent({
       router.replace('/login/sign-in')
     }
 
+    const register = () => {
+      loading.value = true
+      formRef.value
+        ?.validate()
+        .then(o => {
+          setTimeout(() => {
+            message.success('注册成功')
+            loading.value = false
+            switchLogin()
+          }, 3000)
+        })
+        .catch(err => {
+          console.log(err)
+          loading.value = false
+        })
+    }
+
     return () => (
       <div class={styles.loginWrap}>
         <p class={styles.header}>
@@ -52,19 +72,21 @@ export default defineComponent({
                 default: () => <span>登陆</span>,
                 trigger: () => (
                   <NIcon size="24">
-                    <SwapHorizontal />
+                    <SwapHorizontalCircleOutlined />
                   </NIcon>
                 ),
               }}
             </NTooltip>
           </span>
         </p>
-        <NForm ref={fromRef} rules={rules} model={formData}>
+        <NForm ref={formRef} rules={rules} model={formData}>
           {registerType.value !== 'mobile' ? <Email /> : <Mobile />}
 
           <NSpace justify="space-between">
             <NFormItem class={styles.registerBtn} showFeedback={false}>
-              <NButton>注册</NButton>
+              <NButton loading={loading.value} onClick={register}>
+                注册
+              </NButton>
             </NFormItem>
             <NFormItem class={styles.registerBtn} showFeedback={false}>
               <NButton

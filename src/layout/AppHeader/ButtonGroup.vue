@@ -30,8 +30,12 @@ import ThemeConfig from '@/components/ThemeConfig/index.vue'
 import { fullScreen } from '@/utils'
 import { useMessage } from 'naive-ui'
 import { useLockStore } from '@/store'
-import { Refresh, LockClosedOutline } from '@vicons/ionicons5'
-import { FullscreenFilled, SettingsSuggestOutlined } from '@vicons/material'
+import {
+  FullscreenFilled,
+  SettingsSuggestOutlined,
+  RefreshFilled,
+  LockFilled,
+} from '@vicons/material'
 import { EleOfArr, ButtonGroupConfig } from '@/types'
 
 const reload = inject<() => void>('reload')
@@ -45,7 +49,7 @@ const message = useMessage()
 const icons: ButtonGroupConfig[] = [
   {
     key: 'LockCloseOutLine',
-    icon: LockClosedOutline,
+    icon: LockFilled,
     name: '锁屏',
   },
   {
@@ -60,7 +64,7 @@ const icons: ButtonGroupConfig[] = [
   },
   {
     key: 'Refresh',
-    icon: Refresh,
+    icon: RefreshFilled,
     name: '刷新',
   },
 ]

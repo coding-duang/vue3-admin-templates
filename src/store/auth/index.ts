@@ -1,17 +1,13 @@
 import { defineStore } from 'pinia'
 import { RouteRecordRaw } from 'vue-router'
-import { resolve } from 'path-browserify'
-import { useUserStore } from '@/store'
+import { useUserStore } from '../user'
 import { getRemote } from '@/http'
-import { OriginRoute } from '@/types/auth'
-import AppLayout from '@/layout/AppLayout/index.vue'
 import router from '@/router'
 import { baseRoutes } from '@/router/base'
 import {
   findRootPathRoute,
   flatRoutes,
   originToLocalRoutes,
-  localFilePathToLowerCase,
 } from '@/router/guard/utils'
 
 export const useAuthRoutesStore = defineStore('auth', {
