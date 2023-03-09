@@ -1,4 +1,4 @@
-import { Glasses, GlassesOutline, SwapHorizontal } from '@vicons/ionicons5'
+import { LockRound, LockOpenFilled, SwapHorizontalCircleOutlined } from '@vicons/material'
 import {
   FormInst,
   NButton,
@@ -81,7 +81,7 @@ export default defineComponent({
                 default: () => <span>注册</span>,
                 trigger: () => (
                   <NIcon size="24">
-                    <SwapHorizontal />
+                    <SwapHorizontalCircleOutlined />
                   </NIcon>
                 ),
               }}
@@ -109,10 +109,10 @@ export default defineComponent({
                 >
                   {{
                     passwordVisibleIcon: () => (
-                      <NIcon size={16} component={GlassesOutline} />
+                      <NIcon size={16} component={LockOpenFilled} />
                     ),
                     passwordInvisibleIcon: () => (
-                      <NIcon size={16} component={Glasses} />
+                      <NIcon size={16} component={LockRound} />
                     ),
                   }}
                 </NInput>

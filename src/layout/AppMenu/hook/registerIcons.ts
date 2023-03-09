@@ -14,17 +14,15 @@ import {
   MapsHomeWorkRound,
   WorkFilled,
   AutoFixOffRound,
+  HomeOutlined,
+  HourglassBottomOutlined,
+  HexagonOutlined,
 } from '@vicons/material'
-import {
-  HomeOutline,
-  HourglassOutline,
-  LogoWebComponent,
-} from '@vicons/ionicons5'
 import { Component } from 'vue'
 
 export const Icons: Record<string, Component> = {
-  HomeOutline,
-  LogoWebComponent,
+  HomeOutlined,
+  HexagonOutlined,
   TableRowsOutlined,
   TableChartTwotone,
   DynamicFeedOutlined,
@@ -32,7 +30,7 @@ export const Icons: Record<string, Component> = {
   FormatListNumberedFilled,
   NextPlanOutlined,
   EditOutlined,
-  HourglassOutline,
+  HourglassBottomOutlined,
   PieChartOutlineTwotone,
   DriveFolderUploadOutlined,
   ApiFilled,

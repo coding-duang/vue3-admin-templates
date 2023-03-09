@@ -1,4 +1,4 @@
-import { createApp, h } from 'vue'
+import { createApp, h, Component } from 'vue'
 import Connect from './Connect.vue'
 import type { LogicFlow } from '@logicflow/core'
 export default function registerConnect(lf: LogicFlow) {
@@ -12,7 +12,7 @@ export default function registerConnect(lf: LogicFlow) {
 
         const Profile = createApp({
           render() {
-            return h(Connect, {
+            return h(Connect as Component, {
               props: {
                 name: properties.name,
               },

@@ -141,7 +141,7 @@ export const baseRoutes: RouteRecordRaw[] = [
       const loginPaths = ['/login/sign-in', '/login/sign-up', '/login']
 
       if (loginPaths.includes(fromPath)) {
-        return next('/dashboard/console')
+        return next('/dashboard/work')
       }
 
       return next(fromPath)

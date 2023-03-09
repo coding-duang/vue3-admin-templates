@@ -1,4 +1,5 @@
 import * as echarts from 'echarts/core'
+import { ECOption } from '@/types'
 
 export const createChinaMapData = () => {
   const data = [
@@ -505,5 +506,5 @@ export const createChinaMapData = () => {
     ],
   }
 
-  return options
+  return options as ECOption
 }

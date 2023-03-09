@@ -1,9 +1,9 @@
-import { defineComponent } from 'vue'
+import { defineComponent, DefineComponent } from 'vue'
 import { RouteMeta, RouteRecordRaw } from 'vue-router'
 
 export type Component<T extends any = any> =
   | ReturnType<typeof defineComponent>
-  | (() => Promise<typeof import('*.vue')>)
+  | (() => Promise<DefineComponent<{}, {}, any>>)
   | (() => Promise<T>)
 
 export type CustomRouteRaw = RouteRecordRaw & {

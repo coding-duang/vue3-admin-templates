@@ -2,7 +2,7 @@ import { defineComponent, inject, Ref, ref } from 'vue'
 import { NFormItem, NIcon, NInput } from 'naive-ui'
 import { formDataKey } from '@/utils'
 import { FormValuesType } from '@/types'
-import { Glasses, GlassesOutline } from '@vicons/ionicons5'
+import { LockRound, LockOpenFilled } from '@vicons/material'
 
 export default defineComponent({
   name: 'MobileSingUp',
@@ -35,10 +35,10 @@ export default defineComponent({
           >
             {{
               passwordVisibleIcon: () => (
-                <NIcon size={16} component={GlassesOutline} />
+                <NIcon size={16} component={LockOpenFilled} />
               ),
               passwordInvisibleIcon: () => (
-                <NIcon size={16} component={Glasses} />
+                <NIcon size={16} component={LockRound} />
               ),
             }}
           </NInput>
@@ -56,10 +56,10 @@ export default defineComponent({
           >
             {{
               passwordVisibleIcon: () => (
-                <NIcon size={16} component={GlassesOutline} />
+                <NIcon size={16} component={LockOpenFilled} />
               ),
               passwordInvisibleIcon: () => (
-                <NIcon size={16} component={Glasses} />
+                <NIcon size={16} component={LockRound} />
               ),
             }}
           </NInput>

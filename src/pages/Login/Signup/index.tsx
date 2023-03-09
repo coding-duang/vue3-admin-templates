@@ -1,5 +1,5 @@
 import { defineComponent, provide, ref } from 'vue'
-import { SwapHorizontal } from '@vicons/ionicons5'
+import { SwapHorizontalCircleOutlined } from '@vicons/material'
 import {
   FormInst,
   NButton,
@@ -72,7 +72,7 @@ export default defineComponent({
                 default: () => <span>登陆</span>,
                 trigger: () => (
                   <NIcon size="24">
-                    <SwapHorizontal />
+                    <SwapHorizontalCircleOutlined />
                   </NIcon>
                 ),
               }}

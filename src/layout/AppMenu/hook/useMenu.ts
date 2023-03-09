@@ -4,11 +4,9 @@ import { useAuthRoutesStore } from '@/store'
 import { renderIcon } from '@/utils'
 import type { MenuOption } from 'naive-ui'
 import {
-  HomeOutline,
-  HourglassOutline,
-  LogoWebComponent,
-} from '@vicons/ionicons5'
-import {
+  HexagonOutlined,
+  HomeOutlined,
+  HourglassBottomOutlined,
   EditOutlined,
   TableRowsOutlined,
   TableChartTwotone,
@@ -34,7 +32,7 @@ const menuOptionsObj: MenuOptionObj[] = [
     path: '/dashboard',
     label: '首页',
     key: 'console',
-    icon: HomeOutline,
+    icon: HomeOutlined,
     children: [
       {
         path: '/dashboard/console',
@@ -54,7 +52,7 @@ const menuOptionsObj: MenuOptionObj[] = [
     path: '/components',
     label: '组件',
     key: 'components',
-    icon: LogoWebComponent,
+    icon: HexagonOutlined,
     children: [
       {
         path: '/components/table',
@@ -132,7 +130,7 @@ const menuOptionsObj: MenuOptionObj[] = [
         path: '/tools/flowchart',
         label: '流程图',
         key: 'flowchart',
-        icon: HourglassOutline,
+        icon: HourglassBottomOutlined,
       },
       {
         path: '/tools/download',
