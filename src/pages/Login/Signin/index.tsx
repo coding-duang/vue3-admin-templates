@@ -17,7 +17,7 @@ import Mobile from '../Common/Mobile'
 import { FormEnum, FormValuesType } from '@/types'
 
 import styles from './index.module.scss'
-import { formDataKey } from '@/utils'
+import { formDataKey, setToken } from '@/utils'
 
 const testDefault = {
   [FormEnum.MOBILE]: '13012341234',
@@ -62,6 +62,7 @@ export default defineComponent({
         .then(() => {
           loading.value = true
           setTimeout(() => {
+            setToken('mockToken')
             loading.value = false
             router.push('/')
           }, 1000)
