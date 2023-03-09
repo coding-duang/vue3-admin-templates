@@ -1,0 +1,21 @@
+.announcement{
+  .more{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .itemWrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    .item{
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+      cursor: pointer;
+      .tag{
+        margin-right: 10px;
+      }
+    }
+  }
+}

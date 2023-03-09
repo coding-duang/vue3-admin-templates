@@ -2,23 +2,73 @@
   <n-config-provider
     :locale="zhCN"
     :date-locale="dateZhCN"
-    :theme-overrides="currentTheme"
+    :theme="theme"
+    :theme-overrides="getCurrentTheme"
   >
-    <suspense>
-      <template #default>
-        <router-view v-slot="{ Component }">
-          <transition mode="out-in" name="slide" appear>
-            <component :is="Component"></component>
+    <!-- 全局注入loadingBar -->
+    <n-loading-bar-provider>
+      <!-- 全局注入dialog -->
+      <n-dialog-provider>
+        <!-- 全局注入notification -->
+        <!-- <n-notification-provider> -->
+        <!-- 全局注入message -->
+        <n-message-provider>
+          <suspense>
+            <template #default>
+              <router-view v-slot="{ Component }" v-if="isRouterAlive">
+                <!-- <transition mode="out-in" name="slide" appear> -->
+                <component :is="Component"></component>
+                <!-- </transition> -->
+              </router-view>
+            </template>
+          </suspense>
+          <transition name="zoom-fade">
+            <LockScreen v-show="getIsLocked" />
           </transition>
-        </router-view>
-      </template>
-    </suspense>
+        </n-message-provider>
+        <!-- </n-notification-provider> -->
+      </n-dialog-provider>
+    </n-loading-bar-provider>
   </n-config-provider>
 </template>
 
 <script lang="ts" setup>
-import { zhCN, dateZhCN } from 'naive-ui'
-import { getCurrentTheme } from './config/theme'
+import LockScreen from '@/components/LockScreen/index.vue'
+import { EventEnum } from '@/enum'
+import { Emitter } from '@/object'
+import { ColorChooseSet } from '@/settings'
+import { useLockStore, useThemeStore } from '@/store'
+import { darkTheme, dateZhCN, zhCN } from 'naive-ui'
+import { storeToRefs } from 'pinia'
+import { computed, nextTick, provide, ref } from 'vue'
 
-const { currentTheme } = getCurrentTheme()
+const emitter = new Emitter<EventEnum>()
+
+// UI主题配置的hook
+const themeStore = useThemeStore()
+const { getDarkTheme, getCurrentTheme } = storeToRefs(themeStore)
+
+const theme = computed(() => (getDarkTheme.value ? darkTheme : undefined))
+
+const lockStore = useLockStore()
+const { getIsLocked } = storeToRefs(lockStore)
+
+// 全局注入路由组件刷新方法,inject接受调用即可
+const isRouterAlive = ref(true)
+const reload = () => {
+  isRouterAlive.value = false
+  nextTick(() => {
+    isRouterAlive.value = true
+  })
+}
+provide<() => void>('reload', reload)
+provide<Emitter<EventEnum>>('emitter', emitter)
+
+emitter.on(EventEnum.changeColor, (item: ColorChooseSet) => {
+  themeStore.setTheme(item.themeType)
+})
 </script>
+
+<style lang="scss">
+@import './style/index.scss';
+</style>

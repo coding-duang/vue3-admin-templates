@@ -9,14 +9,16 @@
     "noImplicitAny": true,
     "outDir": "build",
     "forceConsistentCasingInFileNames": true,
-    "module": "commonjs",
+    "module": "ESNext",
     "target": "ESNext",
     "jsx": "preserve",
+    "disableSizeLimit": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     },
-    "typeRoots": ["./types", "./node_modules/@types"]
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "resolveJsonModule": true
   },
   "include": ["./scripts/**/*", "**/*.ts", "**/*.tsx", "**/*.vue"],
   "exclude": ["./node_modules", "vite.config.ts"]

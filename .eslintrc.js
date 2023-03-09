@@ -5,7 +5,7 @@ module.exports = {
     es2021: true,
     'vue/setup-compiler-macros': true,
   },
-  extends: ['plugin:vue/essential', 'standard'],
+  extends: ['plugin:vue/essential', 'standard', 'prettier'],
   parserOptions: {
     ecmaVersion: 12,
     parser: '@typescript-eslint/parser',
@@ -23,6 +23,9 @@ module.exports = {
     'no-use-before-define': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',
     'eol-last': 'error',
+    'no-empty': 'off',
+    'no-useless-return': 'off',
+    'no-unused-vars': 'off',
     'no-trailing-spaces': 'error',
     'comma-style': ['error', 'last'],
     'comma-dangle': 'off',
@@ -35,13 +38,13 @@ module.exports = {
     ],
     camelcase: ['error', { properties: 'never' }],
     semi: ['error', 'never'],
-    indent: ['error', 2, { SwitchCase: 1 }],
+    indent: ['off', 2, { SwitchCase: 1 }],
     'object-curly-spacing': ['error', 'always'],
     'arrow-parens': ['error', 'as-needed'],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/member-delimiter-style': [
-      'error',
+      'off',
       {
         multiline: {
           delimiter: 'none',

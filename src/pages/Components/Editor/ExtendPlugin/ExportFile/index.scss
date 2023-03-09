@@ -1,0 +1,54 @@
+.base_content {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: calc(100% - 80px);
+  overflow: auto;
+}
+
+.base_content_child {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  padding: 10px;
+  height: calc(100% - 40px);
+  background-color: #fff;
+}
+
+.editor_export_container {
+  padding: 10px;
+  text-align: center;
+  line-height: 1.5;
+  height: 640px;
+  overflow: hidden;
+  select {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    margin-bottom: 10px;
+  }
+  .editor_export_footer {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    margin-top: 10px;
+    button {
+      margin-left: 10px;
+    }
+  }
+}
+
+.editor_export_content {
+  @extend .base_content;
+  textarea {
+    @extend .base_content_child;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    white-space: pre;
+  }
+
+  .editor_export_png {
+    @extend .base_content_child;
+  }
+}

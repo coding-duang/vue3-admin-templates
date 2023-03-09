@@ -5,3 +5,6 @@ dist-ssr
 *.local
 .eslintcache
 .idea
+.vim
+components.d.ts
+auto-imports.d.ts

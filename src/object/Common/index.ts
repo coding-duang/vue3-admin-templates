@@ -1,0 +1,1 @@
+export { CustomScreenShot } from './ScreenShot'

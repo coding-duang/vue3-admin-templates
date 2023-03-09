@@ -1,0 +1,16 @@
+.fastOperation{
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-gap: 10px;
+  .item{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+    .name{
+      font-size: 15px;
+      margin-top: 5px;
+    }
+  }
+}

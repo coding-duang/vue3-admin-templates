@@ -2,24 +2,51 @@
   <n-layout-sider
     bordered
     collapse-mode="width"
-    :collapsed-width="78"
-    :width="240"
+    :collapsed-width="64"
+    :width="280"
     :collapsed="collapsed"
-    show-trigger
+    :show-trigger="getNavMode === 'vertical'"
     @collapse="collapsed = true"
     @expand="collapsed = false"
   >
-    <AppMenu />
+    <div class="logoWrapper" v-if="getNavMode === 'vertical'">
+      <n-icon :size="36" :component="LogoVue"></n-icon>
+      <div v-show="!collapsed" class="title">Vue3 Admin Template</div>
+    </div>
+    <AppMenu :collapsed="collapsed" :mode="getNavMode" />
   </n-layout-sider>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { useProjectSetting } from '@/hook'
+import { LogoVue } from '@vicons/ionicons5'
 import AppMenu from '../AppMenu/index.vue'
+
+const { getNavMode } = useProjectSetting()
 
 const collapsed = ref(false)
 </script>
 
 <style lang="scss" scoped>
-// @import './index.scss';
+.logoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 0;
+  .title {
+    margin-left: 10px;
+    display: inline-block;
+    margin-left: 5px;
+    overflow: hidden;
+    font-size: 18px;
+    line-height: 55px;
+    color: var(--n-item-text-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), color 0.1s,
+      font-size 0s;
+  }
+}
 </style>

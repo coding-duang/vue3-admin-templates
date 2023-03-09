@@ -1,0 +1,48 @@
+.workTable {
+  .InfoArea{
+    display: flex;
+    align-items: center;
+    .avatar{
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+    }
+    .content{
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      margin-left: 15px;
+      .welcome{
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 28px;
+        color: var(--n-title-text-color);
+        margin-bottom: 6px;
+      }
+      .desc{
+        font-size: 16px;
+        color: #999;
+      }
+    }
+  }
+  .itemWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 100%;
+    .item{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .title{
+        color: #767c82;
+        font-size: 14px;
+      }
+      .num{
+        font-size: 28px;
+      }
+    }
+  }
+}
