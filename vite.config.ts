@@ -1,7 +1,7 @@
+import path from 'path'
 import legacy from '@vitejs/plugin-legacy'
 import vue from '@vitejs/plugin-vue'
 import vueJSX from '@vitejs/plugin-vue-jsx'
-import path from 'path'
 // @ts-ignore
 import pxtovw from 'postcss-px-to-viewport-8-plugin'
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
@@ -9,6 +9,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 import compressPlugin from 'vite-plugin-compression'
+import viteImagemin from 'vite-plugin-imagemin'
 
 const loadVW = pxtovw({
   unitToConvert: 'px', // 需要转换的单位，默认为"px"
@@ -81,6 +82,33 @@ export default ({ mode }: ConfigEnv) => {
       }),
       Components({ resolvers: [NaiveUiResolver()] }),
       vueJSX(),
+      viteImagemin({
+        gifsicle: {
+          optimizationLevel: 7,
+          interlaced: false,
+        },
+        optipng: {
+          optimizationLevel: 7,
+        },
+        mozjpeg: {
+          quality: 20,
+        },
+        pngquant: {
+          quality: [0.8, 0.9],
+          speed: 4,
+        },
+        svgo: {
+          plugins: [
+            {
+              name: 'removeViewBox',
+            },
+            {
+              name: 'removeEmptyAttrs',
+              active: false,
+            },
+          ],
+        },
+      }),
       legacy({
         targets: ['defaults', 'not IE 11'],
       }),
@@ -111,11 +139,12 @@ export default ({ mode }: ConfigEnv) => {
           assetFileNames: 'assets/[name]-[hash].[ext]',
           manualChunks(id) {
             if (id.includes('node_modules')) {
-              return id
-                .toString()
-                .split('node_modules/')[1]
-                .split('/')[0]
-                .toString()
+              return 'vendor'
+              // id
+              //   .toString()
+              //   .split('node_modules/')[1]
+              //   .split('/')[0]
+              //   .toString()
             }
           },
         },
