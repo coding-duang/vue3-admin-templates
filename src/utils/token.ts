@@ -25,4 +25,9 @@ export const setToken = (token: string) => {
   localStorage.setItem(tokenKey, token)
 }
 
+export const clearToken = () => {
+  const tokenKey = getTokenKey() || 'token'
+  localStorage.removeItem(tokenKey)
+}
+
 export const getTokenKey = () => env?.TOKEN_KEY

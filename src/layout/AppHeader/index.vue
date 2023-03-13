@@ -34,9 +34,10 @@
 
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia'
+import { useRouter } from 'vue-router'
 import { useProjectSetting } from '@/hook'
 import { useUserStore } from '@/store'
-import { renderIcon } from '@/utils'
+import { renderIcon, clearToken } from '@/utils'
 import AppSider from '../AppSider/index.vue'
 import ButtonGroup from './ButtonGroup.vue'
 import vueSvg from '@/assets/dashboard/1.svg'
@@ -46,6 +47,8 @@ const userStore = useUserStore()
 const { getUserinfo } = storeToRefs(userStore)
 
 const { getNavMode } = useProjectSetting()
+
+const router = useRouter()
 
 const options = [
   {
@@ -61,7 +64,14 @@ const options = [
 ]
 
 const handleSelect = (key: string | number) => {
-  console.log(key)
+  switch (key) {
+    case 'logout':
+      userStore.removeToken()
+      router.push({ path: '/login' })
+      break
+    default:
+      break
+  }
 }
 </script>
 

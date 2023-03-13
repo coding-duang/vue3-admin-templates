@@ -129,10 +129,7 @@ export const baseRoutes: RouteRecordRaw[] = [
       title: '登录',
     },
     beforeEnter: (to, from, next) => {
-      console.log('beforeEnter', to, from, next)
       const fromPath = from.path
-      console.log('fromPath', fromPath)
-      console.log('token..', getToken())
 
       if (!getToken()) {
         return next()

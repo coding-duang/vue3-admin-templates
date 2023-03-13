@@ -6,7 +6,7 @@ import { useUserStore, useAuthRoutesStore } from '@/store'
 const { loadingBar } = createDiscreteApi(['loadingBar'])
 
 const usePermissionGuard = () => {
-  router.beforeEach(async to => {
+  router.beforeEach(async (to, from, next) => {
     to.name !== 'defaultRouteName' && loadingBar.start()
 
     const userStore = useUserStore()
@@ -18,22 +18,20 @@ const usePermissionGuard = () => {
       )
     }
 
-    if (isWhiteRoute()) {
-      return true
-    }
+    isWhiteRoute() && next()
 
-    if (userStore.isTokenExpire) {
-      return {
+    const isLogin = to.path.indexOf('/login') < 0 && userStore.isTokenExpire
+    if (isLogin) {
+      next({
         path: '/login',
         query: { redirect: to.fullPath },
-      }
+      })
+      return false
     }
 
-    if (authStore.isEmptyAuthRoutes) {
-      await authStore.initAuthRoutes()
-    }
+    authStore.isEmptyAuthRoutes && (await authStore.initAuthRoutes())
 
-    return true
+    next()
   })
 }
 

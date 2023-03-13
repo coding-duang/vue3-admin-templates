@@ -11,6 +11,7 @@ import {
 } from 'naive-ui'
 import { defineComponent, ref, provide } from 'vue'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/store'
 import { getSignInRules, useValidate } from '../Common/Validate'
 import Mobile from '../Common/Mobile'
 
@@ -30,6 +31,8 @@ export default defineComponent({
   name: 'LoginForm',
   setup() {
     const router = useRouter()
+
+    const userStore = useUserStore()
 
     const formData = ref<FormValuesType>(testDefault)
 
@@ -62,7 +65,7 @@ export default defineComponent({
         .then(() => {
           loading.value = true
           setTimeout(() => {
-            setToken('mockToken')
+            userStore.setToken('mockToken')
             loading.value = false
             router.push('/')
           }, 1000)
